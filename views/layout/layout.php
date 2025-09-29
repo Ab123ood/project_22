@@ -1,11 +1,11 @@
 <?php
 // app/views/layout/layout.php
 ?><!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= isset($pageTitle) ? htmlspecialchars($pageTitle) : 'درع - المنصة التوعوية' ?></title>
+    <title><?= isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Darae – Cyber Awareness Platform' ?></title>
     
        <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
@@ -21,8 +21,8 @@
                         dark: '#212529'
                     },
                     fontFamily: {
-                        'cairo': ['Cairo', 'sans-serif'],
-                        'noto': ['Noto Kufi Arabic', 'sans-serif']
+                        'inter': ['Inter', 'sans-serif'],
+                        'roboto': ['Roboto', 'system-ui', 'sans-serif']
                     },
                     boxShadow: {
                         'custom': '0 10px 25px rgba(0, 0, 0, 0.1)',
@@ -36,13 +36,13 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <!-- Remix Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
     
     <style>
-        /* === نظام الألوان الموحد === */
+        /* === Unified color system === */
         :root {
             --primary: #1E3D59;
             --primary-light: #2A5A7B;
@@ -56,7 +56,7 @@
             --info: #6C757D;
             --success: #28A745;
             
-            /* درجات الرمادي */
+            /* Neutral scale */
             --gray-50: #F8FAFC;
             --gray-100: #F1F5F9;
             --gray-200: #E2E8F0;
@@ -68,19 +68,19 @@
             --gray-800: #1E293B;
             --gray-900: #0F172A;
             
-            /* الخلفيات والحدود */
+            /* Backgrounds & borders */
             --bg-primary: var(--gray-50);
             --bg-card: #FFFFFF;
             --border-light: var(--gray-200);
             --border-medium: var(--gray-300);
             
-            /* الظلال */
+            /* Shadows */
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             
-            /* المسافات */
+            /* Spacing */
             --spacing-xs: 0.25rem;
             --spacing-sm: 0.5rem;
             --spacing-md: 1rem;
@@ -88,23 +88,23 @@
             --spacing-xl: 2rem;
             --spacing-2xl: 3rem;
             
-            /* نصف الأقطار */
+            /* Border radius */
             --radius-sm: 0.375rem;
             --radius-md: 0.5rem;
             --radius-lg: 0.75rem;
             --radius-xl: 1rem;
         }
 
-        /* === الخطوط الموحدة === */
-        body { 
-            font-family: 'Cairo', sans-serif;
+        /* === Global typography === */
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
             line-height: 1.6;
             color: var(--gray-700);
             background-color: var(--bg-primary);
         }
-        
+
             .logo-text {
-            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-family: 'Inter', 'Roboto', sans-serif;
             font-weight: 700;
             font-size: 2.5rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -194,7 +194,7 @@
             color: white;
         }
         
-        /* تحسينات للجوال */
+        /* Mobile refinements */
         @media (max-width: 768px) {
             .logo-text {
                 font-size: 1.8rem;
@@ -209,19 +209,19 @@
             }
         }
         
-        /* تحسينات إمكانية الوصول */
+        /* Accessibility */
         a:focus, button:focus {
             outline: 2px solid var(--primary);
             outline-offset: 2px;
         }
         
-        /* تحسينات الأداء */
+        /* Performance */
         img {
             max-width: 100%;
             height: auto;
         }
         
-        /* أنيميشن للعناصر عند الظهور */
+        /* Reveal animations */
         .fade-in {
             animation: fadeIn 0.6s ease forwards;
         }
@@ -248,9 +248,9 @@
         .delay-3 {
             animation-delay: 0.6s;
         }
-        /* === العناوين الموحدة === */
+        /* === Heading system === */
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-family: 'Inter', 'Roboto', sans-serif;
             font-weight: 700;
             color: var(--gray-900);
             line-height: 1.3;
@@ -263,7 +263,7 @@
         h5 { font-size: 1.375rem; margin-bottom: var(--spacing-sm); }
         h6 { font-size: 1.25rem; margin-bottom: var(--spacing-sm); }
 
-        /* === أحجام النصوص === */
+        /* === Type scale === */
         .text-xs { font-size: 0.75rem; }
         .text-sm { font-size: 0.875rem; }
         .text-base { font-size: 1rem; }
@@ -274,7 +274,7 @@
         .text-4xl { font-size: 2.25rem; }
         .text-5xl { font-size: 3rem; }
 
-        /* === أوزان الخطوط === */
+        /* === Font weights === */
         .font-light { font-weight: 300; }
         .font-normal { font-weight: 400; }
         .font-medium { font-weight: 500; }
@@ -282,7 +282,7 @@
         .font-bold { font-weight: 700; }
         .font-extrabold { font-weight: 800; }
 
-        /* === الأزرار الموحدة === */
+        /* === Button system === */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -295,7 +295,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             text-decoration: none;
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Inter', 'Roboto', sans-serif;
         }
 
         .btn-sm {
@@ -348,7 +348,7 @@
             background: rgba(30, 61, 89, 0.2);
         }
 
-        /* === البطاقات الموحدة === */
+        /* === Card patterns === */
         .card {
             background: var(--bg-card);
             border-radius: var(--radius-xl);
@@ -379,7 +379,7 @@
             background: var(--gray-50);
         }
 
-        /* === النماذج الموحدة === */
+        /* === Form system === */
         .form-group {
             margin-bottom: var(--spacing-lg);
         }
@@ -414,7 +414,7 @@
             margin-top: var(--spacing-xs);
         }
 
-        /* === الشارات والعلامات === */
+        /* === Badges & pills === */
         .badge {
             display: inline-flex;
             align-items: center;
@@ -431,7 +431,7 @@
         .badge-danger { background: rgba(220, 53, 69, 0.1); color: var(--danger); }
         .badge-info { background: rgba(108, 117, 125, 0.1); color: var(--info); }
 
-        /* === التنبيهات الموحدة === */
+        /* === Alert system === */
         .alert {
             padding: var(--spacing-md) var(--spacing-lg);
             border-radius: var(--radius-lg);
@@ -466,7 +466,7 @@
             color: #0c5460;
         }
 
-        /* === الرسوم المتحركة === */
+        /* === Animation helpers === */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -498,7 +498,7 @@
         .delay-2 { animation-delay: 0.2s; }
         .delay-3 { animation-delay: 0.3s; }
 
-        /* === تأثيرات الهيدر === */
+        /* === Header effects === */
         .app-header { 
             transition: all 0.25s ease;
             backdrop-filter: blur(10px);
@@ -508,7 +508,7 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* === الجداول الموحدة === */
+        /* === Table patterns === */
         .table {
             width: 100%;
             border-collapse: collapse;
@@ -521,7 +521,7 @@
         .table th {
             background: var(--gray-50);
             padding: var(--spacing-md);
-            text-align: right;
+            text-align: left;
             font-weight: 600;
             color: var(--gray-700);
             border-bottom: 1px solid var(--border-light);
@@ -536,7 +536,7 @@
             background: var(--gray-50);
         }
 
-        /* === الشبكة المرنة === */
+        /* === Responsive grid === */
         .grid-responsive {
             display: grid;
             gap: var(--spacing-lg);
@@ -549,7 +549,7 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         }
 
-        /* === أيقونات موحدة === */
+        /* === Icon helpers === */
         .icon {
             display: inline-flex;
             align-items: center;
@@ -566,7 +566,7 @@
         .icon-warning { background: rgba(255, 193, 7, 0.1); color: #B45309; }
         .icon-danger { background: rgba(220, 53, 69, 0.1); color: var(--danger); }
 
-        /* === التخطيط المرن === */
+        /* === Layout helpers === */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -581,7 +581,7 @@
         .text-right { text-align: right; }
         .text-left { text-align: left; }
         
-        /* === الاستجابة للشاشات الصغيرة === */
+        /* === Small-screen tweaks === */
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
             h2 { font-size: 1.75rem; }
@@ -616,7 +616,7 @@
     </script>
 </head>
 <?php
-// تحديد المسار الحالي + الدور لاستخدامهما في شرط إظهار الـ Sidebar
+// Resolve the current path and active role so we can decide when to show the admin sidebar
 $basePath = rtrim(str_replace('\\','/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
 $currentPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
@@ -625,9 +625,10 @@ if ($basePath && str_starts_with($currentPath, $basePath)) {
     if ($currentPath === '') { $currentPath = '/'; }
 }
 if (session_status() === PHP_SESSION_NONE) { @session_start(); }
-$roleId = (int)($_SESSION['role_id'] ?? 0); // 1=موظف، 2=مسؤول توعية، 3=أدمن
+// Role mapping: 1 = employee, 2 = awareness manager, 3 = administrator
+$roleId = (int)($_SESSION['role_id'] ?? 0);
 
-// إظهار الشريط الجانبي لمسارات الإدارة كافة، وأيضاً في /dashboard إذا كان الدور 2 أو 3
+// Show the sidebar for every /admin route and on /dashboard for privileged roles
 $showSidebar = str_starts_with($currentPath, '/admin') || ($currentPath === '/dashboard' && in_array($roleId, [2,3], true));
 ?>
 <?php if ($showSidebar): ?>
@@ -635,7 +636,7 @@ $showSidebar = str_starts_with($currentPath, '/admin') || ($currentPath === '/da
     <div class="flex h-screen overflow-hidden">
         <?php require __DIR__ . '/sidebar.php'; ?>
         <div class="flex flex-col flex-1 overflow-hidden">
-            <!-- بدون هيدر/تذييل في صفحات الإدارة ولوحة /dashboard للمسؤول/الأدمن -->
+            <!-- Hide the marketing header/footer for admin surfaces -->
             <main class="flex-1 overflow-y-auto p-6">
                 <?= $content ?>
             </main>
@@ -650,7 +651,7 @@ $showSidebar = str_starts_with($currentPath, '/admin') || ($currentPath === '/da
     </main>
     <?php require __DIR__ . '/footer.php'; ?>
     <script>
-        // تفعيل تأثير الهيدر عند التمرير للصفحات العامة فقط
+        // Activate the sticky header effect on public pages only
         (function(){
           const header = document.getElementById('appHeader');
           const onScroll = () => { if (!header) return; if (window.scrollY > 10) header.classList.add('app-header--scrolled'); else header.classList.remove('app-header--scrolled'); };
