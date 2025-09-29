@@ -1,0 +1,1284 @@
+{
+  "project_info": {
+    "name": "منصة درع - المنصة التوعوية للأمن السيبراني",
+    "description": "منصة إلكترونية شاملة لتعزيز الثقافة الأمنية السيبرانية بين الموظفين من خلال محتوى توعوي جذاب وبسيط",
+    "version": "1.0.0",
+    "language": "PHP",
+    "framework": "Custom MVC",
+    "database": "MySQL/MariaDB",
+    "frontend": "HTML5, CSS3, JavaScript, Tailwind CSS",
+    "created_date": "2024",
+    "author": "فريق التطوير"
+  },
+  "architecture": {
+    "pattern": "MVC (Model-View-Controller)",
+    "structure": {
+      "core": {
+        "description": "الملفات الأساسية للنظام",
+        "files": [
+          {
+            "name": "Controller.php",
+            "description": "الكلاس الأساسي للمتحكمات",
+            "features": [
+              "إدارة الجلسات",
+              "التحقق من تسجيل الدخول",
+              "عرض الصفحات",
+              "إدارة المسارات"
+            ]
+          },
+          {
+            "name": "Database.php",
+            "description": "إدارة الاتصال بقاعدة البيانات",
+            "features": [
+              "اتصال PDO",
+              "إدارة المعاملات",
+              "تنفيذ الاستعلامات",
+              "معالجة الأخطاء"
+            ]
+          },
+          {
+            "name": "Router.php",
+            "description": "نظام التوجيه والمسارات",
+            "features": [
+              "تسجيل المسارات",
+              "مطابقة URL",
+              "تمرير المعاملات",
+              "معالجة الطلبات"
+            ]
+          }
+        ]
+      },
+      "controllers": {
+        "description": "متحكمات النظام",
+        "files": [
+          {
+            "name": "AuthController.php",
+            "description": "إدارة المصادقة والتسجيل",
+            "methods": [
+              "show() - عرض صفحة تسجيل الدخول",
+              "login() - تسجيل الدخول",
+              "register() - إنشاء حساب جديد",
+              "logout() - تسجيل الخروج"
+            ]
+          },
+          {
+            "name": "HomeController.php",
+            "description": "الصفحة الرئيسية",
+            "methods": [
+              "index() - عرض الصفحة الرئيسية"
+            ]
+          },
+          {
+            "name": "EmployeeController.php",
+            "description": "إدارة واجهة الموظف",
+            "methods": [
+              "dashboard() - لوحة تحكم الموظف",
+              "profile() - صفحة الملف الشخصي",
+              "exams() - قائمة الاختبارات",
+              "takeExam() - أخذ اختبار",
+              "startExam() - بدء اختبار",
+              "saveAnswer() - حفظ إجابة",
+              "submitExam() - إرسال الاختبار",
+              "surveys() - قائمة الاستبيانات",
+              "takeSurvey() - أخذ استبيان",
+              "submitSurvey() - إرسال استبيان",
+              "progress() - تتبع التقدم"
+            ]
+          },
+          {
+            "name": "ContentController.php",
+            "description": "إدارة المحتوى التوعوي",
+            "methods": [
+              "index() - عرض المحتوى",
+              "view() - عرض محتوى محدد",
+              "like() - إعجاب بالمحتوى",
+              "search() - البحث في المحتوى",
+              "create() - إنشاء محتوى جديد",
+              "store() - حفظ المحتوى",
+              "edit() - تعديل المحتوى",
+              "update() - تحديث المحتوى",
+              "delete() - حذف المحتوى"
+            ]
+          },
+          {
+            "name": "ExamsController.php",
+            "description": "إدارة الاختبارات",
+            "methods": [
+              "index() - قائمة الاختبارات",
+              "create() - إنشاء اختبار",
+              "store() - حفظ الاختبار",
+              "questions() - إدارة أسئلة الاختبار",
+              "addQuestion() - إضافة سؤال",
+              "addOption() - إضافة خيار",
+              "edit() - تعديل الاختبار",
+              "update() - تحديث الاختبار",
+              "delete() - حذف الاختبار"
+            ]
+          },
+          {
+            "name": "SurveysController.php",
+            "description": "إدارة الاستبيانات",
+            "methods": [
+              "index() - قائمة الاستبيانات",
+              "create() - إنشاء استبيان",
+              "store() - حفظ الاستبيان",
+              "questions() - إدارة أسئلة الاستبيان",
+              "addQuestion() - إضافة سؤال",
+              "analysis() - تحليل نتائج الاستبيان",
+              "edit() - تعديل الاستبيان",
+              "update() - تحديث الاستبيان",
+              "delete() - حذف الاستبيان"
+            ]
+          },
+          {
+            "name": "UsersController.php",
+            "description": "إدارة المستخدمين",
+            "methods": [
+              "index() - قائمة المستخدمين",
+              "create() - إضافة مستخدم",
+              "store() - حفظ المستخدم",
+              "view() - عرض مستخدم",
+              "edit() - تعديل مستخدم",
+              "update() - تحديث المستخدم",
+              "delete() - حذف مستخدم"
+            ]
+          },
+          {
+            "name": "LeaderboardController.php",
+            "description": "إدارة لوحة المتصدرين",
+            "methods": [
+              "index() - عرض لوحة المتصدرين",
+              "filter() - تصفية النتائج",
+              "refresh() - تحديث البيانات",
+              "analytics() - التحليلات",
+              "awardBadges() - منح الشارات"
+            ]
+          },
+          {
+            "name": "ReportsController.php",
+            "description": "إدارة التقارير والإحصائيات",
+            "methods": [
+              "index() - عرض التقارير",
+              "buildDateFilter() - بناء فلاتر التاريخ",
+              "export() - تصدير التقارير"
+            ]
+          }
+        ]
+      },
+      "middleware": {
+        "description": "طبقات الأمان والتحقق",
+        "files": [
+          {
+            "name": "AuthMiddleware.php",
+            "description": "التحقق من المصادقة",
+            "features": [
+              "التحقق من الجلسة",
+              "التحقق من تسجيل الدخول",
+              "التحقق من الأدوار"
+            ]
+          },
+          {
+            "name": "RouteGuards.php",
+            "description": "حماية المسارات",
+            "features": [
+              "حماية مسارات الإدارة",
+              "التحقق من الصلاحيات",
+              "إعادة التوجيه حسب الدور"
+            ]
+          }
+        ]
+      },
+      "services": {
+        "description": "الخدمات المساعدة",
+        "files": [
+          {
+            "name": "ExamService.php",
+            "description": "خدمة إدارة الاختبارات",
+            "features": [
+              "إنشاء اختبارات",
+              "إضافة أسئلة",
+              "تقييم الإجابات",
+              "حساب النتائج",
+              "إدارة المحاولات"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "database_schema": {
+    "name": "cybersecurity_platform",
+    "tables": [
+      {
+        "name": "users",
+        "description": "جدول المستخدمين",
+        "columns": [
+          "id - معرف المستخدم",
+          "email - البريد الإلكتروني",
+          "user_name - اسم المستخدم",
+          "role_id - معرف الدور",
+          "status - حالة المستخدم",
+          "password_hash - كلمة المرور المشفرة",
+          "force_password_reset - إجبار إعادة تعيين كلمة المرور",
+          "created_at - تاريخ الإنشاء",
+          "updated_at - تاريخ التحديث"
+        ]
+      },
+      {
+        "name": "roles",
+        "description": "جدول الأدوار",
+        "columns": [
+          "id - معرف الدور",
+          "name - اسم الدور"
+        ]
+      },
+      {
+        "name": "content",
+        "description": "جدول المحتوى التوعوي",
+        "columns": [
+          "id - معرف المحتوى",
+          "title - العنوان",
+          "description - الوصف",
+          "body - المحتوى",
+          "type - نوع المحتوى (article, video, infographic, guide)",
+          "category_id - معرف الفئة",
+          "media_url - رابط الوسائط",
+          "thumbnail_url - رابط الصورة المصغرة",
+          "difficulty_level - مستوى الصعوبة",
+          "reward_points - نقاط المكافأة",
+          "est_duration - المدة المقدرة",
+          "view_count - عدد المشاهدات",
+          "like_count - عدد الإعجابات",
+          "publish_status - حالة النشر",
+          "is_featured - مميز",
+          "tags - العلامات",
+          "created_by - منشئ المحتوى",
+          "created_at - تاريخ الإنشاء",
+          "updated_at - تاريخ التحديث"
+        ]
+      },
+      {
+        "name": "content_categories",
+        "description": "جدول فئات المحتوى",
+        "columns": [
+          "id - معرف الفئة",
+          "name - اسم الفئة",
+          "description - الوصف",
+          "icon - الأيقونة",
+          "color - اللون",
+          "order_index - ترتيب العرض",
+          "is_active - نشط",
+          "created_at - تاريخ الإنشاء",
+          "updated_at - تاريخ التحديث"
+        ]
+      },
+      {
+        "name": "content_views",
+        "description": "جدول مشاهدات المحتوى",
+        "columns": [
+          "id - معرف المشاهدة",
+          "user_id - معرف المستخدم",
+          "content_id - معرف المحتوى",
+          "viewed_at - تاريخ المشاهدة",
+          "liked - معجب",
+          "progress - نسبة المشاهدة"
+        ]
+      },
+      {
+        "name": "exams",
+        "description": "جدول الاختبارات",
+        "columns": [
+          "id - معرف الاختبار",
+          "title - العنوان",
+          "description - الوصف",
+          "category - الفئة",
+          "difficulty_level - مستوى الصعوبة",
+          "duration_minutes - المدة بالدقائق",
+          "passing_score - درجة النجاح",
+          "max_attempts - الحد الأقصى للمحاولات",
+          "randomize_questions - ترتيب الأسئلة عشوائياً",
+          "show_results - عرض النتائج",
+          "is_active - نشط",
+          "created_by - منشئ الاختبار",
+          "created_at - تاريخ الإنشاء",
+          "updated_at - تاريخ التحديث"
+        ]
+      },
+      {
+        "name": "exam_questions",
+        "description": "جدول أسئلة الاختبارات",
+        "columns": [
+          "id - معرف السؤال",
+          "exam_id - معرف الاختبار",
+          "question_text - نص السؤال",
+          "question_type - نوع السؤال",
+          "correct_answer - الإجابة الصحيحة",
+          "points - النقاط",
+          "order_index - ترتيب السؤال",
+          "created_at - تاريخ الإنشاء"
+        ]
+      },
+      {
+        "name": "question_options",
+        "description": "جدول خيارات الأسئلة",
+        "columns": [
+          "id - معرف الخيار",
+          "question_id - معرف السؤال",
+          "option_text - نص الخيار",
+          "is_correct - صحيح",
+          "order_index - ترتيب الخيار",
+          "created_at - تاريخ الإنشاء"
+        ]
+      },
+      {
+        "name": "exam_attempts",
+        "description": "جدول محاولات الاختبارات",
+        "columns": [
+          "id - معرف المحاولة",
+          "user_id - معرف المستخدم",
+          "exam_id - معرف الاختبار",
+          "score - النتيجة",
+          "total_questions - إجمالي الأسئلة",
+          "correct_answers - الإجابات الصحيحة",
+          "status - حالة المحاولة",
+          "started_at - وقت البداية",
+          "completed_at - وقت الانتهاء",
+          "time_taken - الوقت المستغرق"
+        ]
+      },
+      {
+        "name": "exam_answers",
+        "description": "جدول إجابات الاختبارات",
+        "columns": [
+          "id - معرف الإجابة",
+          "attempt_id - معرف المحاولة",
+          "question_id - معرف السؤال",
+          "selected_option_id - معرف الخيار المختار",
+          "text_answer - الإجابة النصية",
+          "is_correct - صحيح",
+          "points_earned - النقاط المكتسبة",
+          "answered_at - وقت الإجابة"
+        ]
+      },
+      {
+        "name": "surveys",
+        "description": "جدول الاستبيانات",
+        "columns": [
+          "id - معرف الاستبيان",
+          "title - العنوان",
+          "description - الوصف",
+          "status - الحالة",
+          "anonymous - مجهول",
+          "allow_multiple - السماح بتعدد الإجابات",
+          "availability_from - متاح من",
+          "availability_to - متاح إلى",
+          "category - الفئة",
+          "is_anonymous - مجهول",
+          "is_active - نشط",
+          "start_date - تاريخ البداية",
+          "end_date - تاريخ النهاية",
+          "created_by - منشئ الاستبيان",
+          "created_at - تاريخ الإنشاء",
+          "updated_at - تاريخ التحديث"
+        ]
+      },
+      {
+        "name": "survey_questions",
+        "description": "جدول أسئلة الاستبيانات",
+        "columns": [
+          "id - معرف السؤال",
+          "survey_id - معرف الاستبيان",
+          "question_text - نص السؤال",
+          "question_type - نوع السؤال",
+          "is_required - مطلوب",
+          "order_index - ترتيب السؤال",
+          "created_at - تاريخ الإنشاء"
+        ]
+      },
+      {
+        "name": "survey_question_options",
+        "description": "جدول خيارات أسئلة الاستبيانات",
+        "columns": [
+          "id - معرف الخيار",
+          "question_id - معرف السؤال",
+          "option_text - نص الخيار",
+          "order_index - ترتيب الخيار",
+          "created_at - تاريخ الإنشاء"
+        ]
+      },
+      {
+        "name": "survey_responses",
+        "description": "جدول استجابات الاستبيانات",
+        "columns": [
+          "id - معرف الاستجابة",
+          "survey_id - معرف الاستبيان",
+          "user_id - معرف المستخدم",
+          "is_completed - مكتمل",
+          "submitted_at - وقت الإرسال",
+          "created_at - تاريخ الإنشاء",
+          "updated_at - تاريخ التحديث"
+        ]
+      },
+      {
+        "name": "survey_answers",
+        "description": "جدول إجابات الاستبيانات",
+        "columns": [
+          "id - معرف الإجابة",
+          "response_id - معرف الاستجابة",
+          "question_id - معرف السؤال",
+          "answer_text - النص الإجابة",
+          "selected_option_id - معرف الخيار المختار",
+          "rating_value - قيمة التقييم",
+          "created_at - تاريخ الإنشاء"
+        ]
+      },
+      {
+        "name": "user_stats",
+        "description": "جدول إحصائيات المستخدمين",
+        "columns": [
+          "id - المعرف",
+          "user_id - معرف المستخدم",
+          "total_points - إجمالي النقاط",
+          "exams_completed - الاختبارات المكتملة",
+          "content_completed - المحتوى المكتمل",
+          "surveys_completed - الاستبيانات المكتملة",
+          "current_streak - السلسلة الحالية",
+          "longest_streak - أطول سلسلة",
+          "perfect_scores - النتائج المثالية",
+          "last_activity - آخر نشاط",
+          "created_at - تاريخ الإنشاء",
+          "updated_at - تاريخ التحديث"
+        ]
+      },
+      {
+        "name": "leaderboard",
+        "description": "جدول لوحة المتصدرين",
+        "columns": [
+          "id - المعرف",
+          "user_id - معرف المستخدم",
+          "total_points - إجمالي النقاط",
+          "exams_completed - الاختبارات المكتملة",
+          "content_completed - المحتوى المكتمل",
+          "current_streak - السلسلة الحالية",
+          "badges_earned - الشارات المكتسبة",
+          "rank_position - المركز",
+          "last_activity - آخر نشاط",
+          "updated_at - تاريخ التحديث"
+        ]
+      },
+      {
+        "name": "points_log",
+        "description": "جدول سجل النقاط",
+        "columns": [
+          "id - المعرف",
+          "user_id - معرف المستخدم",
+          "points - النقاط",
+          "action_type - نوع العمل",
+          "reference_id - معرف المرجع",
+          "description - الوصف",
+          "created_at - تاريخ الإنشاء"
+        ]
+      },
+      {
+        "name": "badges",
+        "description": "جدول الشارات",
+        "columns": [
+          "id - معرف الشارة",
+          "name - اسم الشارة",
+          "description - الوصف",
+          "icon - الأيقونة",
+          "color - اللون",
+          "criteria - المعايير",
+          "points_reward - مكافأة النقاط",
+          "is_active - نشط",
+          "created_at - تاريخ الإنشاء"
+        ]
+      },
+      {
+        "name": "user_badges",
+        "description": "جدول شارات المستخدمين",
+        "columns": [
+          "id - المعرف",
+          "user_id - معرف المستخدم",
+          "badge_id - معرف الشارة",
+          "earned_at - تاريخ الحصول"
+        ]
+      },
+      {
+        "name": "user_progress",
+        "description": "جدول تقدم المستخدمين",
+        "columns": [
+          "id - المعرف",
+          "user_id - معرف المستخدم",
+          "content_type - نوع المحتوى",
+          "content_id - معرف المحتوى",
+          "progress_percentage - نسبة التقدم",
+          "status - الحالة",
+          "score - النتيجة",
+          "completed_at - تاريخ الإكمال",
+          "created_at - تاريخ الإنشاء",
+          "updated_at - تاريخ التحديث"
+        ]
+      },
+      {
+        "name": "notifications",
+        "description": "جدول الإشعارات",
+        "columns": [
+          "id - معرف الإشعار",
+          "user_id - معرف المستخدم",
+          "title - العنوان",
+          "message - الرسالة",
+          "type - نوع الإشعار",
+          "action_url - رابط الإجراء",
+          "is_read - مقروء",
+          "created_at - تاريخ الإنشاء"
+        ]
+      }
+    ]
+  },
+  "user_roles": {
+    "description": "أدوار المستخدمين في النظام",
+    "roles": [
+      {
+        "id": 1,
+        "name": "موظف",
+        "description": "الموظف العادي في المنظمة",
+        "permissions": [
+          "عرض المحتوى التوعوي",
+          "أخذ الاختبارات",
+          "المشاركة في الاستبيانات",
+          "عرض لوحة المتصدرين",
+          "تتبع التقدم الشخصي",
+          "عرض الملف الشخصي"
+        ]
+      },
+      {
+        "id": 2,
+        "name": "مسؤول توعية",
+        "description": "مسؤول إدارة المحتوى التوعوي",
+        "permissions": [
+          "جميع صلاحيات الموظف",
+          "إنشاء وإدارة المحتوى",
+          "إنشاء وإدارة الاختبارات",
+          "إنشاء وإدارة الاستبيانات",
+          "عرض التقارير الأساسية",
+          "إدارة المستخدمين (محدود)"
+        ]
+      },
+      {
+        "id": 3,
+        "name": "مدير النظام",
+        "description": "مدير النظام الكامل",
+        "permissions": [
+          "جميع صلاحيات مسؤول التوعية",
+          "إدارة المستخدمين الكاملة",
+          "عرض جميع التقارير",
+          "إدارة الأدوار والصلاحيات",
+          "إعدادات النظام",
+          "النسخ الاحتياطي"
+        ]
+      }
+    ]
+  },
+  "features": {
+    "authentication": {
+      "description": "نظام المصادقة والتسجيل",
+      "features": [
+        "تسجيل الدخول بالبريد الإلكتروني وكلمة المرور",
+        "إنشاء حساب جديد",
+        "تشفير كلمات المرور",
+        "إدارة الجلسات",
+        "تسجيل الخروج"
+      ]
+    },
+    "content_management": {
+      "description": "إدارة المحتوى التوعوي",
+      "features": [
+        "إنشاء محتوى متعدد الأنواع (مقالات، فيديوهات، إنفوجرافيك، أدلة)",
+        "تصنيف المحتوى",
+        "نظام الإعجابات",
+        "تتبع المشاهدات",
+        "نظام النقاط والمكافآت",
+        "البحث والتصفية"
+      ]
+    },
+    "exam_system": {
+      "description": "نظام الاختبارات",
+      "features": [
+        "إنشاء اختبارات متعددة الأنواع",
+        "أسئلة اختيار من متعدد",
+        "أسئلة صح وخطأ",
+        "أسئلة نصية",
+        "تحديد وقت الاختبار",
+        "نظام المحاولات",
+        "حساب النتائج تلقائياً",
+        "عرض النتائج الفورية"
+      ]
+    },
+    "survey_system": {
+      "description": "نظام الاستبيانات",
+      "features": [
+        "إنشاء استبيانات ديناميكية",
+        "أنواع أسئلة متعددة",
+        "نظام التقييم",
+        "الاستبيانات المجهولة",
+        "تحليل النتائج",
+        "تصدير البيانات"
+      ]
+    },
+    "gamification": {
+      "description": "نظام الألعاب والمكافآت",
+      "features": [
+        "نظام النقاط",
+        "لوحة المتصدرين",
+        "الشارات والإنجازات",
+        "تتبع التقدم",
+        "السلسلة اليومية",
+        "نظام المستويات"
+      ]
+    },
+    "reporting": {
+      "description": "نظام التقارير والإحصائيات",
+      "features": [
+        "تقارير شاملة",
+        "إحصائيات المستخدمين",
+        "تحليل الأداء",
+        "تصدير البيانات",
+        "فلاتر متقدمة",
+        "رسوم بيانية"
+      ]
+    },
+    "user_management": {
+      "description": "إدارة المستخدمين",
+      "features": [
+        "إضافة وتعديل المستخدمين",
+        "إدارة الأدوار",
+        "تتبع النشاط",
+        "إحصائيات المستخدمين",
+        "حذف المستخدمين"
+      ]
+    }
+  },
+  "routes": {
+    "description": "مسارات النظام",
+    "public_routes": [
+      {
+        "path": "/",
+        "method": "GET",
+        "controller": "HomeController",
+        "action": "index",
+        "description": "الصفحة الرئيسية"
+      },
+      {
+        "path": "/auth",
+        "method": "GET",
+        "controller": "AuthController",
+        "action": "show",
+        "description": "صفحة تسجيل الدخول"
+      }
+    ],
+    "auth_routes": [
+      {
+        "path": "/auth/login",
+        "method": "POST",
+        "controller": "AuthController",
+        "action": "login",
+        "description": "تسجيل الدخول"
+      },
+      {
+        "path": "/auth/register",
+        "method": "POST",
+        "controller": "AuthController",
+        "action": "register",
+        "description": "إنشاء حساب"
+      },
+      {
+        "path": "/logout",
+        "method": "GET",
+        "controller": "AuthController",
+        "action": "logout",
+        "description": "تسجيل الخروج"
+      }
+    ],
+    "employee_routes": [
+      {
+        "path": "/dashboard",
+        "method": "GET",
+        "controller": "EmployeeController",
+        "action": "dashboard",
+        "description": "لوحة تحكم الموظف"
+      },
+      {
+        "path": "/profile",
+        "method": "GET",
+        "controller": "EmployeeController",
+        "action": "profile",
+        "description": "الملف الشخصي"
+      },
+      {
+        "path": "/content",
+        "method": "GET",
+        "controller": "ContentController",
+        "action": "index",
+        "description": "عرض المحتوى"
+      },
+      {
+        "path": "/content/view/(\\d+)",
+        "method": "GET",
+        "controller": "ContentController",
+        "action": "view",
+        "description": "عرض محتوى محدد"
+      },
+      {
+        "path": "/exams",
+        "method": "GET",
+        "controller": "EmployeeController",
+        "action": "exams",
+        "description": "قائمة الاختبارات"
+      },
+      {
+        "path": "/exams/(\\d+)/take",
+        "method": "GET",
+        "controller": "EmployeeController",
+        "action": "takeExam",
+        "description": "أخذ اختبار"
+      },
+      {
+        "path": "/surveys",
+        "method": "GET",
+        "controller": "EmployeeController",
+        "action": "surveys",
+        "description": "قائمة الاستبيانات"
+      },
+      {
+        "path": "/surveys/(\\d+)/take",
+        "method": "GET",
+        "controller": "EmployeeController",
+        "action": "takeSurvey",
+        "description": "أخذ استبيان"
+      },
+      {
+        "path": "/leaderboard",
+        "method": "GET",
+        "controller": "LeaderboardController",
+        "action": "index",
+        "description": "لوحة المتصدرين"
+      },
+      {
+        "path": "/progress",
+        "method": "GET",
+        "controller": "EmployeeController",
+        "action": "progress",
+        "description": "تتبع التقدم"
+      }
+    ],
+    "admin_routes": [
+      {
+        "path": "/admin/users",
+        "method": "GET",
+        "controller": "UsersController",
+        "action": "index",
+        "description": "قائمة المستخدمين"
+      },
+      {
+        "path": "/admin/users/add",
+        "method": "GET",
+        "controller": "UsersController",
+        "action": "create",
+        "description": "إضافة مستخدم"
+      },
+      {
+        "path": "/admin/content",
+        "method": "GET",
+        "controller": "ContentController",
+        "action": "adminIndex",
+        "description": "إدارة المحتوى"
+      },
+      {
+        "path": "/admin/content/create",
+        "method": "GET",
+        "controller": "ContentController",
+        "action": "create",
+        "description": "إنشاء محتوى"
+      },
+      {
+        "path": "/admin/exams",
+        "method": "GET",
+        "controller": "ExamsController",
+        "action": "index",
+        "description": "إدارة الاختبارات"
+      },
+      {
+        "path": "/admin/exams/create",
+        "method": "GET",
+        "controller": "ExamsController",
+        "action": "create",
+        "description": "إنشاء اختبار"
+      },
+      {
+        "path": "/admin/surveys",
+        "method": "GET",
+        "controller": "SurveysController",
+        "action": "index",
+        "description": "إدارة الاستبيانات"
+      },
+      {
+        "path": "/admin/surveys/create",
+        "method": "GET",
+        "controller": "SurveysController",
+        "action": "create",
+        "description": "إنشاء استبيان"
+      },
+      {
+        "path": "/admin/reports",
+        "method": "GET",
+        "controller": "ReportsController",
+        "action": "index",
+        "description": "التقارير والإحصائيات"
+      }
+    ]
+  },
+  "views_structure": {
+    "description": "هيكل واجهات المستخدم",
+    "layout": {
+      "description": "ملفات التخطيط الأساسية",
+      "files": [
+        {
+          "name": "layout.php",
+          "description": "التخطيط الرئيسي للنظام",
+          "features": [
+            "نظام CSS موحد",
+            "دعم الخطوط العربية",
+            "تصميم متجاوب",
+            "نظام الألوان الموحد",
+            "إدارة الشريط الجانبي"
+          ]
+        },
+        {
+          "name": "header.php",
+          "description": "رأس الصفحة",
+          "features": [
+            "قائمة التنقل",
+            "شعار المنصة",
+            "روابط سريعة"
+          ]
+        },
+        {
+          "name": "footer.php",
+          "description": "تذييل الصفحة",
+          "features": [
+            "معلومات المنصة",
+            "روابط مفيدة",
+            "حقوق النشر"
+          ]
+        },
+        {
+          "name": "sidebar.php",
+          "description": "الشريط الجانبي",
+          "features": [
+            "قائمة التنقل",
+            "إدارة الأدوار",
+            "روابط سريعة"
+          ]
+        }
+      ]
+    },
+    "public_views": {
+      "description": "الصفحات العامة",
+      "files": [
+        {
+          "name": "index.php",
+          "description": "الصفحة الرئيسية",
+          "features": [
+            "قسم البطل",
+            "عرض المحتوى المميز",
+            "نصائح أمنية سريعة",
+            "إحصائيات المنصة"
+          ]
+        },
+        {
+          "name": "auth.php",
+          "description": "صفحة تسجيل الدخول",
+          "features": [
+            "نموذج تسجيل الدخول",
+            "نموذج إنشاء حساب",
+            "تبديل بين النماذج",
+            "رسائل الخطأ والنجاح"
+          ]
+        }
+      ]
+    },
+    "employee_views": {
+      "description": "واجهات الموظف",
+      "files": [
+        {
+          "name": "dashboard.php",
+          "description": "لوحة تحكم الموظف",
+          "features": [
+            "إحصائيات شخصية",
+            "إجراءات سريعة",
+            "محتوى مقترح",
+            "إشعارات حديثة"
+          ]
+        },
+        {
+          "name": "content.php",
+          "description": "صفحة المحتوى",
+          "features": [
+            "عرض المحتوى المميز",
+            "قائمة المحتوى",
+            "إحصائيات المشاهدة",
+            "نظام البحث"
+          ]
+        },
+        {
+          "name": "content-view.php",
+          "description": "عرض محتوى محدد",
+          "features": [
+            "عرض المحتوى الكامل",
+            "محتوى ذو صلة",
+            "نظام الإعجاب",
+            "تتبع المشاهدة"
+          ]
+        },
+        {
+          "name": "exams.php",
+          "description": "صفحة الاختبارات",
+          "features": [
+            "قائمة الاختبارات",
+            "حالة التقدم",
+            "النتائج السابقة",
+            "إحصائيات الاختبارات"
+          ]
+        },
+        {
+          "name": "take-exam.php",
+          "description": "صفحة أخذ الاختبار",
+          "features": [
+            "عرض الأسئلة",
+            "عداد الوقت",
+            "حفظ الإجابات",
+            "إرسال الاختبار"
+          ]
+        },
+        {
+          "name": "surveys.php",
+          "description": "صفحة الاستبيانات",
+          "features": [
+            "قائمة الاستبيانات",
+            "حالة المشاركة",
+            "إحصائيات الاستبيانات"
+          ]
+        },
+        {
+          "name": "take-survey.php",
+          "description": "صفحة أخذ الاستبيان",
+          "features": [
+            "عرض الأسئلة",
+            "أنواع أسئلة متعددة",
+            "حفظ التقدم",
+            "إرسال الاستبيان"
+          ]
+        },
+        {
+          "name": "leaderboard.php",
+          "description": "لوحة المتصدرين",
+          "features": [
+            "ترتيب المستخدمين",
+            "فلاتر زمنية",
+            "إحصائيات مفصلة"
+          ]
+        },
+        {
+          "name": "progress.php",
+          "description": "صفحة التقدم",
+          "features": [
+            "إحصائيات شاملة",
+            "الشارات المكتسبة",
+            "الأنشطة الأخيرة"
+          ]
+        }
+      ]
+    },
+    "admin_views": {
+      "description": "واجهات الإدارة",
+      "content_management": [
+        {
+          "name": "index.php",
+          "description": "قائمة المحتوى",
+          "features": [
+            "عرض جميع المحتوى",
+            "فلاتر البحث",
+            "إجراءات سريعة"
+          ]
+        },
+        {
+          "name": "create.php",
+          "description": "إنشاء محتوى",
+          "features": [
+            "نموذج إنشاء المحتوى",
+            "رفع الوسائط",
+            "اختيار الفئة"
+          ]
+        },
+        {
+          "name": "edit.php",
+          "description": "تعديل المحتوى",
+          "features": [
+            "نموذج التعديل",
+            "حفظ التغييرات",
+            "معاينة المحتوى"
+          ]
+        }
+      ],
+      "exam_management": [
+        {
+          "name": "index.php",
+          "description": "قائمة الاختبارات",
+          "features": [
+            "عرض جميع الاختبارات",
+            "حالة الاختبارات",
+            "إجراءات الإدارة"
+          ]
+        },
+        {
+          "name": "create.php",
+          "description": "إنشاء اختبار",
+          "features": [
+            "نموذج إنشاء الاختبار",
+            "إعدادات الاختبار",
+            "حفظ الاختبار"
+          ]
+        },
+        {
+          "name": "questions.php",
+          "description": "إدارة الأسئلة",
+          "features": [
+            "عرض الأسئلة",
+            "إضافة أسئلة جديدة",
+            "تعديل الأسئلة",
+            "إدارة الخيارات"
+          ]
+        },
+        {
+          "name": "edit.php",
+          "description": "تعديل الاختبار",
+          "features": [
+            "نموذج التعديل",
+            "حفظ التغييرات",
+            "معاينة الاختبار"
+          ]
+        }
+      ],
+      "survey_management": [
+        {
+          "name": "index.php",
+          "description": "قائمة الاستبيانات",
+          "features": [
+            "عرض جميع الاستبيانات",
+            "حالة الاستبيانات",
+            "إحصائيات المشاركة"
+          ]
+        },
+        {
+          "name": "create.php",
+          "description": "إنشاء استبيان",
+          "features": [
+            "نموذج إنشاء الاستبيان",
+            "إعدادات الاستبيان",
+            "حفظ الاستبيان"
+          ]
+        },
+        {
+          "name": "questions.php",
+          "description": "إدارة الأسئلة",
+          "features": [
+            "عرض الأسئلة",
+            "إضافة أسئلة جديدة",
+            "تعديل الأسئلة",
+            "إدارة الخيارات"
+          ]
+        },
+        {
+          "name": "analysis.php",
+          "description": "تحليل النتائج",
+          "features": [
+            "عرض النتائج",
+            "رسوم بيانية",
+            "تصدير البيانات"
+          ]
+        }
+      ],
+      "user_management": [
+        {
+          "name": "list.php",
+          "description": "قائمة المستخدمين",
+          "features": [
+            "عرض جميع المستخدمين",
+            "فلاتر البحث",
+            "إحصائيات المستخدمين"
+          ]
+        },
+        {
+          "name": "add-user.php",
+          "description": "إضافة مستخدم",
+          "features": [
+            "نموذج إضافة المستخدم",
+            "اختيار الدور",
+            "حفظ المستخدم"
+          ]
+        },
+        {
+          "name": "view.php",
+          "description": "عرض مستخدم",
+          "features": [
+            "معلومات المستخدم",
+            "إحصائيات النشاط",
+            "التقدم المحرز"
+          ]
+        },
+        {
+          "name": "edit.php",
+          "description": "تعديل مستخدم",
+          "features": [
+            "نموذج التعديل",
+            "تغيير الدور",
+            "حفظ التغييرات"
+          ]
+        }
+      ],
+      "reports": [
+        {
+          "name": "index.php",
+          "description": "التقارير والإحصائيات",
+          "features": [
+            "إحصائيات شاملة",
+            "فلاتر زمنية",
+            "تصدير البيانات",
+            "رسوم بيانية"
+          ]
+        }
+      ]
+    }
+  },
+  "security_features": {
+    "description": "ميزات الأمان في النظام",
+    "authentication": [
+      "تشفير كلمات المرور باستخدام PASSWORD_DEFAULT",
+      "إدارة الجلسات الآمنة",
+      "التحقق من صحة البيانات المدخلة",
+      "حماية من هجمات SQL Injection",
+      "التحقق من CSRF"
+    ],
+    "authorization": [
+      "نظام أدوار متدرج",
+      "حماية المسارات حسب الدور",
+      "التحقق من الصلاحيات",
+      "إعادة التوجيه الآمن"
+    ],
+    "data_protection": [
+      "تنظيف البيانات المدخلة",
+      "استخدام Prepared Statements",
+      "التحقق من صحة الملفات المرفوعة",
+      "حماية من XSS"
+    ]
+  },
+  "performance_features": {
+    "description": "ميزات الأداء في النظام",
+    "database": [
+      "استخدام PDO للاتصال بقاعدة البيانات",
+      "فهرسة الجداول",
+      "استعلامات محسنة",
+      "إدارة المعاملات"
+    ],
+    "frontend": [
+      "استخدام Tailwind CSS",
+      "تحسين الصور",
+      "ضغط الملفات",
+      "تحسين JavaScript"
+    ],
+    "caching": [
+      "تخزين مؤقت للجلسات",
+      "تحسين الاستعلامات",
+      "ضغط البيانات"
+    ]
+  },
+  "deployment": {
+    "description": "متطلبات النشر والتشغيل",
+    "server_requirements": [
+      "PHP 7.4 أو أحدث",
+      "MySQL 5.7 أو أحدث / MariaDB 10.3 أو أحدث",
+      "Apache أو Nginx",
+      "مساحة تخزين كافية",
+      "ذاكرة وصول عشوائي كافية"
+    ],
+    "php_extensions": [
+      "PDO",
+      "PDO_MySQL",
+      "mbstring",
+      "json",
+      "session",
+      "openssl"
+    ],
+    "configuration": [
+      "إعداد قاعدة البيانات",
+      "تكوين PHP",
+      "إعداد الخادم",
+      "إعداد SSL"
+    ]
+  },
+  "documentation": {
+    "description": "الوثائق المتاحة",
+    "files": [
+      {
+        "name": "README_FONTS.md",
+        "description": "دليل استخدام الخطوط العربية"
+      },
+      {
+        "name": "منصة توعوية لموظفي الهيئة – الهيئة العامة.docx",
+        "description": "وثيقة المشروع باللغة العربية"
+      },
+      {
+        "name": "منصة توعوية لموظفي الهيئة – الهيئة العامة.pdf",
+        "description": "وثيقة المشروع بصيغة PDF"
+      }
+    ]
+  },
+  "assets": {
+    "description": "الموارد والأصول",
+    "fonts": {
+      "description": "الخطوط العربية المستخدمة",
+      "files": [
+        "Cairo-Black.ttf",
+        "Cairo-Bold.ttf",
+        "Cairo-ExtraLight.ttf",
+        "Cairo-Light.ttf",
+        "Cairo-Regular.ttf",
+        "Cairo-SemiBold.ttf",
+        "NotoKufiArabic[wght].ttf",
+        "fonts.css"
+      ]
+    },
+    "external_resources": [
+      "Tailwind CSS - إطار عمل CSS",
+      "Remix Icons - مكتبة الأيقونات",
+      "Chart.js - مكتبة الرسوم البيانية",
+      "Google Fonts - خطوط إضافية"
+    ]
+  },
+  "future_enhancements": {
+    "description": "التحسينات المستقبلية المقترحة",
+    "features": [
+      "نظام إشعارات فوري",
+      "تطبيق جوال",
+      "نظام الدردشة",
+      "تكامل مع أنظمة خارجية",
+      "تحليلات متقدمة",
+      "نظام النسخ الاحتياطي التلقائي",
+      "دعم متعدد اللغات",
+      "نظام التقييمات والمراجعات",
+      "نظام الشهادات الإلكترونية",
+      "تكامل مع أنظمة إدارة التعلم (LMS)"
+    ]
+  }
+}

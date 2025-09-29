@@ -1,0 +1,295 @@
+{
+  "design_overview": {
+    "title": "تفاصيل التصميم - منصة درع التوعوية",
+    "description": "تصميم شامل وحديث للمنصة التوعوية للأمن السيبراني",
+    "design_philosophy": "تصميم بسيط وواضح يركز على سهولة الاستخدام والوصولية",
+    "target_audience": "موظفو الهيئة العامة من مختلف المستويات التقنية"
+  },
+  "color_scheme": {
+    "primary_colors": {
+      "primary": "#1e40af",
+      "description": "اللون الأساسي - أزرق داكن للثقة والأمان"
+    },
+    "secondary_colors": {
+      "secondary": "#3b82f6",
+      "description": "اللون الثانوي - أزرق فاتح للتنويع"
+    },
+    "accent_colors": {
+      "success": "#10b981",
+      "warning": "#f59e0b",
+      "error": "#ef4444",
+      "info": "#06b6d4"
+    },
+    "neutral_colors": {
+      "white": "#ffffff",
+      "gray_50": "#f9fafb",
+      "gray_100": "#f3f4f6",
+      "gray_200": "#e5e7eb",
+      "gray_300": "#d1d5db",
+      "gray_400": "#9ca3af",
+      "gray_500": "#6b7280",
+      "gray_600": "#4b5563",
+      "gray_700": "#374151",
+      "gray_800": "#1f2937",
+      "gray_900": "#111827"
+    }
+  },
+  "typography": {
+    "font_families": {
+      "primary": "Cairo",
+      "description": "الخط الأساسي للنصوص العربية",
+      "weights": [
+        "ExtraLight (200)",
+        "Light (300)",
+        "Regular (400)",
+        "SemiBold (600)",
+        "Bold (700)",
+        "Black (900)"
+      ]
+    },
+    "secondary_font": {
+      "name": "Noto Kufi Arabic",
+      "description": "خط احتياطي للنصوص العربية",
+      "usage": "للعنوانات الكبيرة والنصوص المميزة"
+    },
+    "font_sizes": {
+      "xs": "0.75rem (12px)",
+      "sm": "0.875rem (14px)",
+      "base": "1rem (16px)",
+      "lg": "1.125rem (18px)",
+      "xl": "1.25rem (20px)",
+      "2xl": "1.5rem (24px)",
+      "3xl": "1.875rem (30px)",
+      "4xl": "2.25rem (36px)",
+      "5xl": "3rem (48px)",
+      "6xl": "3.75rem (60px)"
+    },
+    "line_heights": {
+      "tight": "1.25",
+      "snug": "1.375",
+      "normal": "1.5",
+      "relaxed": "1.625",
+      "loose": "2"
+    }
+  },
+  "layout_system": {
+    "grid_system": "Tailwind CSS Grid",
+    "breakpoints": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px",
+      "2xl": "1536px"
+    },
+    "container_widths": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px",
+      "2xl": "1536px"
+    },
+    "spacing_system": {
+      "base_unit": "0.25rem (4px)",
+      "spacing_scale": "0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 56, 64"
+    }
+  },
+  "component_design": {
+    "buttons": {
+      "primary_button": {
+        "background": "bg-primary",
+        "text_color": "text-white",
+        "padding": "px-6 py-3",
+        "border_radius": "rounded-lg",
+        "hover_effect": "hover:bg-blue-700",
+        "transition": "transition-all duration-200"
+      },
+      "secondary_button": {
+        "background": "bg-white",
+        "text_color": "text-primary",
+        "border": "border-2 border-primary",
+        "padding": "px-6 py-3",
+        "border_radius": "rounded-lg",
+        "hover_effect": "hover:bg-primary hover:text-white"
+      },
+      "outline_button": {
+        "background": "transparent",
+        "text_color": "text-primary",
+        "border": "border border-primary",
+        "padding": "px-4 py-2",
+        "border_radius": "rounded-md"
+      }
+    },
+    "cards": {
+      "default_card": {
+        "background": "bg-white",
+        "border_radius": "rounded-lg",
+        "shadow": "shadow-md",
+        "padding": "p-6",
+        "hover_effect": "hover:shadow-lg transition-shadow"
+      },
+      "featured_card": {
+        "background": "bg-gradient-to-br from-primary to-secondary",
+        "text_color": "text-white",
+        "border_radius": "rounded-xl",
+        "shadow": "shadow-xl",
+        "padding": "p-8"
+      }
+    },
+    "forms": {
+      "input_field": {
+        "background": "bg-white",
+        "border": "border border-gray-300",
+        "border_radius": "rounded-md",
+        "padding": "px-3 py-2",
+        "focus_style": "focus:ring-2 focus:ring-primary focus:border-transparent"
+      },
+      "label": {
+        "text_color": "text-gray-700",
+        "font_weight": "font-medium",
+        "margin_bottom": "mb-2"
+      }
+    },
+    "navigation": {
+      "sidebar": {
+        "background": "bg-white",
+        "width": "w-64",
+        "shadow": "shadow-lg",
+        "border": "border-r border-gray-200"
+      },
+      "nav_item": {
+        "padding": "px-4 py-3",
+        "text_color": "text-gray-700",
+        "hover_effect": "hover:bg-gray-100",
+        "active_style": "bg-primary text-white"
+      }
+    }
+  },
+  "page_layouts": {
+    "public_pages": {
+      "header": {
+        "height": "h-16",
+        "background": "bg-white",
+        "shadow": "shadow-sm",
+        "sticky": "sticky top-0 z-50"
+      },
+      "hero_section": {
+        "background": "gradient background",
+        "height": "min-h-screen",
+        "content_alignment": "flex items-center justify-center",
+        "text_alignment": "text-center"
+      },
+      "content_sections": {
+        "padding": "py-20",
+        "background_alternation": "bg-white and bg-gray-50"
+      }
+    },
+    "dashboard_layout": {
+      "structure": "flex layout with sidebar",
+      "sidebar": {
+        "width": "w-64",
+        "position": "fixed left-0 top-0",
+        "height": "h-full"
+      },
+      "main_content": {
+        "margin": "ml-64",
+        "padding": "p-6",
+        "background": "bg-gray-50"
+      }
+    }
+  },
+  "visual_elements": {
+    "icons": {
+      "library": "Remix Icons",
+      "size_variants": ["16px", "20px", "24px", "32px"],
+      "color_scheme": "inherit from parent text color"
+    },
+    "images": {
+      "aspect_ratios": ["16:9", "4:3", "1:1"],
+      "border_radius": "rounded-lg",
+      "shadow": "shadow-md"
+    },
+    "gradients": {
+      "primary_gradient": "from-primary to-secondary",
+      "hero_gradient": "from-blue-900 via-blue-800 to-blue-700",
+      "card_gradient": "from-white to-gray-50"
+    }
+  },
+  "animations": {
+    "transitions": {
+      "default": "transition-all duration-200",
+      "fast": "transition-all duration-150",
+      "slow": "transition-all duration-300"
+    },
+    "hover_effects": {
+      "scale": "hover:scale-105",
+      "shadow": "hover:shadow-lg",
+      "opacity": "hover:opacity-90"
+    },
+    "loading_states": {
+      "spinner": "animate-spin",
+      "pulse": "animate-pulse",
+      "bounce": "animate-bounce"
+    }
+  },
+  "responsive_design": {
+    "mobile_first": true,
+    "breakpoint_strategy": "progressive enhancement",
+    "mobile_adaptations": {
+      "sidebar": "collapsible on mobile",
+      "navigation": "hamburger menu",
+      "cards": "full width on mobile",
+      "typography": "smaller font sizes"
+    },
+    "tablet_adaptations": {
+      "grid_columns": "2 columns instead of 3",
+      "sidebar": "collapsible",
+      "spacing": "reduced padding"
+    }
+  },
+  "accessibility": {
+    "color_contrast": "WCAG AA compliant",
+    "focus_indicators": "visible focus rings",
+    "keyboard_navigation": "full keyboard support",
+    "screen_reader": "proper ARIA labels",
+    "text_scaling": "supports up to 200% zoom"
+  },
+  "rtl_support": {
+    "direction": "rtl (right-to-left)",
+    "text_alignment": "text-right",
+    "layout_mirroring": "sidebar on right, content on left",
+    "icon_orientation": "mirrored for RTL context"
+  },
+  "theme_customization": {
+    "css_variables": {
+      "--primary-color": "#1e40af",
+      "--secondary-color": "#3b82f6",
+      "--success-color": "#10b981",
+      "--warning-color": "#f59e0b",
+      "--error-color": "#ef4444"
+    },
+    "tailwind_config": {
+      "custom_colors": "extended color palette",
+      "custom_fonts": "Cairo and Noto Kufi Arabic",
+      "custom_spacing": "extended spacing scale"
+    }
+  },
+  "design_patterns": {
+    "card_based_layout": "content organized in cards",
+    "progressive_disclosure": "information revealed progressively",
+    "consistent_spacing": "8px grid system",
+    "visual_hierarchy": "clear typography scale",
+    "white_space": "generous use of white space"
+  },
+  "brand_elements": {
+    "logo_placement": "top-left in header",
+    "color_usage": "primary blue for CTAs",
+    "typography_hierarchy": "Cairo for body, Noto Kufi for headings",
+    "icon_style": "outline style from Remix Icons"
+  },
+  "performance_considerations": {
+    "css_framework": "Tailwind CSS (utility-first)",
+    "font_loading": "local font files for better performance",
+    "image_optimization": "responsive images with proper sizing",
+    "animation_performance": "CSS transforms for smooth animations"
+  }
+}

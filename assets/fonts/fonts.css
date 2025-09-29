@@ -1,0 +1,102 @@
+/**
+ * Local Fonts - الخطوط المحلية
+ * خط Cairo للنصوص العربية
+ */
+
+/* Cairo Font - ExtraLight (200) */
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url('../fonts/Cairo-ExtraLight.ttf') format('truetype');
+}
+
+/* Cairo Font - Light (300) */
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../fonts/Cairo-Light.ttf') format('truetype');
+}
+
+/* Cairo Font - Regular (400) */
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('Cairo-Regular.ttf') format('truetype');
+}
+
+/* Cairo Font - SemiBold (600) */
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('Cairo-SemiBold.ttf') format('truetype');
+}
+
+/* Cairo Font - Bold (700) */
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('Cairo-Bold.ttf') format('truetype');
+}
+
+/* Cairo Font - Black (900) */
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('Cairo-Black.ttf') format('truetype');
+}
+
+/* Fallback fonts for better compatibility */
+.font-cairo {
+  font-family: 'Cairo', 
+               'Segoe UI', 
+               Tahoma, 
+               Geneva, 
+               Verdana, 
+               sans-serif;
+}
+
+/* Base font styles */
+body {
+  font-family: 'Cairo', 
+               system-ui, 
+               -apple-system, 
+               'Segoe UI', 
+               Roboto, 
+               'Helvetica Neue', 
+               Arial, 
+               'Noto Sans', 
+               sans-serif;
+  font-feature-settings: 'kern' 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Arabic text optimization */
+*[lang="ar"], 
+.arabic-text {
+  font-family: 'Cairo', 
+               'Tahoma', 
+               'Arial Unicode MS', 
+               sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+/* Font weight utilities */
+.font-light { font-weight: 300; }
+.font-normal { font-weight: 400; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
