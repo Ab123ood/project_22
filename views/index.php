@@ -1,16 +1,16 @@
 <?php
 
-$pageTitle = $content['title'] ?? 'عرض المحتوى';
+$pageTitle = $content['title'] ?? 'View content';
 $currentPage = 'content';
 $basePath = rtrim(str_replace('\\','/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
 ?><!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة درع - نحو وعي سيبراني أفضل</title>
-    <meta name="description" content="منصة درع الإلكترونية الشاملة لتعزيز الثقافة الأمنية السيبرانية بين الموظفين من خلال محتوى توعوي جذاب وبسيط">
+    <title>Darae Platform – Elevate Your Cyber Awareness</title>
+    <meta name="description" content="Darae is the unified cyber awareness hub that empowers employees with engaging, accessible security education.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
@@ -26,8 +26,8 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
                         dark: '#212529'
                     },
                     fontFamily: {
-                        'cairo': ['Cairo', 'sans-serif'],
-                        'noto': ['Noto Kufi Arabic', 'sans-serif']
+                        'inter': ['Inter', 'sans-serif'],
+                        'roboto': ['Roboto', 'system-ui', 'sans-serif']
                     },
                     boxShadow: {
                         'custom': '0 10px 25px rgba(0, 0, 0, 0.1)',
@@ -41,7 +41,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <!-- Remix Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
@@ -54,15 +54,15 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             --light:rgb(61, 133, 206);
             --dark: #212529;
         }
-        
+
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Inter', 'Roboto', sans-serif;
             line-height: 1.6;
             scroll-behavior: smooth;
         }
-        
+
         .logo-text {
-            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-family: 'Inter', 'Roboto', sans-serif;
             font-weight: 700;
             font-size: 2.5rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -152,7 +152,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             color: white;
         }
         
-        /* تحسينات للجوال */
+        /* Mobile refinements */
         @media (max-width: 768px) {
             .logo-text {
                 font-size: 1.8rem;
@@ -167,19 +167,19 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             }
         }
         
-        /* تحسينات إمكانية الوصول */
+        /* Accessibility */
         a:focus, button:focus {
             outline: 2px solid var(--primary);
             outline-offset: 2px;
         }
         
-        /* تحسينات الأداء */
+        /* Performance */
         img {
             max-width: 100%;
             height: auto;
         }
         
-        /* أنيميشن للعناصر عند الظهور */
+        /* Reveal animations */
         .fade-in {
             animation: fadeIn 0.6s ease forwards;
         }
@@ -214,11 +214,11 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
   <section class="hero-bg min-h-screen flex items-center pt-16">
     <div class="container mx-auto px-4 hero-content">
       <div class="max-w-3xl fade-in">
-        <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight text-glow">نحو وعي سيبراني أفضل</h1>
-        <p class="text-lg md:text-xl text-gray-100/95 mb-10 text-glow">منصة درع الإلكترونية الشاملة لتعزيز الثقافة الأمنية السيبرانية من خلال محتوى توعوي جذاب وبسيط</p>
+        <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight text-glow">Grow a resilient cyber-aware culture</h1>
+        <p class="text-lg md:text-xl text-gray-100/95 mb-10 text-glow">Darae delivers concise, engaging learning journeys that help every employee recognise threats and protect organisational data.</p>
         <div class="flex gap-3 flex-wrap">
-          <a href="<?= $basePath ?>/content" class="bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 shadow transition-all hover:shadow-md">تصفح المحتوى</a>
-          <a href="<?= $basePath ?>/exams" class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary shadow-sm transition-all">ابدأ الاختبارات</a>
+          <a href="<?= $basePath ?>/content" class="bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 shadow transition-all hover:shadow-md">Browse learning hub</a>
+          <a href="<?= $basePath ?>/exams" class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary shadow-sm transition-all">Start assessments</a>
         </div>
       </div>
     </div>
@@ -227,8 +227,8 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
   <section id="content" class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12 fade-in">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">المحتوى التوعوي</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">اكتشف أحدث المواد المنشورة لتعزيز الوعي السيبراني والحماية من المخاطر الإلكترونية</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Awareness content</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Explore the latest articles, videos, and guides that help your team stay ahead of cyber threats.</p>
       </div>
 
       <?php if (!empty($contents)): ?>
@@ -239,14 +239,14 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
                 <i class="ri-shield-check-line text-primary text-2xl"></i>
               </div>
               <h3 class="text-xl font-semibold text-gray-900 mb-3"><?= htmlspecialchars($c['title']) ?></h3>
-              <p class="text-gray-600 mb-4"><?= htmlspecialchars(substr($c['description'] ?? 'محتوى توعوي مهم حول الأمن السيبراني', 0, 100)) ?>...</p>
+              <p class="text-gray-600 mb-4"><?= htmlspecialchars(substr($c['description'] ?? 'Essential awareness content that simplifies cybersecurity for every employee.', 0, 100)) ?>...</p>
               <div class="text-sm text-gray-500 mb-4 flex items-center">
-                <i class="ri-time-line ml-1"></i>
-                <span>نشر في: <?= htmlspecialchars(date('Y-m-d', strtotime($c['created_at'] ?? 'now'))) ?></span>
+                <i class="ri-time-line mr-1"></i>
+                <span>Published: <?= htmlspecialchars(date('Y-m-d', strtotime($c['created_at'] ?? 'now'))) ?></span>
               </div>
               <a href="<?= $basePath ?>/content/view/<?= (int)$c['id'] ?>" class="text-primary font-semibold hover:underline flex items-center transition-all group">
-                اقرأ الآن
-                <i class="ri-arrow-left-line mr-1 transition-transform group-hover:-translate-x-1"></i>
+                Read now
+                <i class="ri-arrow-right-line ml-1 transition-transform group-hover:translate-x-1"></i>
               </a>
             </div>
           <?php endforeach; ?>
@@ -254,7 +254,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
       <?php else: ?>
         <div class="text-center text-gray-600 py-10 fade-in">
           <i class="ri-inbox-line text-4xl text-gray-400 mb-3"></i>
-          <p>لا توجد مواد منشورة بعد.</p>
+          <p>No learning materials are available yet.</p>
         </div>
       <?php endif; ?>
     </div>
@@ -264,43 +264,43 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
   <section id="quick-tips" class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12 fade-in">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">نصائح أمنية سريعة</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">اتبع هذه الممارسات البسيطة لتعزيز أمانك الرقمي بشكل يومي</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Quick security tips</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Follow these simple habits to reduce everyday cyber risk across your organisation.</p>
       </div>
 
       <?php 
         $tips = [
           [
             'icon' => 'ri-key-2-line',
-            'title' => 'استخدم كلمات مرور قوية',
-            'text' => 'اجعل كلمة المرور طويلة ومعقّدة وتجنب إعادة استخدامها في أكثر من موقع.'
+            'title' => 'Use strong passwords',
+            'text' => 'Create long, unique passphrases and avoid reusing them across multiple services.'
           ],
           [
             'icon' => 'ri-shield-check-line',
-            'title' => 'فعّل التحقق الثنائي (2FA)',
-            'text' => 'إضافة طبقة حماية إضافية تقلل من خطر اختراق الحساب حتى لو انكشفت كلمة المرور.'
+            'title' => 'Enable two-factor authentication',
+            'text' => 'A second verification step keeps accounts safe even if a password is exposed.'
           ],
           [
             'icon' => 'ri-mail-line',
-            'title' => 'تحقق من رسائل البريد',
-            'text' => 'احذر من الروابط والمرفقات المجهولة، وتحقق من عنوان المُرسل بعناية.'
+            'title' => 'Inspect unexpected emails',
+            'text' => 'Watch for suspicious links or attachments and verify the sender before responding.'
           ],
           [
             'icon' => 'ri-lock-line',
-            'title' => 'حدّث أجهزتك باستمرار',
-            'text' => 'التحديثات تسد الثغرات الأمنية وتحسن الحماية ضد الهجمات المعروفة.'
+            'title' => 'Keep software updated',
+            'text' => 'Patching devices closes known vulnerabilities and improves protection.'
           ],
           [
             'icon' => 'ri-wifi-line',
-            'title' => 'تجنب الشبكات العامة',
-            'text' => 'لا تدخل بيانات حساسة على شبكات واي فاي عامة بدون استخدام VPN موثوق.'
+            'title' => 'Avoid untrusted Wi-Fi',
+            'text' => 'Do not share sensitive data on public Wi-Fi without a trusted VPN connection.'
           ],
           [
             'icon' => 'ri-smartphone-line',
-            'title' => 'قفل الشاشة والبصمة',
-            'text' => 'استخدم قفل الشاشة والبصمة على هاتفك لتقليل الوصول غير المصرح به.'
+            'title' => 'Lock your devices',
+            'text' => 'Enable screen locks and biometrics to prevent unauthorised access to mobile data.'
           ],
-        ];
+      ];
       ?>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -317,8 +317,8 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
 
       <div class="text-center mt-10">
         <a href="<?= $basePath ?>/content" class="inline-flex items-center gap-2 text-primary font-semibold hover:underline">
-          تعلّم المزيد من خلال المحتوى التوعوي
-          <i class="ri-arrow-left-line"></i>
+          Keep learning in the awareness hub
+          <i class="ri-arrow-right-line"></i>
         </a>
       </div>
     </div>
@@ -329,19 +329,19 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
         <div class="fade-in">
           <div class="text-3xl md:text-4xl font-bold mb-2">500+</div>
-          <div class="text-gray-200">مادة توعوية</div>
+          <div class="text-gray-200">Awareness resources</div>
         </div>
         <div class="fade-in delay-1">
           <div class="text-3xl md:text-4xl font-bold mb-2">25+</div>
-          <div class="text-gray-200">حملة توعوية</div>
+          <div class="text-gray-200">Awareness campaigns</div>
         </div>
         <div class="fade-in delay-2">
           <div class="text-3xl md:text-4xl font-bold mb-2">10,000+</div>
-          <div class="text-gray-200">مستفيد</div>
+          <div class="text-gray-200">Empowered learners</div>
         </div>
         <div class="fade-in delay-3">
           <div class="text-3xl md:text-4xl font-bold mb-2">98%</div>
-          <div class="text-gray-200">رضى المستخدمين</div>
+          <div class="text-gray-200">User satisfaction</div>
         </div>
       </div>
     </div>
@@ -350,7 +350,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
   
 
   <script>
-    // تبديل حالة الهيدر عند التمرير لتحسين الوضوح خارج قسم البطل
+    // Toggle header state on scroll to improve contrast outside the hero section
     (function(){
       const header = document.getElementById('appHeader');
       const onScroll = () => {
@@ -368,7 +368,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
       
-      // إضافة أنيميشن للعناصر عند التمرير
+      // Animate elements as they enter the viewport
       const fadeElements = document.querySelectorAll('.fade-in');
       
       const observer = new IntersectionObserver((entries) => {

@@ -1,25 +1,25 @@
 <?php
 // app/views/layout/header.php
-// يحدد السياق: 'public' أو 'admin' - وإذا لم يُمرر نستخدم 'public'
+// Determine header context: defaults to the public header when omitted
 $headerContext = $headerContext ?? 'public';
 
-// في الواجهة العامة نحتاج حالة المستخدم
+// The public experience depends on session awareness
 if (session_status() === PHP_SESSION_NONE) { @session_start(); }
 
-// حالة تسجيل الدخول تعتبر صحيحة إذا توفر user_id في الجلسة (مطابق لـ AuthMiddleware)
+// A user is considered signed in when the session exposes user_id (matching AuthMiddleware)
 $isLoggedIn = !empty($_SESSION['user_id']);
-$user = null; $displayName = 'مستخدم';
+$user = null; $displayName = 'User';
 $userId = (int)($_SESSION['user_id'] ?? 0);
-// حاول جلب المستخدم من قاعدة البيانات إن توفر user_id
+// Load the profile when a session id is present
 if (!empty($_SESSION['user_id'])) {
     try {
         $user = Database::query('SELECT id, user_name, email, department_id, role_id FROM users WHERE id = :id', [':id'=>$userId])->fetch();
-    } catch (Throwable $e) { /* تجاهل أخطاء قاعدة البيانات */ }
+    } catch (Throwable $e) { /* swallow database exceptions */ }
 }
 
-// حدد اسم العرض: أولاً من السجل إن توفر، وإلا من بريد الجلسة، وإلا القيمة الافتراضية
+// Compose a friendly display name from the profile record, e-mail, then fallback text
 $displayName = htmlspecialchars(
-    trim(($user['user_name'] ?? '').' '.($user['last_name'] ?? '')) ?: (($user['email'] ?? $_SESSION['user_email'] ?? '') ?: 'مستخدم')
+    trim(($user['user_name'] ?? '').' '.($user['last_name'] ?? '')) ?: (($user['email'] ?? $_SESSION['user_email'] ?? '') ?: 'User')
 );
 
 $basePath = rtrim(str_replace('\\','/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
@@ -37,7 +37,7 @@ $roleId = (int)($user['role_id'] ?? ($_SESSION['role_id'] ?? 0));
   <header class="bg-white shadow-sm border-b border-gray-200">
       <div class="flex items-center justify-between px-6 py-4">
           <div class="flex items-center">
-              <h1 class="text-xl md:text-2xl font-bold text-gray-900 mr-4">لوحة الإدارة</h1>
+              <h1 class="text-xl md:text-2xl font-bold text-gray-900 mr-4">Administration</h1>
           </div>
           <div class="flex items-center gap-3">
               <?php if ($isLoggedIn): ?>
@@ -50,9 +50,9 @@ $roleId = (int)($user['role_id'] ?? ($_SESSION['role_id'] ?? 0));
                     <i class="ri-arrow-down-s-line text-gray-500 group-aria-expanded:rotate-180 transition-transform"></i>
                   </button>
                   <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-50 hidden" role="menu">
-                    <a href="<?= $basePath ?>/admin/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem"><i class="ri-user-line ml-2"></i> الملف الشخصي</a>
-                    <a href="<?= $basePath ?>/admin/settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem"><i class="ri-settings-3-line ml-2"></i> الإعدادات</a>
-                    <a href="<?= $basePath ?>/logout" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50" role="menuitem"><i class="ri-logout-box-r-line ml-2"></i> تسجيل الخروج</a>
+                    <a href="<?= $basePath ?>/admin/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem"><i class="ri-user-line ml-2"></i> Profile</a>
+                    <a href="<?= $basePath ?>/admin/settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem"><i class="ri-settings-3-line ml-2"></i> Settings</a>
+                    <a href="<?= $basePath ?>/logout" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50" role="menuitem"><i class="ri-logout-box-r-line ml-2"></i> Sign out</a>
                   </div>
                 </div>
               <?php endif; ?>
@@ -63,22 +63,22 @@ $roleId = (int)($user['role_id'] ?? ($_SESSION['role_id'] ?? 0));
   <header id="appHeader" class="app-header bg-transparent sticky top-0 z-50 transition-all duration-300">
     <div class="container mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <a href="<?= $basePath ?>/" class="flex items-center gap-2 group" aria-label="الانتقال إلى الصفحة الرئيسية">
+        <a href="<?= $basePath ?>/" class="flex items-center gap-2 group" aria-label="Go to the homepage">
           <div class="text-center leading-tight">
-            <div class="logo-text group-hover:scale-[1.03] transition-transform">درع</div>
-            <div class="text-xs text-gray-500 -mt-0.5">منصة الوعي السيبراني</div>
+            <div class="logo-text group-hover:scale-[1.03] transition-transform">Darae</div>
+            <div class="text-xs text-gray-500 -mt-0.5">Cyber awareness platform</div>
           </div>
         </a>
       </div>
 
       <!-- Desktop Nav -->
       <nav class="hidden md:flex items-center gap-6">
-        <a href="<?= $basePath ?>/" class="font-medium transition-colors <?= $currentPath==='/' ? 'text-primary' : 'text-gray-700 hover:text-primary' ?>">الرئيسية</a>
-        <a href="<?= $basePath ?>/content" class="font-medium transition-colors <?= str_starts_with($currentPath,'/content') ? 'text-primary' : 'text-gray-700 hover:text-primary' ?>">المحتوى التوعوي</a>
+        <a href="<?= $basePath ?>/" class="font-medium transition-colors <?= $currentPath==='/' ? 'text-primary' : 'text-gray-700 hover:text-primary' ?>">Home</a>
+        <a href="<?= $basePath ?>/content" class="font-medium transition-colors <?= str_starts_with($currentPath,'/content') ? 'text-primary' : 'text-gray-700 hover:text-primary' ?>">Awareness content</a>
         <?php if ($isLoggedIn): ?>
-          <a href="<?= $basePath ?>/exams" class="font-medium transition-colors <?= str_starts_with($currentPath,'/exams') ? 'text-primary' : 'text-gray-700 hover:text-primary' ?>">الاختبارات</a>
-          <a href="<?= $basePath ?>/surveys" class="font-medium transition-colors <?= str_starts_with($currentPath,'/surveys') ? 'text-primary' : 'text-gray-700 hover:text-primary' ?>">الاستبيانات</a>
-          <a href="<?= $basePath ?>/leaderboard" class="font-medium transition-colors <?= str_starts_with($currentPath,'/leaderboard') ? 'text-primary' : 'text-gray-700 hover:text-primary' ?>">لوحة المتصدرين</a>
+          <a href="<?= $basePath ?>/exams" class="font-medium transition-colors <?= str_starts_with($currentPath,'/exams') ? 'text-primary' : 'text-gray-700 hover:text-primary' ?>">Assessments</a>
+          <a href="<?= $basePath ?>/surveys" class="font-medium transition-colors <?= str_starts_with($currentPath,'/surveys') ? 'text-primary' : 'text-gray-700 hover:text-primary' ?>">Surveys</a>
+          <a href="<?= $basePath ?>/leaderboard" class="font-medium transition-colors <?= str_starts_with($currentPath,'/leaderboard') ? 'text-primary' : 'text-gray-700 hover:text-primary' ?>">Leaderboard</a>
         <?php endif; ?>
       </nav>
 
@@ -86,9 +86,9 @@ $roleId = (int)($user['role_id'] ?? ($_SESSION['role_id'] ?? 0));
         <?php if ($isLoggedIn): ?>
           <?php if (!$inAdmin): ?>
             <?php if ($roleId === 1): ?>
-              <a href="<?= $basePath ?>/profile" class="px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors">حسابي</a>
+              <a href="<?= $basePath ?>/profile" class="px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors">My account</a>
             <?php else: ?>
-              <a href="<?= $basePath ?>/dashboard" class="px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors">لوحة التحكم</a>
+              <a href="<?= $basePath ?>/dashboard" class="px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors">Management console</a>
             <?php endif; ?>
           <?php endif; ?>
           <div class="relative" id="publicUserMenu">
@@ -100,20 +100,20 @@ $roleId = (int)($user['role_id'] ?? ($_SESSION['role_id'] ?? 0));
               <i class="ri-arrow-down-s-line text-gray-500 group-aria-expanded:rotate-180 transition-transform"></i>
             </button>
             <div class="absolute left-0 mt-2 w-52 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-50 hidden" role="menu">
-              <a href="<?= $basePath ?>/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem"><i class="ri-user-line ml-2"></i> الملف الشخصي</a>
-              <a href="<?= $basePath ?>/logout" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50" role="menuitem"><i class="ri-logout-box-r-line ml-2"></i> تسجيل الخروج</a>
+              <a href="<?= $basePath ?>/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem"><i class="ri-user-line ml-2"></i> Profile</a>
+              <a href="<?= $basePath ?>/logout" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50" role="menuitem"><i class="ri-logout-box-r-line ml-2"></i> Sign out</a>
             </div>
           </div>
         <?php else: ?>
-          <a href="<?= $basePath ?>/content" class="hidden md:inline-flex bg-primary/10 text-primary px-4 py-2 rounded-lg hover:bg-primary/20">ابدأ التعلم</a>
-          <a href="<?= $basePath ?>/auth" class="bg-primary text-white px-5 py-2 rounded-lg hover:bg-primary/90 shadow-sm">تسجيل الدخول</a>
+          <a href="<?= $basePath ?>/content" class="hidden md:inline-flex bg-primary/10 text-primary px-4 py-2 rounded-lg hover:bg-primary/20">Start learning</a>
+          <a href="<?= $basePath ?>/auth" class="bg-primary text-white px-5 py-2 rounded-lg hover:bg-primary/90 shadow-sm">Sign in</a>
         <?php endif; ?>
       </div>
 
       <!-- Mobile controls -->
       <div class="md:hidden flex items-center gap-2">
-        <a href="<?= $basePath ?>/content" class="text-primary px-3 py-1.5 rounded-lg bg-primary/10">تعلم</a>
-        <button id="mobileMenuBtn" class="w-10 h-10 inline-flex items-center justify-center rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50" aria-controls="mobileMenu" aria-expanded="false" aria-label="فتح القائمة">
+        <a href="<?= $basePath ?>/content" class="text-primary px-3 py-1.5 rounded-lg bg-primary/10">Learn</a>
+        <button id="mobileMenuBtn" class="w-10 h-10 inline-flex items-center justify-center rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open navigation">
           <i class="ri-menu-3-line text-xl" aria-hidden="true"></i>
         </button>
       </div>
@@ -122,29 +122,29 @@ $roleId = (int)($user['role_id'] ?? ($_SESSION['role_id'] ?? 0));
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="md:hidden hidden border-t border-gray-200 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70">
       <div class="container mx-auto px-4 py-3 flex flex-col gap-3">
-        <a href="<?= $basePath ?>/" class="font-medium <?= $currentPath==='/' ? 'text-primary' : 'text-gray-700' ?>">الرئيسية</a>
-        <a href="<?= $basePath ?>/content" class="font-medium <?= str_starts_with($currentPath,'/content') ? 'text-primary' : 'text-gray-700' ?>">المحتوى التوعوي</a>
+        <a href="<?= $basePath ?>/" class="font-medium <?= $currentPath==='/' ? 'text-primary' : 'text-gray-700' ?>">Home</a>
+        <a href="<?= $basePath ?>/content" class="font-medium <?= str_starts_with($currentPath,'/content') ? 'text-primary' : 'text-gray-700' ?>">Awareness content</a>
         <?php if ($isLoggedIn): ?>
-          <a href="<?= $basePath ?>/exams" class="font-medium <?= str_starts_with($currentPath,'/exams') ? 'text-primary' : 'text-gray-700' ?>">الاختبارات</a>
-          <a href="<?= $basePath ?>/surveys" class="font-medium <?= str_starts_with($currentPath,'/surveys') ? 'text-primary' : 'text-gray-700' ?>">الاستبيانات</a>
-          <a href="<?= $basePath ?>/leaderboard" class="font-medium <?= str_starts_with($currentPath,'/leaderboard') ? 'text-primary' : 'text-gray-700' ?>">لوحة المتصدرين</a>
+          <a href="<?= $basePath ?>/exams" class="font-medium <?= str_starts_with($currentPath,'/exams') ? 'text-primary' : 'text-gray-700' ?>">Assessments</a>
+          <a href="<?= $basePath ?>/surveys" class="font-medium <?= str_starts_with($currentPath,'/surveys') ? 'text-primary' : 'text-gray-700' ?>">Surveys</a>
+          <a href="<?= $basePath ?>/leaderboard" class="font-medium <?= str_starts_with($currentPath,'/leaderboard') ? 'text-primary' : 'text-gray-700' ?>">Leaderboard</a>
         <?php endif; ?>
         <?php if ($isLoggedIn): ?>
           <?php if ($roleId === 1): ?>
-            <a href="<?= $basePath ?>/profile" class="font-medium text-gray-700">حسابي</a>
+            <a href="<?= $basePath ?>/profile" class="font-medium text-gray-700">My account</a>
           <?php else: ?>
-            <a href="<?= $basePath ?>/dashboard" class="font-medium text-gray-700">لوحة التحكم</a>
+            <a href="<?= $basePath ?>/dashboard" class="font-medium text-gray-700">Management console</a>
           <?php endif; ?>
-          <a href="<?= $basePath ?>/logout" class="font-medium text-red-600">تسجيل الخروج</a>
+          <a href="<?= $basePath ?>/logout" class="font-medium text-red-600">Sign out</a>
         <?php else: ?>
-          <a href="<?= $basePath ?>/auth" class="font-medium text-gray-700">تسجيل الدخول</a>
+          <a href="<?= $basePath ?>/auth" class="font-medium text-gray-700">Sign in</a>
         <?php endif; ?>
       </div>
     </div>
   </header>
 <?php endif; ?>
 <script>
-  // تفعيل القوائم المنسدلة للحساب (عام + إدارة)
+  // Enable account dropdown menus (public + admin)
   (function(){
     function bindMenu(rootId){
       const root = document.getElementById(rootId);
@@ -167,7 +167,7 @@ $roleId = (int)($user['role_id'] ?? ($_SESSION['role_id'] ?? 0));
     bindMenu('publicUserMenu');
     bindMenu('adminUserMenu');
 
-    // تغيير خلفية الهيدر عند التمرير لتحسين المقروئية
+    // Update header styling once the visitor scrolls for readability
     const header = document.getElementById('appHeader');
     const onScroll = () => {
       if (!header) return;
@@ -179,7 +179,7 @@ $roleId = (int)($user['role_id'] ?? ($_SESSION['role_id'] ?? 0));
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
 
-    // قائمة الجوال
+    // Mobile menu logic
     const mobileBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     if (mobileBtn && mobileMenu) {
