@@ -1,6 +1,6 @@
 <?php
 // app/views/employee/content-view.php
-$pageTitle = $content['title'] ?? 'عرض المحتوى';
+$pageTitle = $content['title'] ?? 'Content display';
 $currentPage = 'content';
 $basePath = rtrim(str_replace('\\','/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
@@ -14,14 +14,14 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
             <a href="<?= $basePath ?>/content" class="btn btn-ghost">
-              <i class="ri-arrow-right-line text-xl rtl:rotate-180 ml-1"></i>
-              العودة لقائمه المحتوى التوعوي
+              <i class="ri-arrow-right-line text-xl rtl:rotate-180 mr-1"></i>
+              Return to the awareness content list
             </a>
           </div>
           <div class="flex items-center gap-2">
             <button onclick="shareContent()" class="btn btn-ghost">
               <i class="ri-share-line"></i>
-              مشاركة
+              sharing
             </button>
             <button id="likeBtn" onclick="toggleLike(<?= $content['id'] ?>)" class="btn btn-outline">
               <i id="likeIcon" class="ri-heart-line"></i>
@@ -37,20 +37,20 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
       <div class="card overflow-hidden mb-8">
         <div class="card-body pb-4">
           <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center space-x-3 rtl:space-x-reverse">
+            <div class="flex items-center gap-3">
               <?php if ($content['category_name']): ?>
               <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium" 
                     style="background-color: <?= htmlspecialchars($content['category_color'] ?? '#3B82F6') ?>20; color: <?= htmlspecialchars($content['category_color'] ?? '#3B82F6') ?>">
                 <?php if ($content['category_icon']): ?>
-                <i class="<?= htmlspecialchars($content['category_icon']) ?> ml-1 rtl:mr-1"></i>
+                <i class="<?= htmlspecialchars($content['category_icon']) ?> mr-1 rtl:mr-1"></i>
                 <?php endif; ?>
                 <?= htmlspecialchars($content['category_name']) ?>
               </span>
               <?php endif; ?>
               
               <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                <i class="ri-time-line ml-1 rtl:mr-1"></i>
-                <?= $content['est_duration'] ?> دقيقة
+                <i class="ri-time-line mr-1 rtl:mr-1"></i>
+                <?= $content['est_duration'] ?> minute
               </span>
               
               <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -59,8 +59,8 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             </div>
             
             <div class="flex items-center text-sm text-gray-500">
-              <i class="ri-eye-line ml-1 rtl:mr-1"></i>
-              <span><?= $content['view_count'] ?? 0 ?> مشاهدة</span>
+              <i class="ri-eye-line mr-1 rtl:mr-1"></i>
+              <span><?= $content['view_count'] ?? 0 ?> to watch</span>
             </div>
           </div>
 
@@ -78,28 +78,28 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
 
           <!-- Meta Info -->
           <div class="flex items-center justify-between text-sm text-gray-500 border-t border-gray-200 pt-4">
-            <div class="flex items-center space-x-4 rtl:space-x-reverse">
+            <div class="flex items-center gap-4">
               <?php if ($content['author_name']): ?>
               <div class="flex items-center">
-                <i class="ri-user-line ml-1 rtl:mr-1"></i>
+                <i class="ri-user-line mr-1 rtl:mr-1"></i>
                 <span><?= htmlspecialchars($content['author_name']) ?></span>
               </div>
               <?php endif; ?>
               
               <div class="flex items-center">
-                <i class="ri-calendar-line ml-1 rtl:mr-1"></i>
+                <i class="ri-calendar-line mr-1 rtl:mr-1"></i>
                 <span><?= date('Y/m/d', strtotime($content['created_at'])) ?></span>
               </div>
               
               <div class="flex items-center">
-                <i class="ri-star-line ml-1 rtl:mr-1"></i>
-                <span><?= $content['reward_points'] ?> نقطة</span>
+                <i class="ri-star-line mr-1 rtl:mr-1"></i>
+                <span><?= $content['reward_points'] ?> a point</span>
               </div>
             </div>
             
             <div class="flex items-center">
               <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                <i class="ri-file-text-line ml-1 rtl:mr-1"></i>
+                <i class="ri-file-text-line mr-1 rtl:mr-1"></i>
                 <?= htmlspecialchars($content['type_display']) ?>
               </span>
             </div>
@@ -131,7 +131,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
               <?php else: ?>
                 <video controls class="w-full h-full">
                   <source src="<?= htmlspecialchars($content['media_url']) ?>" type="video/mp4">
-                  متصفحك لا يدعم تشغيل الفيديو.
+                  Your browser does not support video play.
                 </video>
               <?php endif; ?>
             </div>
@@ -156,15 +156,15 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
       <div class="card overflow-hidden">
         <div class="card-body">
           <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-            <i class="ri-links-line ml-2 rtl:mr-2 text-blue-600"></i>
-            محتوى مرتبط
+            <i class="ri-links-line mr-2 rtl:mr-2 text-blue-600"></i>
+            Confused content
           </h2>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <?php foreach ($relatedContent as $item): ?>
             <a href="<?= $basePath ?>/content/view/<?= $item['id'] ?>" class="group block">
               <div class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
-                <div class="flex items-start space-x-3 rtl:space-x-reverse">
+                <div class="flex items-start gap-3">
                   <?php if ($item['thumbnail_url']): ?>
                   <img src="<?= htmlspecialchars($item['thumbnail_url']) ?>" 
                        alt="<?= htmlspecialchars($item['title']) ?>"
@@ -229,11 +229,11 @@ async function toggleLike(contentId) {
       
       likeCount.textContent = result.likeCount;
     } else {
-      alert(result.message || 'حدث خطأ');
+      alert(result.message || 'An error occurred');
     }
   } catch (error) {
     console.error('Error:', error);
-    alert('حدث خطأ في الاتصال');
+    alert('A mistake occurred in the contact');
   }
 }
 
@@ -249,7 +249,7 @@ function shareContent() {
     // Fallback: copy to clipboard
     navigator.clipboard.writeText(window.location.href).then(() => {
       // Show toast notification
-      showToast('تم نسخ الرابط إلى الحافظة');
+      showToast('The link was copied to the portfolio');
     });
   }
 }

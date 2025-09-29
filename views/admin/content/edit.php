@@ -7,11 +7,11 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
     <div class="flex items-center">
       <div class="w-10 h-10 bg-[#1E3D59]/10 rounded-lg flex items-center justify-center mr-3"><i class="ri-edit-2-line text-[#1E3D59] text-xl"></i></div>
       <div>
-        <h1 class="text-xl md:text-2xl font-bold text-gray-900">تعديل محتوى</h1>
+        <h1 class="text-xl md:text-2xl font-bold text-gray-900">Content modification</h1>
         <p class="text-sm text-gray-600">ID: <?= (int)($item['id'] ?? 0) ?></p>
       </div>
     </div>
-    <a href="<?= $basePath ?>/admin/content" class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">عودة</a>
+    <a href="<?= $basePath ?>/admin/content" class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">return</a>
   </div>
 </div>
 
@@ -19,16 +19,16 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
   <input type="hidden" name="id" value="<?= (int)($item['id'] ?? 0) ?>">
   <input type="hidden" id="typeHidden" name="type" value="<?= htmlspecialchars($item['type'] ?? 'article') ?>">
 
-  <!-- العنوان والفئة -->
+  <!-- Address and category -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">العنوان</label>
-      <input type="text" name="title" value="<?= htmlspecialchars($item['title'] ?? '') ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]" placeholder="مثال: أهم ممارسات أمان كلمة المرور" required>
+      <label class="block text-sm font-medium text-gray-700 mb-2">the address</label>
+      <input type="text" name="title" value="<?= htmlspecialchars($item['title'] ?? '') ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]" placeholder="Example: The most important password safety practices " required>
     </div>
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">الفئة</label>
-      <select name="category_id" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]" aria-label="اختيار الفئة">
-        <option value="">اختر الفئة</option>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+      <select name="category_id" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]" aria-label="Category Choose ">
+        <option value="">Choose category</option>
         <?php if (!empty($categories ?? [])): ?>
           <?php foreach ($categories as $cat): ?>
             <option value="<?= (int)$cat['id'] ?>" <?= ((int)($item['category_id'] ?? 0) === (int)$cat['id']) ? 'selected' : '' ?>>
@@ -40,70 +40,70 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
     </div>
   </div>
 
-  <!-- نوع المحتوى -->
+  <!-- Content type -->
   <div>
-    <label class="block text-sm font-medium text-gray-700 mb-2">نوع المحتوى</label>
-    <div class="flex flex-wrap gap-3 mb-2" role="tablist" aria-label="نوع المحتوى">
+    <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+    <div class="flex flex-wrap gap-3 mb-2" role="tablist" aria-label="The type of content ">
       <?php $t = $item['type'] ?? 'article'; ?>
-      <button type="button" id="btnText" class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100" aria-selected="false">محتوى نصي</button>
-      <button type="button" id="btnVideo" class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100" aria-selected="false">محتوى فيديو</button>
+      <button type="button" id="btnText" class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100" aria-selected="false">Text content</button>
+      <button type="button" id="btnVideo" class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100" aria-selected="false">Video content</button>
     </div>
-    <p id="typeHelp" class="text-xs text-gray-500">اختر النوع المناسب ليتم عرض الحقول ذات الصلة فقط.</p>
+    <p id="typeHelp" class="text-xs text-gray-500">Choose the right type to display only relevant fields.</p>
 
-    <!-- القسم النصي -->
+    <!-- Text section -->
     <div id="textSection" class="mt-4 hidden">
-      <label class="block text-sm font-medium text-gray-700 mb-2">المحتوى النصي</label>
-      <textarea id="textBody" name="body_textarea" rows="8" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]" placeholder="اكتب المحتوى هنا... (يدعم النصوص الطويلة)"><?= htmlspecialchars($item['body'] ?? '') ?></textarea>
-      <p class="text-xs text-gray-500 mt-1">سيتم الحفظ في الحقل <code>body</code> ضمن جدول المحتوى.</p>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Textual content</label>
+      <textarea id="textBody" name="body_textarea" rows="8" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]" placeholder="Write the content here ... (Supports long texts) "><?= htmlspecialchars($item['body'] ?? '') ?></textarea>
+      <p class="text-xs text-gray-500 mt-1">The field will be saved <code>body</code> Within the content schedule.</p>
     </div>
 
-    <!-- القسم المرئي (فيديو) -->
+    <!-- Video section (Video) - -->
     <div id="mediaSection" class="mt-4 hidden">
-      <label class="block text-sm font-medium text-gray-700 mb-2">رابط الوسائط (media_url)</label>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Media link (media_url)</label>
       <div class="border border-gray-200 rounded-lg p-4">
         <div class="flex flex-col gap-3 max-w-xl">
-          <input type="url" id="mediaUrlInput" placeholder="أدخل رابط الوسائط: YouTube, Vimeo, أو ملف خارجي" value="<?= htmlspecialchars($item['media_url'] ?? '') ?>" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]">
-          <div class="text-xs text-gray-500">مثال: https://www.youtube.com/watch?v=xxxx — سيتم الحفظ في <code>media_url</code>.</div>
+          <input type="url" id="mediaUrlInput" placeholder="Enter the media link: YouTube, Vimeo, Or an external file " value="<?= htmlspecialchars($item['media_url'] ?? '') ?>" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]">
+          <div class="text-xs text-gray-500">Example: https://www.youtube.com/watch?v=xxxx — It will be saved in <code>media_url</code>.</div>
         </div>
       </div>
     </div>
 
-    <!-- الحقول الفعلية التي يعتمد عليها الحفظ -->
+    <!-- The actual fields on which memorization depends -->
     <input type="hidden" name="body" id="bodyHidden" value="<?= htmlspecialchars($item['body'] ?? '') ?>">
     <input type="hidden" name="media_url" id="mediaUrlHidden" value="<?= htmlspecialchars($item['media_url'] ?? '') ?>">
   </div>
 
-  <!-- الوصف والإعدادات العامة -->
+  <!-- General Description and Settings -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">وصف المحتوى</label>
-      <textarea name="description" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]" placeholder="وصف مختصر."><?= htmlspecialchars($item['description'] ?? '') ?></textarea>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Content description</label>
+      <textarea name="description" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]" placeholder="A brief description. "><?= htmlspecialchars($item['description'] ?? '') ?></textarea>
     </div>
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">وقت القراءة/المشاهدة المتوقع (بالدقائق)</label>
-      <input type="number" name="est_duration" value="<?= (int)($item['est_duration'] ?? 0) ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]" min="0" placeholder="مثال: 5">
+      <label class="block text-sm font-medium text-gray-700 mb-2">Reading time/expected viewing (minutes)</label>
+      <input type="Count" name="est_duration" value="<?= (int)($item['est_duration'] ?? 0) ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]" min="0" placeholder="Example: 5 ">
     </div>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">نقاط المكافأة</label>
-      <input type="number" name="reward_points" value="<?= (int)($item['reward_points'] ?? 0) ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]" min="0">
+      <label class="block text-sm font-medium text-gray-700 mb-2">The reward points</label>
+      <input type="Count" name="reward_points" value="<?= (int)($item['reward_points'] ?? 0) ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]" min="0">
     </div>
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">حالة النشر</label>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Publishing status</label>
       <?php $ps = $item['publish_status'] ?? 'draft'; ?>
       <select name="publish_status" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]">
-        <option value="draft" <?= $ps==='draft'?'selected':''; ?>>مسودة</option>
-        <option value="published" <?= $ps==='published'?'selected':''; ?>>منشور</option>
-        <option value="archived" <?= $ps==='archived'?'selected':''; ?>>مؤرشف</option>
+        <option value="draft" <?= $ps==='draft'?'selected':''; ?>>draft</option>
+        <option value="published" <?= $ps==='published'?'selected':''; ?>>Published</option>
+        <option value="archived" <?= $ps==='archived'?'selected':''; ?>>Archived</option>
       </select>
     </div>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">رابط الصورة المصغرة (thumbnail_url)</label>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Mini image link (thumbnail_url)</label>
       <input type="url" name="thumbnail_url" value="<?= htmlspecialchars($item['thumbnail_url'] ?? '') ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/30 focus:border-[#1E3D59]" placeholder="https://...">
     </div>
   </div>
@@ -111,13 +111,13 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
   <div class="flex items-center gap-3">
     <label class="inline-flex items-center gap-2 text-sm text-gray-700">
       <input type="checkbox" name="is_featured" value="1" <?= !empty($item['is_featured']) ? 'checked' : '' ?> class="w-4 h-4">
-      محتوى مميز
+      Featured content
     </label>
   </div>
 
   <div class="flex items-center justify-between">
-    <a href="<?= $basePath ?>/admin/content" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">إلغاء</a>
-    <button type="submit" class="px-6 py-3 bg-[#1E3D59] text-white rounded-lg hover:opacity-90">تحديث</button>
+    <a href="<?= $basePath ?>/admin/content" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">cancellation</a>
+    <button type="submit" class="px-6 py-3 bg-[#1E3D59] text-white rounded-lg hover:opacity-90">Update</button>
   </div>
 </form>
 
@@ -160,17 +160,17 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
     btnText?.addEventListener('click', ()=>selectType('article'));
     btnVideo?.addEventListener('click', ()=>selectType('video'));
 
-    // تهيئة حسب نوع العنصر الحالي
+    // Preparing by the current type of element
     selectType((typeHidden.value || 'article'));
 
-    // عند الإرسال: املأ الحقول المخفية بالقيمة الصحيحة
+    // When sending: Fill the hidden fields with the correct value
     document.getElementById('contentEditForm')?.addEventListener('submit', function(e){
       const type = typeHidden.value;
       if (type === 'article'){
         mediaUrlHidden.value = '';
         bodyHidden.value = (textBody.value || '').trim();
         if (!bodyHidden.value){
-          alert('يرجى كتابة المحتوى النصي.');
+          alert('Please write text content.');
           e.preventDefault();
           return;
         }
@@ -178,7 +178,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
         bodyHidden.value = '';
         mediaUrlHidden.value = (mediaUrlInput.value || '').trim();
         if (!mediaUrlHidden.value){
-          alert('يرجى إدراج رابط الوسائط المناسب لهذا النوع.');
+          alert('Please include the appropriate media link for this type.');
           e.preventDefault();
           return;
         }

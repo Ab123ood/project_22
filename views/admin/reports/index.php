@@ -1,51 +1,51 @@
 <?php
 // app/views/admin/reports/index.php
-// المتغيرات المتوقعة: $kpis, $rows, $from, $to, $type
+// Expected variables: $kpis, $rows, $from, $to, $type
 $from = $from ?? '';
 $to = $to ?? '';
 $type = $type ?? 'overview';
 $k_active_users = isset($kpis['active_users']) && $kpis['active_users'] !== null ? (int)$kpis['active_users'] : (int)($kpis['users_count'] ?? 0);
-$k_pass = $kpis['avg_exam_score'] ?? null; // متوسط نتائج الاختبارات المكتملة
-$k_content = $kpis['content_views'] ?? null; // إجمالي مشاهدات المحتوى
+$k_pass = $kpis['avg_exam_score'] ?? null; // Average results of complete assessments
+$k_content = $kpis['content_views'] ?? null; // Total content views
 $totalRows = is_array($rows ?? null) ? count($rows) : 0;
 ?>
 <div class="px-6 py-6">
-  <!-- العنوان ومسارات التصفح -->
+  <!-- Address and browsing paths -->
   <div class="mb-6 flex items-center justify-between">
     <div class="flex items-center">
-      <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center ml-3">
+      <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
         <i class="ri-bar-chart-line text-primary text-xl"></i>
       </div>
       <div>
-        <h1 class="text-xl md:text-2xl font-bold text-gray-900">التقارير والإحصائيات</h1>
-        <p class="text-sm text-gray-600">تحليل استخدام المنصة ونتائج الاختبارات والمحتوى</p>
+        <h1 class="text-xl md:text-2xl font-bold text-gray-900">Reports and statistics</h1>
+        <p class="text-sm text-gray-600">Plastic use analysis, assessment results and content</p>
       </div>
     </div>
   </div>
 
-  <!-- فلاتر البحث -->
+  <!-- Search filters -->
   <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 mb-6">
     <form id="reportsFilter" method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">من تاريخ</label>
+        <label class="block text-sm font-medium text-gray-700 mb-1">I am history</label>
         <input type="date" name="from" value="<?= htmlspecialchars($from) ?>" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
       </div>
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">إلى تاريخ</label>
+        <label class="block text-sm font-medium text-gray-700 mb-1">To a date</label>
         <input type="date" name="to" value="<?= htmlspecialchars($to) ?>" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
       </div>
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">نوع التقرير</label>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Report</label>
         <select name="type" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
           <?php $types = [
-            'overview'=>'نظرة عامة',
-            'exams'=>'الاختبارات',
-            'exam_attempts'=>'محاولات الاختبارات',
-            'content'=>'المحتوى',
-            'content_views'=>'مشاهدات المحتوى',
-            'users'=>'المستخدمون',
-            'surveys'=>'الاستبيانات',
-            'points'=>'النقاط'
+            'overview'=>'Overview',
+            'exams'=>'Assessments',
+            'exam_attempts'=>'Assessment attempts',
+            'content'=>'Content',
+            'content_views'=>'Content views',
+            'users'=>'Users',
+            'surveys'=>'Surveys',
+            'points'=>'Points'
           ]; ?>
           <?php foreach($types as $val=>$label): ?>
             <option value="<?= $val ?>" <?= $type===$val?'selected':''; ?>><?= $label ?></option>
@@ -53,13 +53,13 @@ $totalRows = is_array($rows ?? null) ? count($rows) : 0;
         </select>
       </div>
       <div class="flex items-end gap-2">
-        <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:opacity-90"><i class="ri-search-line ml-2"></i>تطبيق</button>
-        <button type="button" id="btnExport" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200"><i class="ri-download-2-line ml-2"></i>تصدير CSV</button>
+        <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:opacity-90"><i class="ri-search-line mr-2"></i>Apply filters</button>
+        <button type="button" id="btnExport" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200"><i class="ri-download-2-line mr-2"></i>Export CSV</button>
       </div>
     </form>
   </div>
 
-  <!-- مؤشرات رئيسية -->
+  <!-- Main indicators -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-shadow">
       <div class="flex items-center">
@@ -67,8 +67,8 @@ $totalRows = is_array($rows ?? null) ? count($rows) : 0;
           <i class="ri-user-star-line text-2xl"></i>
         </div>
         <div class="mr-4">
-          <p class="text-sm text-gray-600">المستخدمون النشطون</p>
-          <p class="text-2xl font-bold text-gray-900" id="kpiActiveUsers"><?= number_format($k_active_users) ?></p>
+          <p class="text-sm text-gray-600">Active users</p>
+          <p class="text-2xl font-bold text-gray-900" id="kpiActiveUsers"><?= Count_format($k_active_users) ?></p>
         </div>
       </div>
     </div>
@@ -78,7 +78,7 @@ $totalRows = is_array($rows ?? null) ? count($rows) : 0;
           <i class="ri-checkbox-circle-line text-2xl"></i>
         </div>
         <div class="mr-4">
-          <p class="text-sm text-gray-600">متوسط نتيجة الاختبارات</p>
+          <p class="text-sm text-gray-600">Average assessment result</p>
           <p class="text-2xl font-bold text-gray-900" id="kpiAvgExamScore"><?= $k_pass===null?'-':htmlspecialchars((string)$k_pass.'%') ?></p>
         </div>
       </div>
@@ -89,70 +89,70 @@ $totalRows = is_array($rows ?? null) ? count($rows) : 0;
           <i class="ri-play-circle-line text-2xl"></i>
         </div>
         <div class="mr-4">
-          <p class="text-sm text-gray-600">إجمالي مشاهدات المحتوى</p>
+          <p class="text-sm text-gray-600">Total content views</p>
           <p class="text-2xl font-bold text-gray-900" id="kpiContentViews"><?= $k_content===null?'-':htmlspecialchars((string)$k_content) ?></p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- شريط مؤشرات ثانوي -->
+  <!-- Secondary indicators -->
   <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
     <div class="bg-white rounded-xl border border-gray-200 p-4">
-      <p class="text-sm text-gray-600">عدد المستخدمين</p>
+      <p class="text-sm text-gray-600">The Count of users</p>
       <p class="text-xl font-bold text-gray-900"><?= (int)($kpis['users_count'] ?? 0) ?></p>
     </div>
     <div class="bg-white rounded-xl border border-gray-200 p-4">
-      <p class="text-sm text-gray-600">عدد الاختبارات</p>
+      <p class="text-sm text-gray-600">Number of assessments</p>
       <p class="text-xl font-bold text-gray-900"><?= (int)($kpis['exams_count'] ?? 0) ?></p>
     </div>
     <div class="bg-white rounded-xl border border-gray-200 p-4">
-      <p class="text-sm text-gray-600">محاولات الاختبارات</p>
+      <p class="text-sm text-gray-600">Assessment attempts</p>
       <p class="text-xl font-bold text-gray-900"><?= (int)($kpis['exam_attempts'] ?? 0) ?></p>
     </div>
     <div class="bg-white rounded-xl border border-gray-200 p-4">
-      <p class="text-sm text-gray-600">المحاولات المكتملة</p>
+      <p class="text-sm text-gray-600">Complete attempts</p>
       <p class="text-xl font-bold text-gray-900"><?= (int)($kpis['completed_attempts'] ?? 0) ?></p>
     </div>
     <div class="bg-white rounded-xl border border-gray-200 p-4">
-      <p class="text-sm text-gray-600">عدد الاستبيانات</p>
+      <p class="text-sm text-gray-600">Number of surveys</p>
       <p class="text-xl font-bold text-gray-900"><?= (int)($kpis['surveys_count'] ?? 0) ?></p>
     </div>
     <div class="bg-white rounded-xl border border-gray-200 p-4">
-      <p class="text-sm text-gray-600">إجابات الاستبيانات</p>
+      <p class="text-sm text-gray-600">Answers survey</p>
       <p class="text-xl font-bold text-gray-900"><?= (int)($kpis['survey_responses'] ?? 0) ?></p>
     </div>
     <div class="bg-white rounded-xl border border-gray-200 p-4">
-      <p class="text-sm text-gray-600">عدد المحتويات</p>
+      <p class="text-sm text-gray-600">Number of contents</p>
       <p class="text-xl font-bold text-gray-900"><?= (int)($kpis['content_count'] ?? 0) ?></p>
     </div>
     <div class="bg-white rounded-xl border border-gray-200 p-4">
-      <p class="text-sm text-gray-600">إجمالي النقاط</p>
+      <p class="text-sm text-gray-600">Total points</p>
       <p class="text-xl font-bold text-gray-900"><?= (int)($kpis['points_total'] ?? 0) ?></p>
     </div>
   </div>
 
-  <!-- تبويب المحتوى: جدول/مخطط (حالياً الجدول حسب البيانات) -->
+  <!-- Content tab: schedule/scheme (currently schedule according to data) - - - - - - - -->
   <div class="bg-white rounded-xl shadow-sm border border-gray-200">
     <div class="px-5 py-4 border-b border-gray-200 flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <button class="tab-btn px-4 py-2 text-sm rounded-lg bg-primary text-white" data-tab="table">جدول</button>
-        <button class="tab-btn px-4 py-2 text-sm rounded-lg bg-gray-100 text-gray-700" data-tab="chart" disabled title="سيضاف لاحقاً">مخطط</button>
+        <button class="tab-btn px-4 py-2 text-sm rounded-lg bg-primary text-white" data-tab="table">Table</button>
+        <button class="tab-btn px-4 py-2 text-sm rounded-lg bg-gray-100 text-gray-700" data-tab="chart" disabled title="It will be added later ">a plan</button>
       </div>
-      <div class="text-sm text-gray-500" id="resultsInfo">عرض 1–<?= $totalRows ?> من <?= $totalRows ?> نتيجة</div>
+      <div class="text-sm text-gray-500" id="resultsInfo">View 1–<?= $totalRows ?> from <?= $totalRows ?> a result</div>
     </div>
 
-    <!-- جدول النتائج -->
+    <!-- Result schedule -->
     <div id="tab-table" class="p-5">
       <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 text-sm">
           <thead class="bg-gray-50">
             <tr>
               <th class="px-4 py-3 text-right font-medium text-gray-700">#</th>
-              <th class="px-4 py-3 text-right font-medium text-gray-700">النوع</th>
-              <th class="px-4 py-3 text-right font-medium text-gray-700">العنصر</th>
-              <th class="px-4 py-3 text-right font-medium text-gray-700">المستخدم</th>
-              <th class="px-4 py-3 text-right font-medium text-gray-700">التاريخ</th>
+              <th class="px-4 py-3 text-right font-medium text-gray-700">Format</th>
+              <th class="px-4 py-3 text-right font-medium text-gray-700">Element</th>
+              <th class="px-4 py-3 text-right font-medium text-gray-700">user</th>
+              <th class="px-4 py-3 text-right font-medium text-gray-700">the date</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
@@ -162,14 +162,14 @@ $totalRows = is_array($rows ?? null) ? count($rows) : 0;
               <td class="px-4 py-2 text-gray-700">
                 <?php
                   $kind = $r['kind'] ?? '';
-                  echo $kind==='exam'?'اختبار'
-                    :($kind==='exam_attempt'?'محاولة اختبار'
-                    :($kind==='content'?'محتوى'
-                    :($kind==='content_view'?'مشاهدة محتوى'
-                    :($kind==='user'?'مستخدم'
-                    :($kind==='survey'?'استبيان'
-                    :($kind==='survey_response'?'إجابة استبيان'
-                    :($kind==='points'?'نقاط':'-')))))));
+                  echo $kind==='exam'?'a assessment'
+                    :($kind==='exam_attempt'?'Assessment attempt'
+                    :($kind==='content'?'content'
+                    :($kind==='content_view'?'Watch content'
+                    :($kind==='user'?'user'
+                    :($kind==='survey'?'poll'
+                    :($kind==='survey_response'?'Answer to a survey'
+                    :($kind==='points'?'Points':'-')))))));
                 ?>
               </td>
               <td class="px-4 py-2 text-gray-700"><?= htmlspecialchars($r['item'] ?? '-') ?></td>
@@ -178,7 +178,7 @@ $totalRows = is_array($rows ?? null) ? count($rows) : 0;
             </tr>
             <?php endforeach; else: ?>
             <tr>
-              <td colspan="5" class="px-4 py-8 text-center text-gray-500">لا توجد بيانات ضمن نطاق الفلاتر المحدد.</td>
+              <td colspan="5" class="px-4 py-8 text-center text-gray-500">There is no data within the specified filters.</td>
             </tr>
             <?php endif; ?>
           </tbody>
@@ -186,10 +186,10 @@ $totalRows = is_array($rows ?? null) ? count($rows) : 0;
       </div>
     </div>
 
-    <!-- تبويب المخطط (Placeholder) -->
+    <!-- Planning tab (Placeholder) -->
     <div id="tab-chart" class="p-5 hidden">
       <div class="h-64 bg-gray-50 border border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-500">
-        منطقة مخطط - يمكن دمج Chart.js لاحقاً
+        Planned area - can be combined Chart.js Later
       </div>
     </div>
   </div>
@@ -214,7 +214,7 @@ $totalRows = is_array($rows ?? null) ? count($rows) : 0;
     }));
 
     document.getElementById('btnExport')?.addEventListener('click', function(){
-      // حافظ على الفلاتر الحالية وقم بإضافة export=csv
+      // Keep the current filters and add export=csv
       const params = new URLSearchParams(new FormData(form));
       params.set('export', 'csv');
       const url = window.location.pathname + '?' + params.toString();

@@ -11,12 +11,12 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
         <a href="<?= $basePath ?>/dashboard" class="text-gray-500 hover:text-primary">
           <i class="ri-arrow-right-line text-xl"></i>
         </a>
-        <h1 class="text-2xl md:text-3xl font-bold text-gray-900">مركز الإشعارات</h1>
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Notification Center</h1>
       </div>
-      <p class="text-gray-600">تابع جميع الإشعارات والتحديثات المهمة</p>
+      <p class="text-gray-600">Follow all important notifications and updates</p>
     </div>
 
-    <!-- إحصائيات الإشعارات -->
+    <!-- Faculty Statistics -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
       <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-5 border border-blue-200">
         <div class="flex items-center justify-between mb-2">
@@ -25,7 +25,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
           </div>
         </div>
         <div class="text-2xl font-bold text-gray-900 mb-1"><?= count($notifications ?? []) ?></div>
-        <div class="text-sm text-gray-600">إجمالي الإشعارات</div>
+        <div class="text-sm text-gray-600">Total notifications</div>
       </div>
       
       <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-5 border border-red-200">
@@ -35,7 +35,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
           </div>
         </div>
         <div class="text-2xl font-bold text-gray-900 mb-1"><?= $unreadCount ?? 0 ?></div>
-        <div class="text-sm text-gray-600">غير مقروءة</div>
+        <div class="text-sm text-gray-600">Non -readable</div>
       </div>
       
       <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-5 border border-green-200">
@@ -45,7 +45,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
           </div>
         </div>
         <div class="text-2xl font-bold text-gray-900 mb-1"><?= $readCount ?? 0 ?></div>
-        <div class="text-sm text-gray-600">مقروءة</div>
+        <div class="text-sm text-gray-600">Read</div>
       </div>
       
       <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-5 border border-yellow-200">
@@ -55,34 +55,34 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
           </div>
         </div>
         <div class="text-2xl font-bold text-gray-900 mb-1"><?= $importantCount ?? 0 ?></div>
-        <div class="text-sm text-gray-600">مهمة</div>
+        <div class="text-sm text-gray-600">a task</div>
       </div>
     </div>
 
-    <!-- أدوات التحكم -->
+    <!-- Control tools -->
     <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
       <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
         <div class="flex items-center gap-4">
           <button id="markAllRead" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm">
-            <i class="ri-check-double-line ml-1"></i>
-            تمييز الكل كمقروء
+            <i class="ri-check-double-line mr-1"></i>
+            Distinguish everyone as a reader
           </button>
           <select id="filterType" class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-primary">
-            <option value="">جميع الإشعارات</option>
-            <option value="unread">غير مقروءة</option>
-            <option value="read">مقروءة</option>
-            <option value="important">مهمة</option>
+            <option value="">All notifications</option>
+            <option value="unread">Non -readable</option>
+            <option value="read">Read</option>
+            <option value="important">a task</option>
           </select>
         </div>
         
         <div class="flex items-center gap-4">
           <select id="categoryFilter" class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-primary">
-            <option value="">جميع الفئات</option>
-            <option value="exam">اختبارات</option>
-            <option value="content">محتوى جديد</option>
-            <option value="survey">استبيانات</option>
-            <option value="achievement">إنجازات</option>
-            <option value="system">النظام</option>
+            <option value="">All categories</option>
+            <option value="exam">Assessments</option>
+            <option value="content">New content</option>
+            <option value="survey">Surveys</option>
+            <option value="achievement">Achievements</option>
+            <option value="system">order</option>
           </select>
           <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm">
             <i class="ri-settings-line"></i>
@@ -91,7 +91,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
       </div>
     </div>
 
-    <!-- قائمة الإشعارات -->
+    <!-- List of notifications -->
     <div class="bg-white rounded-xl border border-gray-200">
       <?php if (!empty($notifications)): ?>
       <div class="divide-y divide-gray-200">
@@ -103,7 +103,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
              data-important="<?= ($notification['is_important'] ?? false) ? 'true' : 'false' ?>">
           
           <div class="flex items-start gap-4">
-            <!-- أيقونة الإشعار -->
+            <!-- The icon of the notification -->
             <div class="flex-shrink-0">
               <?php 
               $iconClass = 'ri-notification-line';
@@ -137,13 +137,13 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
               </div>
             </div>
 
-            <!-- محتوى الإشعار -->
+            <!-- Pointing content - -->
             <div class="flex-1 min-w-0">
               <div class="flex items-start justify-between mb-2">
                 <h3 class="font-semibold text-gray-900 <?= !($notification['is_read'] ?? false) ? 'font-bold' : '' ?>">
                   <?= htmlspecialchars($notification['title'] ?? '') ?>
                 </h3>
-                <div class="flex items-center gap-2 ml-4">
+                <div class="flex items-center gap-2 mr-4">
                   <?php if ($notification['is_important'] ?? false): ?>
                   <span class="w-2 h-2 bg-red-500 rounded-full"></span>
                   <?php endif; ?>
@@ -160,23 +160,23 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
                 <?= htmlspecialchars($notification['message'] ?? '') ?>
               </p>
               
-              <!-- أزرار الإجراءات -->
+              <!-- Action buttons -->
               <div class="flex items-center gap-3">
                 <?php if (!($notification['is_read'] ?? false)): ?>
                 <button class="mark-read-btn text-primary hover:underline text-sm" data-id="<?= (int)$notification['id'] ?>">
-                  تمييز كمقروء
+                  Discrimination as a reader
                 </button>
                 <?php endif; ?>
                 
                 <?php if (!empty($notification['action_url'])): ?>
                 <a href="<?= htmlspecialchars($notification['action_url']) ?>" 
                    class="text-primary hover:underline text-sm">
-                  <?= htmlspecialchars($notification['action_text'] ?? 'عرض') ?>
+                  <?= htmlspecialchars($notification['action_text'] ?? 'an offer') ?>
                 </a>
                 <?php endif; ?>
                 
                 <button class="delete-notification text-red-600 hover:underline text-sm" data-id="<?= (int)$notification['id'] ?>">
-                  حذف
+                  Remove
                 </button>
               </div>
             </div>
@@ -185,17 +185,17 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
         <?php endforeach; ?>
       </div>
       
-      <!-- التصفح -->
+      <!-- Browsing -->
       <?php if (($totalPages ?? 1) > 1): ?>
       <div class="p-6 border-t border-gray-200">
         <div class="flex items-center justify-between">
           <div class="text-sm text-gray-500">
-            عرض <?= ($currentPage - 1) * $perPage + 1 ?> - <?= min($currentPage * $perPage, $totalNotifications) ?> من <?= $totalNotifications ?> إشعار
+            an offer <?= ($currentPage - 1) * $perPage + 1 ?> - <?= min($currentPage * $perPage, $totalNotifications) ?> from <?= $totalNotifications ?> notice
           </div>
           <div class="flex items-center gap-2">
             <?php if ($currentPage > 1): ?>
             <a href="?page=<?= $currentPage - 1 ?>" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">
-              السابق
+              the previous
             </a>
             <?php endif; ?>
             
@@ -208,7 +208,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             
             <?php if ($currentPage < $totalPages): ?>
             <a href="?page=<?= $currentPage + 1 ?>" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">
-              التالي
+              the next
             </a>
             <?php endif; ?>
           </div>
@@ -217,16 +217,16 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
       <?php endif; ?>
       
       <?php else: ?>
-      <!-- رسالة فارغة -->
+      <!-- An empty message -->
       <div class="text-center py-16">
         <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
           <i class="ri-notification-line text-3xl text-gray-400"></i>
         </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">لا توجد إشعارات</h3>
-        <p class="text-gray-600 mb-6">ستظهر هنا جميع الإشعارات والتحديثات المهمة</p>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">There are no notifications</h3>
+        <p class="text-gray-600 mb-6">All important notifications and updates will appear here</p>
         <a href="<?= $basePath ?>/dashboard" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
           <i class="ri-arrow-right-line"></i>
-          العودة للوحة التحكم
+          Back to the control panel
         </a>
       </div>
       <?php endif; ?>
@@ -236,7 +236,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // تمييز إشعار واحد كمقروء
+    // Distinguishing one notice as a reader
     document.querySelectorAll('.mark-read-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const notificationId = this.dataset.id;
@@ -258,9 +258,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // تمييز جميع الإشعارات كمقروءة
+    // Distinguish all notifications as a reader
     document.getElementById('markAllRead').addEventListener('click', function() {
-        if (confirm('هل تريد تمييز جميع الإشعارات كمقروءة؟')) {
+        if (confirm('Do you want to distinguish all notifications as a reader?')) {
             fetch(`<?= $basePath ?>/notifications/mark-all-read`, {
                 method: 'POST'
             })
@@ -274,10 +274,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // حذف إشعار
+    // Delete notice
     document.querySelectorAll('.delete-notification').forEach(btn => {
         btn.addEventListener('click', function() {
-            if (confirm('هل تريد حذف هذا الإشعار؟')) {
+            if (confirm('Do you want to delete this notice?')) {
                 const notificationId = this.dataset.id;
                 
                 fetch(`<?= $basePath ?>/notifications/${notificationId}/delete`, {
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // فلترة الإشعارات
+    // Flights to the notifications
     function filterNotifications() {
         const typeFilter = document.getElementById('filterType').value;
         const categoryFilter = document.getElementById('categoryFilter').value;
@@ -304,43 +304,43 @@ document.addEventListener('DOMContentLoaded', function() {
         items.forEach(item => {
             let show = true;
 
-            // فلترة حسب النوع
+            // Filter by type
             if (typeFilter === 'unread' && item.dataset.read === 'true') show = false;
             if (typeFilter === 'read' && item.dataset.read === 'false') show = false;
             if (typeFilter === 'important' && item.dataset.important === 'false') show = false;
 
-            // فلترة حسب الفئة
+            // Filter by category
             if (categoryFilter && item.dataset.category !== categoryFilter) show = false;
 
             item.style.display = show ? 'block' : 'none';
         });
     }
 
-    // تحديث العدادات
+    // Update counters
     function updateCounts() {
         const items = document.querySelectorAll('.notification-item');
         const unreadItems = document.querySelectorAll('.notification-item[data-read="false"]');
         const readItems = document.querySelectorAll('.notification-item[data-read="true"]');
         const importantItems = document.querySelectorAll('.notification-item[data-important="true"]');
 
-        // تحديث العدادات في الواجهة
-        // يمكن إضافة كود لتحديث العدادات هنا
+        // Update the counters in the interface
+        // Add code here to refresh the counters
     }
 
-    // Event listeners للفلاتر
+    // Event listeners Loulan
     document.getElementById('filterType').addEventListener('change', filterNotifications);
     document.getElementById('categoryFilter').addEventListener('change', filterNotifications);
 
-    // تحديث تلقائي للإشعارات كل دقيقة
+    // Automatic update for notifications every minute
     setInterval(() => {
         fetch(`<?= $basePath ?>/notifications/check-new`)
             .then(response => response.json())
             .then(data => {
                 if (data.hasNew) {
-                    // إظهار تنبيه بوجود إشعارات جديدة
+                    // Show an alert that there are new notifications
                     const banner = document.createElement('div');
                     banner.className = 'fixed top-4 right-4 bg-primary text-white px-4 py-2 rounded-lg shadow-lg z-50';
-                    banner.innerHTML = '<i class="ri-notification-line ml-2"></i>لديك إشعارات جديدة';
+                    banner.innerHTML = '<i class="ri-notification-line mr-2"></i>You have new notifications';
                     document.body.appendChild(banner);
                     
                     setTimeout(() => banner.remove(), 5000);

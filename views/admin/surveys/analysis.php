@@ -8,10 +8,10 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
   <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-xl md:text-2xl font-bold text-gray-900">تحليل نتائج الاستبيان</h1>
-        <p class="text-sm text-gray-600 mt-1">عنوان الاستبيان: <span class="font-medium text-gray-900"><?= htmlspecialchars($survey['title'] ?? '') ?></span></p>
+        <h1 class="text-xl md:text-2xl font-bold text-gray-900">Survey results analysis</h1>
+        <p class="text-sm text-gray-600 mt-1">Survey title: <span class="font-medium text-gray-900"><?= htmlspecialchars($survey['title'] ?? '') ?></span></p>
       </div>
-      <a href="<?= $basePath ?>/admin/surveys" class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">عودة إلى القائمة</a>
+      <a href="<?= $basePath ?>/admin/surveys" class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">Back to list</a>
     </div>
   </div>
 
@@ -21,8 +21,8 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div class="flex items-start justify-between mb-4">
             <div>
-              <h2 class="text-base md:text-lg font-semibold text-gray-900">س<?= $idx+1 ?>. <?= htmlspecialchars($q['text']) ?></h2>
-              <p class="text-xs text-gray-500 mt-1">نوع السؤال: <span class="font-medium text-gray-700"><?= htmlspecialchars($q['type']) ?></span> • إجمالي الردود: <span class="font-medium text-gray-700"><?= (int)$q['total'] ?></span></p>
+              <h2 class="text-base md:text-lg font-semibold text-gray-900">Question <?= $idx+1 ?>. <?= htmlspecialchars($q['text']) ?></h2>
+              <p class="text-xs text-gray-500 mt-1">Question type: <span class="font-medium text-gray-700"><?= htmlspecialchars($q['type']) ?></span> • Total responses: <span class="font-medium text-gray-700"><?= (int)$q['total'] ?></span></p>
             </div>
           </div>
 
@@ -35,9 +35,9 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
               <table class="min-w-full divide-y divide-gray-200 text-sm">
                 <thead class="bg-gray-50">
                   <tr>
-                    <th class="px-4 py-2 text-right text-gray-600 font-medium">الخيار</th>
-                    <th class="px-4 py-2 text-right text-gray-600 font-medium">العدد</th>
-                    <th class="px-4 py-2 text-right text-gray-600 font-medium">النسبة</th>
+                    <th class="px-4 py-2 text-right text-gray-600 font-medium">Choice</th>
+                    <th class="px-4 py-2 text-right text-gray-600 font-medium">Count</th>
+                    <th class="px-4 py-2 text-right text-gray-600 font-medium">Percentage</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -62,17 +62,17 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             <?php $avg = $q['rating']['avg'] ?? null; $counts = $q['rating']['counts'] ?? []; ?>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div class="bg-blue-50 rounded-lg p-4 border border-blue-100">
-                <p class="text-sm text-gray-700">متوسط التقييم</p>
-                <p class="text-3xl font-bold text-blue-700 mt-1"><?= $avg !== null ? number_format($avg, 2) : '—' ?></p>
+                <p class="text-sm text-gray-700">Average rating</p>
+                <p class="text-3xl font-bold text-blue-700 mt-1"><?= $avg !== null ? Count_format($avg, 2) : '—' ?></p>
               </div>
               <div class="md:col-span-2 bg-white">
                 <div class="overflow-x-auto">
                   <table class="min-w-full divide-y divide-gray-200 text-sm">
                     <thead class="bg-gray-50">
                       <tr>
-                        <th class="px-4 py-2 text-right text-gray-600 font-medium">القيمة</th>
-                        <th class="px-4 py-2 text-right text-gray-600 font-medium">العدد</th>
-                        <th class="px-4 py-2 text-right text-gray-600 font-medium">النسبة</th>
+                        <th class="px-4 py-2 text-right text-gray-600 font-medium">Value</th>
+                        <th class="px-4 py-2 text-right text-gray-600 font-medium">Count</th>
+                        <th class="px-4 py-2 text-right text-gray-600 font-medium">Percentage</th>
                       </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
@@ -106,18 +106,18 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
                 <?php foreach ($samples as $s): ?>
                   <div class="p-3 bg-gray-50 border border-gray-200 rounded-lg">
                     <div class="text-sm text-gray-900 mb-1">"<?= htmlspecialchars($s['answer_text']) ?>"</div>
-                    <div class="text-xs text-gray-500">بتاريخ: <?= date('Y/m/d H:i', strtotime($s['created_at'] ?? 'now')) ?></div>
+                    <div class="text-xs text-gray-500">on the date: <?= date('Y/m/d H:i', strtotime($s['created_at'] ?? 'now')) ?></div>
                   </div>
                 <?php endforeach; ?>
               </div>
             <?php else: ?>
-              <div class="text-sm text-gray-500">لا توجد إجابات نصية لعرضها.</div>
+              <div class="text-sm text-gray-500">There are no text responses to display.</div>
             <?php endif; ?>
           <?php endif; ?>
         </div>
       <?php endforeach; ?>
     </div>
   <?php else: ?>
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center text-gray-500">لا توجد بيانات تحليلية لهذا الاستبيان.</div>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center text-gray-500">There is no analytical data for this survey.</div>
   <?php endif; ?>
 </div>

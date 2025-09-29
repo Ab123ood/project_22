@@ -8,7 +8,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
 
 
 
-    <!-- إحصائيات سريعة -->
+    <!-- Quick Statistics -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
       <div class="card card-gradient-primary animate-fade-in">
         <div class="card-body">
@@ -18,7 +18,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             </div>
           </div>
           <div class="text-3xl font-bold text-gray-900 mb-1"><?= $stats['total_content'] ?? 0 ?></div>
-          <div class="text-base text-gray-600">محتوى متاح</div>
+          <div class="text-base text-gray-600">Available content</div>
         </div>
       </div>
       <div class="card card-gradient-success animate-fade-in animate-delay-100">
@@ -29,7 +29,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             </div>
           </div>
           <div class="text-3xl font-bold text-gray-900 mb-1"><?= $stats['viewed_content'] ?? 0 ?></div>
-          <div class="text-base text-gray-600">تم مشاهدته</div>
+          <div class="text-base text-gray-600">Seen</div>
         </div>
       </div>
       <div class="card card-gradient-warning animate-fade-in animate-delay-200">
@@ -40,7 +40,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             </div>
           </div>
           <div class="text-3xl font-bold text-gray-900 mb-1"><?= $stats['favorited_content'] ?? 0 ?></div>
-          <div class="text-base text-gray-600">مفضل</div>        </div>
+          <div class="text-base text-gray-600">favorite</div>        </div>
       </div>
       <div class="card card-gradient-secondary animate-fade-in animate-delay-300">
         <div class="card-body">
@@ -50,15 +50,15 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             </div>
           </div>
           <div class="text-3xl font-bold text-gray-900 mb-1"><?= $stats['earned_points'] ?? 0 ?></div>
-          <div class="text-base text-gray-600">نقاط مكتسبة</div>
+          <div class="text-base text-gray-600">Equally acquired points</div>
         </div>
       </div>
     </div>
 
-    <!-- المحتوى المميز -->
+    <!-- Featured content -->
     <?php if (!empty($featuredContent)): ?>
     <div class="mb-10">
-      <h3 class="text-2xl font-semibold text-gray-900 mb-6">المحتوى المميز</h3>
+      <h3 class="text-2xl font-semibold text-gray-900 mb-6">Featured content</h3>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <?php foreach ($featuredContent as $item): ?>
         <div class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl transition-all">
@@ -68,12 +68,12 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <div class="absolute top-3 right-3">
               <span class="px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">
-                <i class="ri-star-line"></i> مميز
+                <i class="ri-star-line"></i> distinct
               </span>
             </div>
             <div class="absolute bottom-3 left-3">
               <span class="px-2 py-1 rounded-full text-xs font-medium bg-black/70 text-white">
-                <?= $item['type'] === 'video' ? 'فيديو' : 'مقال' ?>
+                <?= $item['type'] === 'video' ? 'video' : 'article' ?>
               </span>
             </div>
           </div>
@@ -82,15 +82,15 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             <p class="text-gray-600 mb-4 line-clamp-2"><?= htmlspecialchars($item['description'] ?? '') ?></p>
             <div class="flex items-center justify-between mb-4 text-sm text-gray-500">
               <div class="flex items-center gap-4">
-                <div class="flex items-center gap-1"><i class="ri-time-line"></i><span><?= ($item['duration'] ?? 5) . ' دقائق' ?></span></div>
+                <div class="flex items-center gap-1"><i class="ri-time-line"></i><span><?= ($item['duration'] ?? 5) . ' minutes' ?></span></div>
                 <div class="flex items-center gap-1"><i class="ri-eye-line"></i><span><?= $item['views'] ?? 0 ?></span></div>
               </div>
-              <div class="flex items-center gap-1 text-yellow-500"><i class="ri-star-fill"></i><span><?= number_format($item['rating'] ?? 4.5, 1) ?></span></div>
+              <div class="flex items-center gap-1 text-yellow-500"><i class="ri-star-fill"></i><span><?= Count_format($item['rating'] ?? 4.5, 1) ?></span></div>
             </div>
             <div class="flex gap-3">
               <a href="<?= $basePath ?>/content/view/<?= (int)$item['id'] ?>"
-                 class="flex-1 bg-primary text-white text-center py-3 rounded-lg hover:bg-primary/90 transition-colors font-medium">عرض المحتوى</a>
-              <button class="px-4 py-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors" aria-label="إضافة إلى المفضلة">
+                 class="flex-1 bg-primary text-white text-center py-3 rounded-lg hover:bg-primary/90 transition-colors font-medium">Content display</a>
+              <button class="px-4 py-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors" aria-label="In addition to the favorite ">
                 <i class="ri-heart-line text-gray-600"></i>
               </button>
             </div>
@@ -101,12 +101,12 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
     </div>
     <?php endif; ?>
 
-    <!-- جميع المحتوى -->
+    <!-- All content -->
     <div class="mb-8">
       <div class="flex items-center justify-between mb-4">
-        <h3 class="text-2xl font-semibold text-gray-900">جميع المحتوى</h3>
+        <h3 class="text-2xl font-semibold text-gray-900">All content</h3>
         <div class="text-sm text-gray-500">
-          <span id="pageInfo">صفحة 1</span>
+          <span id="pageInfo">Page 1</span>
         </div>
       </div>
 
@@ -125,35 +125,35 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <div class="absolute bottom-3 left-3">
               <span class="px-2 py-1 rounded-full text-xs font-medium bg-black/70 text-white">
-                <?= $item['type'] === 'video' ? 'فيديو' : ($item['type'] === 'article' ? 'مقال' : 'محتوى') ?>
+                <?= $item['type'] === 'video' ? 'video' : ($item['type'] === 'article' ? 'article' : 'content') ?>
               </span>
             </div>
             <?php if ($item['is_new'] ?? false): ?>
             <div class="absolute top-3 right-3">
-              <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">جديد</span>
+              <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">new</span>
             </div>
             <?php endif; ?>
           </div>
           <div class="p-6">
             <div class="flex items-center gap-2 mb-2">
               <span class="px-2 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
-                <?= htmlspecialchars($item['category_name'] ?? 'عام') ?>
+                <?= htmlspecialchars($item['category_name'] ?? 'general') ?>
               </span>
             </div>
             <h4 class="font-bold text-gray-900 mb-2 text-lg line-clamp-1"><?= htmlspecialchars($item['title']) ?></h4>
             <p class="text-gray-600 mb-4 line-clamp-2"><?= htmlspecialchars($item['description'] ?? '') ?></p>
             <div class="flex items-center justify-between mb-4 text-sm text-gray-500">
               <div class="flex items-center gap-4">
-                <div class="flex items-center gap-1"><i class="ri-time-line"></i><span><?= ($item['duration'] ?? 5) . ' دقائق' ?></span></div>
+                <div class="flex items-center gap-1"><i class="ri-time-line"></i><span><?= ($item['duration'] ?? 5) . ' minutes' ?></span></div>
                 <div class="flex items-center gap-1"><i class="ri-eye-line"></i><span><?= $item['views'] ?? 0 ?></span></div>
-                <div class="flex items-center gap-1 text-yellow-500"><i class="ri-star-fill"></i><span><?= number_format($item['rating'] ?? 4.5, 1) ?></span></div>
+                <div class="flex items-center gap-1 text-yellow-500"><i class="ri-star-fill"></i><span><?= Count_format($item['rating'] ?? 4.5, 1) ?></span></div>
               </div>
             </div>
             <div class="flex gap-3">
               <a href="<?= $basePath ?>/content/view/<?= (int)$item['id'] ?>"
-                 class="flex-1 bg-primary text-white text-center py-3 rounded-lg hover:bg-primary/90 transition-colors font-medium">عرض المحتوى</a>
+                 class="flex-1 bg-primary text-white text-center py-3 rounded-lg hover:bg-primary/90 transition-colors font-medium">Content display</a>
               <button class="px-4 py-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors favorite-btn" 
-                      data-id="<?= (int)$item['id'] ?>" aria-label="إضافة إلى المفضلة">
+                      data-id="<?= (int)$item['id'] ?>" aria-label="In addition to the favorite ">
                 <i class="ri-heart-line text-gray-600"></i>
               </button>
             </div>
@@ -162,33 +162,33 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
         <?php endforeach; ?>
       </div>
 
-      <!-- لا توجد نتائج بعد الفلترة -->
+      <!-- There are no results after the filter -->
       <div id="noMatches" class="hidden text-center py-16">
         <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">
           <i class="ri-search-eye-line text-3xl text-gray-400"></i>
         </div>
-        <h3 class="text-2xl font-semibold text-gray-900 mb-2">لا توجد نتائج مطابقة</h3>
-        <p class="text-lg text-gray-600 mb-6">جرّب تغيير كلمات البحث أو تصفية مختلفة.</p>
+        <h3 class="text-2xl font-semibold text-gray-900 mb-2">There are no matching results</h3>
+        <p class="text-lg text-gray-600 mb-6">Try changing different search words or Filter.</p>
         <button id="resetFiltersBtn" class="btn btn-outline">
           <i class="ri-refresh-line"></i>
-          إعادة تعيين البحث
+          Reset the research
         </button>
       </div>
 
-      <!-- ترقيم الصفحات (عميل) -->
+      <!-- Pages Counting (client) - -->
       <div id="pager" class="mt-6 flex justify-center gap-2"></div>
 
       <?php else: ?>
-      <!-- رسالة فارغة -->
+      <!-- An empty message -->
       <div class="text-center py-16">
         <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">
           <i class="ri-file-text-line text-3xl text-gray-400"></i>
         </div>
-        <h3 class="text-2xl font-semibold text-gray-900 mb-2">لا يوجد محتوى متاح</h3>
-        <p class="text-lg text-gray-600 mb-6">لم يتم نشر أي محتوى توعوي حتى الآن. تحقق مرة أخرى لاحقاً.</p>
+        <h3 class="text-2xl font-semibold text-gray-900 mb-2">There is no content available</h3>
+        <p class="text-lg text-gray-600 mb-6">No awareness content has been published yet. Check again later.</p>
         <a href="<?= $basePath ?>/dashboard" class="btn btn-primary">
           <i class="ri-arrow-right-line"></i>
-          العودة للوحة التحكم
+          Back to the control panel
         </a>
       </div>
       <?php endif; ?>
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const pager = document.getElementById('pager');
   const pageInfo = document.getElementById('pageInfo');
 
-  const PAGE_SIZE = 9; // 3 أعمدة * 3 صفوف
+  const PAGE_SIZE = 9; // 3 Pillars * 3 Rows
   let currentPage = 1;
 
   function debounce(fn, delay=250){
@@ -222,9 +222,9 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateChips(){
     activeChips.innerHTML = '';
     const chips = [];
-    if (searchInput.value.trim()) chips.push({label: 'بحث', value: searchInput.value.trim()});
-    if (categoryFilter.value) chips.push({label: 'فئة', value: categoryFilter.options[categoryFilter.selectedIndex].text});
-    if (typeFilter.value) chips.push({label: 'نوع', value: typeFilter.options[typeFilter.selectedIndex].text});
+    if (searchInput.value.trim()) chips.push({label: 'Discussion', value: searchInput.value.trim()});
+    if (categoryFilter.value) chips.push({label: 'category', value: categoryFilter.options[categoryFilter.selectedIndex].text});
+    if (typeFilter.value) chips.push({label: 'Type', value: typeFilter.options[typeFilter.selectedIndex].text});
     chips.forEach(ch => {
       const span = document.createElement('span');
       span.className = 'px-2 py-1 rounded-full text-xs bg-primary/10 text-primary border border-primary/20';
@@ -277,9 +277,9 @@ document.addEventListener('DOMContentLoaded', function() {
     contentGrid?.replaceChildren(...pageSlice);
 
     // counts and states
-    resultsCount.textContent = total ? `عدد النتائج: ${total}` : 'لا توجد نتائج';
+    resultsCount.textContent = total ? `Number of results: ${total}` : 'There are no results';
     noMatches.classList.toggle('hidden', total !== 0);
-    pageInfo.textContent = `صفحة ${currentPage} من ${totalPages}`;
+    pageInfo.textContent = `page ${currentPage} from ${totalPages}`;
 
     // pager
     renderPager(totalPages);

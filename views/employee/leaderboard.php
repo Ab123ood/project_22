@@ -1,6 +1,6 @@
 <?php
 // app/views/employee/leaderboard.php
-$pageTitle = 'لوحة المتصدرين';
+$pageTitle = 'Leaders';
 $currentPage = 'leaderboard';
 ?>
 
@@ -13,8 +13,8 @@ $currentPage = 'leaderboard';
                     <i class="ri-trophy-line text-2xl text-white"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900">لوحة المتصدرين</h1>
-                    <p class="text-gray-600 mt-1">تنافس مع زملائك واحصل على أعلى النقاط</p>
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900">Leaders</h1>
+                    <p class="text-gray-600 mt-1">Competition with your colleagues and get the highest points</p>
                 </div>
             </div>
         </div>
@@ -35,13 +35,13 @@ $currentPage = 'leaderboard';
                             </div>
                             
                             <h3 class="text-xl font-bold text-gray-900 mb-2">
-                                <?= htmlspecialchars($topUsers[1]['name'] ?? 'لا يوجد') ?>
+                                <?= htmlspecialchars($topUsers[1]['name'] ?? 'nothing') ?>
                             </h3>
                             
                             <div class="flex items-center justify-center gap-2 mb-3">
                                 <i class="ri-star-line text-yellow-500"></i>
                                 <span class="text-2xl font-bold text-gray-900">
-                                    <?= number_format($topUsers[1]['total_points'] ?? 0) ?>
+                                    <?= Count_format($topUsers[1]['total_points'] ?? 0) ?>
                                 </span>
                             </div>
                             
@@ -72,13 +72,13 @@ $currentPage = 'leaderboard';
                             </div>
                             
                             <h3 class="text-2xl font-bold text-gray-900 mb-2">
-                                <?= htmlspecialchars($topUsers[0]['name'] ?? 'لا يوجد') ?>
+                                <?= htmlspecialchars($topUsers[0]['name'] ?? 'nothing') ?>
                             </h3>
                             
                             <div class="flex items-center justify-center gap-2 mb-3">
                                 <i class="ri-star-fill text-yellow-500"></i>
                                 <span class="text-3xl font-bold text-gray-900">
-                                    <?= number_format($topUsers[0]['total_points'] ?? 0) ?>
+                                    <?= Count_format($topUsers[0]['total_points'] ?? 0) ?>
                                 </span>
                             </div>
                             
@@ -109,13 +109,13 @@ $currentPage = 'leaderboard';
                             </div>
                             
                             <h3 class="text-xl font-bold text-gray-900 mb-2">
-                                <?= htmlspecialchars($topUsers[2]['name'] ?? 'لا يوجد') ?>
+                                <?= htmlspecialchars($topUsers[2]['name'] ?? 'nothing') ?>
                             </h3>
                             
                             <div class="flex items-center justify-center gap-2 mb-3">
                                 <i class="ri-star-line text-yellow-500"></i>
                                 <span class="text-2xl font-bold text-gray-900">
-                                    <?= number_format($topUsers[2]['total_points'] ?? 0) ?>
+                                    <?= Count_format($topUsers[2]['total_points'] ?? 0) ?>
                                 </span>
                             </div>
                             
@@ -145,10 +145,10 @@ $currentPage = 'leaderboard';
                     </div>
                     
                     <div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-1">موقعك الحالي</h3>
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Your current site</h3>
                         <div class="flex items-center gap-3">
                             <span class="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
-                                <i class="ri-flag-2-line"></i> المرتبة <?= $currentUserStats['rank_position'] ?? 'غير محدد' ?>
+                                <i class="ri-flag-2-line"></i> Ranking <?= $currentUserStats['rank_position'] ?? 'undefined' ?>
                             </span>
                         </div>
                     </div>
@@ -157,30 +157,30 @@ $currentPage = 'leaderboard';
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                     <div>
                         <div class="text-2xl font-extrabold text-gray-900">
-                            <?= number_format($currentUserStats['total_points'] ?? 0) ?>
+                            <?= Count_format($currentUserStats['total_points'] ?? 0) ?>
                         </div>
-                        <div class="text-sm text-gray-600">النقاط</div>
+                        <div class="text-sm text-gray-600">Points</div>
                     </div>
                     
                     <div>
                         <div class="text-2xl font-extrabold text-gray-900">
                             <?= $currentUserStats['badges_earned'] ?? 0 ?>
                         </div>
-                        <div class="text-sm text-gray-600">الشارات</div>
+                        <div class="text-sm text-gray-600">Slogans</div>
                     </div>
                     
                     <div>
                         <div class="text-2xl font-extrabold text-gray-900">
                             <?= $currentUserStats['exams_completed'] ?? 0 ?>
                         </div>
-                        <div class="text-sm text-gray-600">الاختبارات</div>
+                        <div class="text-sm text-gray-600">Assessments</div>
                     </div>
                     
                     <div>
                         <div class="text-2xl font-extrabold text-gray-900">
                             <?= $currentUserStats['current_streak'] ?? 0 ?>
                         </div>
-                        <div class="text-sm text-gray-600">التسلسل</div>
+                        <div class="text-sm text-gray-600">Sequence</div>
                     </div>
                 </div>
             </div>
@@ -191,21 +191,21 @@ $currentPage = 'leaderboard';
         <div class="card">
             <div class="flex items-center gap-3 mb-2 p-4 md:p-6 border-b border-gray-100">
                 <i class="ri-list-ordered text-2xl text-blue-600"></i>
-                <h2 class="text-2xl font-extrabold text-gray-900">الترتيب العام</h2>
+                <h2 class="text-2xl font-extrabold text-gray-900">Overall ranking</h2>
             </div>
             
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">المرتبة</th>
-                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">المستخدم</th>
-                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">النقاط</th>
-                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">الاختبارات</th>
-                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">المحتوى</th>
-                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">الشارات</th>
-                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">التسلسل</th>
-                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">آخر نشاط</th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">Ranking</th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">user</th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">Points</th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">Assessments</th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">Content</th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">Slogans</th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">Sequence</th>
+                            <th class="px-6 py-4 text-right text-sm font-semibold text-gray-700 uppercase tracking-wider">Latest activity</th>
                         </tr>
                     </thead>
                     <tbody id="leaderboardTable" class="bg-white divide-y divide-gray-100">
@@ -236,7 +236,7 @@ $currentPage = 'leaderboard';
                                             <div class="text-base font-semibold text-gray-900">
                                                 <?= htmlspecialchars($user['name']) ?>
                                                 <?php if (isset($_SESSION['user_id']) && $user['user_id'] == $_SESSION['user_id']): ?>
-                                                    <span class="badge badge-primary mr-2">أنت</span>
+                                                    <span class="badge badge-primary mr-2">You</span>
                                                 <?php endif; ?>
                                             </div>
                                             <?php if ($user['department']): ?>
@@ -252,7 +252,7 @@ $currentPage = 'leaderboard';
                                     <div class="flex items-center gap-2">
                                         <i class="ri-star-fill text-yellow-500"></i>
                                         <span class="text-lg font-bold text-gray-900">
-                                            <?= number_format($user['total_points']) ?>
+                                            <?= Count_format($user['total_points']) ?>
                                         </span>
                                     </div>
                                 </td>
@@ -284,7 +284,7 @@ $currentPage = 'leaderboard';
                                 </td>
                                 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <?= $user['last_activity'] ? date('Y/m/d H:i', strtotime($user['last_activity'])) : 'لا يوجد' ?>
+                                    <?= $user['last_activity'] ? date('Y/m/d H:i', strtotime($user['last_activity'])) : 'nothing' ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -293,7 +293,7 @@ $currentPage = 'leaderboard';
                                 <td colspan="8" class="px-6 py-12 text-center text-gray-500">
                                     <div class="flex flex-col items-center gap-3">
                                         <i class="ri-trophy-line text-4xl text-gray-300"></i>
-                                        <p class="text-lg">لا توجد بيانات متاحة حالياً</p>
+                                        <p class="text-lg">There are no data currently available</p>
                                     </div>
                                 </td>
                             </tr>

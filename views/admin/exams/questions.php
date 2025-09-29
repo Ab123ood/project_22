@@ -9,128 +9,128 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-xl md:text-2xl font-bold text-gray-900">أسئلة الاختبار</h2>
-                <p class="text-sm text-gray-600 mt-1">الاختبار: <span class="font-semibold text-gray-900"><?= htmlspecialchars($exam['title'] ?? '') ?></span></p>
+                <h2 class="text-xl md:text-2xl font-bold text-gray-900">Assessment questions</h2>
+                <p class="text-sm text-gray-600 mt-1">Assessment: <span class="font-semibold text-gray-900"><?= htmlspecialchars($exam['title'] ?? '') ?></span></p>
             </div>
-            <a href="<?= $basePath ?>/admin/exams" class="text-sm text-gray-600 hover:text-gray-900">عودة إلى قائمة الاختبارات</a>
+            <a href="<?= $basePath ?>/admin/exams" class="text-sm text-gray-600 hover:text-gray-900">Back to list of assessments</a>
         </div>
     </div>
 
-    <!-- الأسئلة -->
+    <!-- Questions -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center">
                 <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
                     <i class="ri-question-line text-blue-600 text-xl"></i>
                 </div>
-                <h2 class="text-lg font-medium text-gray-900">أسئلة الاختبار</h2>
-                <button type="button" id="helpBtn" class="ml-2 text-blue-600" title="تعليمات"><i class="ri-question-line"></i></button>
+                <h2 class="text-lg font-medium text-gray-900">Assessment questions</h2>
+                <button type="button" id="helpBtn" class="mr-2 text-blue-600" title="directions"><i class="ri-question-line"></i></button>
             </div>
             <button type="button" id="addQuestionBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors flex items-center">
-                <i class="ri-add-line text-lg ml-2"></i>
-                إضافة سؤال
+                <i class="ri-add-line text-lg mr-2"></i>
+                Add Question
             </button>
         </div>
 
-        <!-- بطاقة إنشاء سؤال جديد بشكل مطابق للتصميم -->
+        <!-- Creating a new question identical to the design -->
         <div id="newQuestionCard" class="hidden border border-gray-200 rounded-xl p-5 mb-6">
             <div class="flex items-center justify-between mb-3">
-                <h3 class="text-base font-semibold text-gray-900">سؤال جديد</h3>
-                <button type="button" id="removeDraftBtn" class="text-red-600 hover:text-red-700" title="إغلاق"><i class="ri-delete-bin-5-line"></i></button>
+                <h3 class="text-base font-semibold text-gray-900">New question</h3>
+                <button type="button" id="removeDraftBtn" class="text-red-600 hover:text-red-700" title="closing"><i class="ri-delete-bin-5-line"></i></button>
             </div>
 
             <form method="post" action="<?= $basePath ?>/admin/exams/questions" class="space-y-5">
                 <input type="hidden" name="exam_id" value="<?= (int)($exam['id'] ?? 0) ?>">
                 <input type="hidden" name="order_index" value="<?= count($questions ?? []) ?>">
 
-                <!-- نص السؤال -->
+                <!-- Question text -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">نص السؤال</label>
-                    <textarea name="question_text" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="اكتب السؤال هنا..." required></textarea>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Question text</label>
+                    <textarea name="question_text" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Write the question here ... " required></textarea>
                 </div>
 
-                <!-- نوع السؤال -->
+                <!-- Question type -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">نوع السؤال</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Question type</label>
                     <select name="question_type" id="qType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        <option value="text" selected>إجابة نصية</option>
-                        <option value="mcq">اختيار من متعدد</option>
-                        <option value="truefalse">صح/خطأ</option>
+                        <option value="text" selected>Text answer</option>
+                        <option value="mcq">Multiple choice</option>
+                        <option value="truefalse">Right/error</option>
                     </select>
                 </div>
 
-                <!-- إجابة نموذجية للنصّي -->
+                <!-- Typical answer to the text -->
                 <div id="textWrap">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">الإجابة النموذجية</label>
-                    <textarea name="correct_answer" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="اكتب الإجابة النموذجية هنا..."></textarea>
-                    <p class="text-xs text-gray-500 mt-2">ستتم مراجعة الإجابات النصية يدوياً</p>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Typical answer</label>
+                    <textarea name="correct_answer" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Write the typical answer here ... "></textarea>
+                    <p class="text-xs text-gray-500 mt-2">Text answers will be manually reviewed</p>
                 </div>
 
-                <!-- خيارات اختيار من متعدد -->
+                <!-- Multiple selection options -->
                 <div id="mcqWrap" class="hidden">
                     <div class="space-y-3">
                         <?php for ($i=0; $i<4; $i++): $idx=$i+1; ?>
                         <div class="flex items-center">
-                            <input type="text" name="option_text[]" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="الخيار <?= $idx ?>">
-                            <input type="radio" name="correct_index" value="<?= $idx ?>" class="ml-3 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" <?= $idx===1?'checked':''; ?>>
+                            <input type="text" name="option_text[]" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Choice <?= $idx ?>">
+                            <input type="radio" name="correct_index" value="<?= $idx ?>" class="mr-3 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" <?= $idx===1?'checked':''; ?>>
                         </div>
                         <?php endfor; ?>
                     </div>
-                    <p class="text-xs text-gray-500 mt-2">اختر الإجابة الصحيحة بالنقر على الدائرة المقابلة</p>
+                    <p class="text-xs text-gray-500 mt-2">Choose the correct answer by clicking on the corresponding circle</p>
                     <input type="hidden" name="correct_answer" id="mcqCorrectAnswer" value="">
                 </div>
 
-                <!-- صح/خطأ -->
+                <!-- Right/error - -->
                 <div id="tfWrap" class="hidden">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">الإجابة الصحيحة (صح/خطأ)</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">The correct answer (correct/error)</label>
                     <div class="flex items-center gap-6">
                         <label class="inline-flex items-center text-sm text-gray-700">
-                            <input type="radio" name="correct_answer" value="صحيح" class="ml-2 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
-                            صحيح
+                            <input type="radio" name="correct_answer" value="Right " class="mr-2 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
+                            Right
                         </label>
                         <label class="inline-flex items-center text-sm text-gray-700">
-                            <input type="radio" name="correct_answer" value="خطأ" class="ml-2 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                            خطأ
+                            <input type="radio" name="correct_answer" value="mistake" class="mr-2 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            mistake
                         </label>
                     </div>
                 </div>
 
                 <div class="flex items-center justify-between">
-                    <button type="button" id="cancelAdd" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100">إلغاء</button>
-                    <button type="submit" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">حفظ السؤال</button>
+                    <button type="button" id="cancelAdd" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100">cancellation</button>
+                    <button type="submit" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Save the question</button>
                 </div>
             </form>
         </div>
 
-        <!-- قائمة الأسئلة الحالية (CRUD كما هو) -->
+        <!-- Current questions list (CRUD As) - - -->
         <div id="questionsContainer">
             <?php if (!empty($questions)): ?>
                 <?php foreach ($questions as $index => $q): ?>
                     <div class="question-item border border-gray-200 rounded-xl p-5 mb-4" data-question-id="<?= (int)$q['id'] ?>">
                         <div class="flex items-center justify-between mb-4">
-                            <h4 class="text-sm font-semibold text-gray-900">السؤال <?= $index+1 ?></h4>
-                            <form method="post" action="<?= $basePath ?>/admin/exams/questions/delete" onsubmit="return confirm('هل تريد حذف هذا السؤال؟');">
+                            <h4 class="text-sm font-semibold text-gray-900">Question <?= $index+1 ?></h4>
+                            <form method="post" action="<?= $basePath ?>/admin/exams/questions/delete" onsubmit="return confirm('Do you want to delete this question?');">
                                 <input type="hidden" name="exam_id" value="<?= (int)($exam['id'] ?? 0) ?>">
                                 <input type="hidden" name="question_id" value="<?= (int)$q['id'] ?>">
-                                <button class="text-red-600 hover:text-red-700" title="حذف"><i class="ri-delete-bin-line"></i></button>
+                                <button class="text-red-600 hover:text-red-700" title="Delete"><i class="ri-delete-bin-line"></i></button>
                             </form>
                         </div>
 
-                        <!-- نص السؤال (تحرير) -->
+                        <!-- The text of the question (editing) - -->
                         <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">نص السؤال</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Question text</label>
                             <form method="post" action="<?= $basePath ?>/admin/exams/questions/update" class="flex items-center gap-3">
                                 <input type="hidden" name="exam_id" value="<?= (int)($exam['id'] ?? 0) ?>">
                                 <input type="hidden" name="question_id" value="<?= (int)$q['id'] ?>">
                                 <textarea name="question_text" rows="3" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"><?= htmlspecialchars($q['question_text'] ?? '') ?></textarea>
-                                <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm">حفظ</button>
+                                <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm">Preservation</button>
                             </form>
                         </div>
 
                         <?php if (($q['question_type'] ?? '') !== 'text'): ?>
-                        <!-- خيارات السؤال (إن وُجدت) -->
+                        <!-- Question options (if any) - -->
                         <div class="mb-2">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">الخيارات</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Choices</label>
                             <ul class="space-y-2">
                                 <?php foreach (($optionsByQ[$q['id']] ?? []) as $op): ?>
                                 <li class="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
@@ -138,7 +138,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
                                         <input type="hidden" name="exam_id" value="<?= (int)($exam['id'] ?? 0) ?>">
                                         <input type="hidden" name="option_id" value="<?= (int)$op['id'] ?>">
                                         <input type="text" name="option_text" value="<?= htmlspecialchars($op['option_text'] ?? '') ?>" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                                        <button class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs">حفظ</button>
+                                        <button class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs">Preservation</button>
                                     </form>
                                     <div class="flex items-center gap-2">
                                         <?php if ((int)$op['is_correct'] !== 1): ?>
@@ -146,38 +146,38 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
                                             <input type="hidden" name="exam_id" value="<?= (int)($exam['id'] ?? 0) ?>">
                                             <input type="hidden" name="question_id" value="<?= (int)$q['id'] ?>">
                                             <input type="hidden" name="option_id" value="<?= (int)$op['id'] ?>">
-                                            <button class="px-3 py-1.5 text-green-700 hover:text-green-800 bg-green-50 hover:bg-green-100 rounded-lg text-xs">اجعله صحيح</button>
+                                            <button class="px-3 py-1.5 text-green-700 hover:text-green-800 bg-green-50 hover:bg-green-100 rounded-lg text-xs">Mark as correct</button>
                                         </form>
                                         <?php else: ?>
-                                        <span class="text-xs px-2 py-1 rounded-full bg-green-100 text-green-800">صحيح</span>
+                                        <span class="text-xs px-2 py-1 rounded-full bg-green-100 text-green-800">Right</span>
                                         <?php endif; ?>
-                                        <form method="post" action="<?= $basePath ?>/admin/exams/options/delete" onsubmit="return confirm('حذف هذا الخيار؟');">
+                                        <form method="post" action="<?= $basePath ?>/admin/exams/options/delete" onsubmit="return confirm('Delete this option?');">
                                             <input type="hidden" name="exam_id" value="<?= (int)($exam['id'] ?? 0) ?>">
                                             <input type="hidden" name="option_id" value="<?= (int)$op['id'] ?>">
-                                            <button class="px-3 py-1.5 text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 rounded-lg text-xs">حذف</button>
+                                            <button class="px-3 py-1.5 text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 rounded-lg text-xs">Remove</button>
                                         </form>
                                     </div>
                                 </li>
                                 <?php endforeach; ?>
                             </ul>
 
-                            <!-- إضافة خيار جديد -->
+                            <!-- Add a new option -->
                             <form method="post" action="<?= $basePath ?>/admin/exams/options" class="mt-3 flex items-end gap-3">
                                 <input type="hidden" name="exam_id" value="<?= (int)($exam['id'] ?? 0) ?>">
                                 <input type="hidden" name="question_id" value="<?= (int)$q['id'] ?>">
                                 <div class="flex-1">
-                                    <label class="block text-xs font-medium text-gray-700 mb-1">خيار جديد</label>
-                                    <input type="text" name="option_text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="نص الخيار">
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">New option</label>
+                                    <input type="text" name="option_text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="The text of the option ">
                                 </div>
                                 <label class="inline-flex items-center text-sm text-gray-700">
-                                    <input type="checkbox" name="is_correct" class="ml-2 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                    صحيح؟
+                                    <input type="checkbox" name="is_correct" class="mr-2 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                    Right?
                                 </label>
-                                <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">إضافة خيار</button>
+                                <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Add an option</button>
                             </form>
                         </div>
                         <?php else: ?>
-                        <p class="text-xs text-gray-500">سؤال بإجابة نصية.</p>
+                        <p class="text-xs text-gray-500">Question with a text.</p>
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
@@ -186,14 +186,14 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
 
         <div id="noQuestions" class="text-center py-12 text-gray-500 <?= !empty($questions) ? 'hidden' : '' ?>">
             <i class="ri-question-mark text-4xl mb-4"></i>
-            <p>لم يتم إضافة أي أسئلة بعد</p>
-            <p class="text-sm">انقر على "إضافة سؤال" لبدء إنشاء الاختبار</p>
+            <p>No questions have yet been added</p>
+            <p class="text-sm">Click "Add Question" to start creating the assessment</p>
         </div>
     </div>
 </div>
 
 <script>
-    // فتح/إغلاق بطاقة الإنشاء
+    // Open/close the construction card
     const addBtn = document.getElementById('addQuestionBtn');
     const newCard = document.getElementById('newQuestionCard');
     const cancelAdd = document.getElementById('cancelAdd');
@@ -203,7 +203,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
     if (cancelAdd) cancelAdd.addEventListener('click', hideDraft);
     if (removeDraftBtn) removeDraftBtn.addEventListener('click', hideDraft);
 
-    // إظهار الأقسام وفق نوع السؤال
+    // Show the sections according to the type of question
     const qType = document.getElementById('qType');
     const tfWrap = document.getElementById('tfWrap');
     const mcqWrap = document.getElementById('mcqWrap');
@@ -218,19 +218,19 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
     }
     if (qType) { qType.addEventListener('change', syncType); syncType(); }
 
-    // معالجة الإجابة الصحيحة للاختيار من متعدد
+    // Treating the correct answer for multiple selection
     if (mcqWrap) {
         mcqWrap.addEventListener('change', function(e) {
             if (e.target.name === 'correct_index') {
                 const selectedIndex = parseInt(e.target.value);
                 const optionInputs = mcqWrap.querySelectorAll('input[name="option_text[]"]');
                 if (optionInputs[selectedIndex - 1] && mcqCorrectAnswer) {
-                    mcqCorrectAnswer.value = optionInputs[selectedIndex - 1].value || `الخيار ${selectedIndex}`;
+                    mcqCorrectAnswer.value = optionInputs[selectedIndex - 1].value || `Choice ${selectedIndex}`;
                 }
             }
         });
         
-        // تحديث الإجابة الصحيحة عند تغيير نص الخيارات
+        // Update the correct answer when changing the text of the options
         mcqWrap.addEventListener('input', function(e) {
             if (e.target.name === 'option_text[]') {
                 const checkedRadio = mcqWrap.querySelector('input[name="correct_index"]:checked');
@@ -238,14 +238,14 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
                     const selectedIndex = parseInt(checkedRadio.value);
                     const optionInputs = mcqWrap.querySelectorAll('input[name="option_text[]"]');
                     if (optionInputs[selectedIndex - 1]) {
-                        mcqCorrectAnswer.value = optionInputs[selectedIndex - 1].value || `الخيار ${selectedIndex}`;
+                        mcqCorrectAnswer.value = optionInputs[selectedIndex - 1].value || `Choice ${selectedIndex}`;
                     }
                 }
             }
         });
     }
 
-    // إخفاء/إظهار noQuestions حسب عدد العناصر
+    // Hide/show noQuestions According to the Count of elements
     const container = document.getElementById('questionsContainer');
     const noQ = document.getElementById('noQuestions');
     function refreshNoQ(){ if (!container || !noQ) return; noQ.classList.toggle('hidden', container.children.length > 0); }

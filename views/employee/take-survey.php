@@ -1,4 +1,4 @@
-<?php /* المحتوى فقط؛ التخطيط العام يُدرج عبر Controller::render */
+<?php /* The content only; General planning is included across Controller::render */
 $basePath = rtrim(str_replace('\\','/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
 if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
 ?>
@@ -7,18 +7,18 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
     <header class="bg-white shadow-sm border-b border-gray-200">
         <div class="flex items-center justify-between px-6 py-4">
             <div class="flex items-center">
-                <a href="<?= $basePath ?>/surveys" class="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 ml-4">
+                <a href="<?= $basePath ?>/surveys" class="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 mr-4">
                     <i class="ri-arrow-right-line text-xl"></i>
                 </a>
-                <h1 class="text-2xl font-bold text-gray-900"><?= htmlspecialchars($survey['title'] ?? 'استبيان') ?></h1>
+                <h1 class="text-2xl font-bold text-gray-900"><?= htmlspecialchars($survey['title'] ?? 'poll') ?></h1>
             </div>
             <div class="flex items-center space-x-4 space-x-reverse">
                 <div class="flex items-center bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
-                    <i class="ri-question-line text-lg ml-1"></i>
-                    <span id="total-questions"><?= count($questions ?? []) ?></span> سؤال
+                    <i class="ri-question-line text-lg mr-1"></i>
+                    <span id="total-questions"><?= count($questions ?? []) ?></span> Question
                 </div>
                 <div class="flex items-center bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
-                    <i class="ri-time-line text-lg ml-1"></i>
+                    <i class="ri-time-line text-lg mr-1"></i>
                     <span id="timer">--:--</span>
                 </div>
             </div>
@@ -27,8 +27,8 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
 
     <div class="bg-white border-b border-gray-200 px-6 py-3">
         <div class="flex items-center justify-between mb-2">
-            <span class="text-sm font-medium text-gray-700">التقدم</span>
-            <span class="text-sm font-medium text-gray-700"><span id="current-question">1</span> من <span id="total-questions-2"><?= count($questions ?? []) ?></span></span>
+            <span class="text-sm font-medium text-gray-700">Progress</span>
+            <span class="text-sm font-medium text-gray-700"><span id="current-question">1</span> from <span id="total-questions-2"><?= count($questions ?? []) ?></span></span>
         </div>
         <div class="w-full bg-gray-200 rounded-full h-2">
             <div id="progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
@@ -40,14 +40,14 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             <div id="survey-intro" class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-6">
                 <div class="text-center">
                     <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="ri-questionnaire-line text-2xl"></i>
+                        <i class="ri-survey-line text-2xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">مرحباً بك</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Welcome</h2>
                     <p class="text-gray-600 mb-6 leading-relaxed">
-                        يحتوي هذا الاستبيان على <span id="questions-count-1"><?= count($questions ?? []) ?></span> سؤال.
+                        This survey contains <span id="questions-count-1"><?= count($questions ?? []) ?></span> Question.
                     </p>
                     <button id="start-btn" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-                        ابدأ الاستبيان
+                        Start the survey
                     </button>
                 </div>
             </div>
@@ -58,21 +58,21 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
                         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-6 <?= $index === 0 ? '' : 'hidden' ?>" data-question-index="<?= $index ?>" data-question-id="<?= (int)$q['id'] ?>" data-type="<?= htmlspecialchars($q['type']) ?>">
                             <div class="mb-6">
                                 <h3 class="text-xl font-bold text-gray-900 mb-2"><?= htmlspecialchars($q['text'] ?? '') ?></h3>
-                                <p class="text-gray-600 text-sm">السؤال <?= $index + 1 ?> من <?= count($questions) ?></p>
+                                <p class="text-gray-600 text-sm">Question <?= $index + 1 ?> from <?= count($questions) ?></p>
                             </div>
 
                             <div class="space-y-3">
                                 <?php if ($q['type'] === 'single'): ?>
                                     <?php foreach (($q['options'] ?? []) as $opt): ?>
                                         <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                                            <input type="radio" name="q_<?= (int)$q['id'] ?>" value="<?= (int)$opt['id'] ?>" class="ml-3">
+                                            <input type="radio" name="q_<?= (int)$q['id'] ?>" value="<?= (int)$opt['id'] ?>" class="mr-3">
                                             <span class="text-gray-900"><?= htmlspecialchars($opt['text'] ?? '') ?></span>
                                         </label>
                                     <?php endforeach; ?>
                                 <?php elseif ($q['type'] === 'multiple'): ?>
                                     <?php foreach (($q['options'] ?? []) as $opt): ?>
                                         <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                                            <input type="checkbox" name="q_<?= (int)$q['id'] ?>[]" value="<?= (int)$opt['id'] ?>" class="ml-3">
+                                            <input type="checkbox" name="q_<?= (int)$q['id'] ?>[]" value="<?= (int)$opt['id'] ?>" class="mr-3">
                                             <span class="text-gray-900"><?= htmlspecialchars($opt['text'] ?? '') ?></span>
                                         </label>
                                     <?php endforeach; ?>
@@ -101,29 +101,29 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
                                             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex items-center ranking-item" data-option-id="<?= (int)$opt['id'] ?>">
                                                 <span class="text-gray-900"><?= htmlspecialchars($opt['text'] ?? '') ?></span>
                                                 <input type="hidden" name="q_<?= (int)$q['id'] ?>[]" value="<?= (int)$opt['id'] ?>">
-                                                <span class="ml-auto text-gray-600 ranking-number">1</span>
+                                                <span class="ml-auto text-gray-600 ranking-Count">1</span>
                                             </div>
                                         <?php endforeach; ?>
                                     </div>
                                 <?php else: ?>
-                                    <textarea name="q_<?= (int)$q['id'] ?>" class="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" rows="5" placeholder="اكتب إجابتك..."></textarea>
+                                    <textarea name="q_<?= (int)$q['id'] ?>" class="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" rows="5" placeholder="Write your answer ... "></textarea>
                                 <?php endif; ?>
                             </div>
 
                             <div class="flex justify-between mt-8">
                                 <button class="prev-btn px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors <?= $index === 0 ? 'opacity-50 cursor-not-allowed' : '' ?>" <?= $index === 0 ? 'disabled' : '' ?>>
-                                    <i class="ri-arrow-right-line ml-1"></i>
-                                    السابق
+                                    <i class="ri-arrow-right-line mr-1"></i>
+                                    the previous
                                 </button>
                                 <button class="next-btn px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                                    <?= $index === count($questions) - 1 ? 'إنهاء الاستبيان' : 'التالي' ?>
+                                    <?= $index === count($questions) - 1 ? 'End the survey' : 'the next' ?>
                                     <i class="ri-arrow-left-line mr-1"></i>
                                 </button>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">لا توجد أسئلة.</div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">There are no questions.</div>
                 <?php endif; ?>
             </div>
 
@@ -132,10 +132,10 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
                     <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="ri-check-line text-3xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-3">تم إرسال الاستبيان بنجاح</h2>
-                    <p class="text-gray-600 mb-6">شكراً لمشاركتك. سيتم معالجة إجاباتك وإضافتها إلى تحليلات المنصة.</p>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-3">The survey was successfully sent</h2>
+                    <p class="text-gray-600 mb-6">Thanks for your participation. Your answers will be addressed and added to platform analyzes.</p>
                     <div class="flex justify-center">
-                        <a href="<?= $basePath ?>/surveys" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">العودة إلى صفحة الاستبيانات</a>
+                        <a href="<?= $basePath ?>/surveys" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">Return to the survey page</a>
                     </div>
                 </div>
             </div>
@@ -149,12 +149,12 @@ document.addEventListener('DOMContentLoaded', function(){
     const saved = <?= json_encode($saved ?? [], JSON_UNESCAPED_UNICODE) ?>;
     const totalQuestions = <?= (int)count($questions ?? []) ?>;
     let currentIndex = 0;
-    let timerSec = 300; // 5 دقائق
+    let timerSec = 300; // 5 minutes
     const timerEl = document.getElementById('timer');
     const pb = document.getElementById('progress-bar');
     const curEl = document.getElementById('current-question');
 
-    // بدء الاستبيان
+    // The start of the survey
     document.getElementById('start-btn')?.addEventListener('click', () => {
         document.getElementById('survey-intro')?.classList.add('hidden');
         document.getElementById('survey-questions')?.classList.remove('hidden');
@@ -183,9 +183,9 @@ document.addEventListener('DOMContentLoaded', function(){
         if (pb) pb.style.width = totalQuestions > 0 ? `${Math.round(((currentIndex+1)/totalQuestions)*100)}%` : '0%';
     }
 
-    // تهيئة أنواع الأسئلة الجديدة
+    // Creating new questions
     function initializeNewQuestionTypes() {
-        // تهيئة أسئلة التقييم (Rating/Likert كنجوم)
+        // Create evaluation questions (Rating/Likert Kanjom)
         document.querySelectorAll('.rating-circle').forEach(circle => {
             circle.addEventListener('click', function() {
                 const input = this.querySelector('input[type="radio"]');
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     const allCircles = container.querySelectorAll('.rating-circle');
                     const currentIndex = Array.from(allCircles).indexOf(this);
                     
-                    // تحديث المظهر البصري للنجوم
+                    // Update the visual appearance of the stars
                     allCircles.forEach((c, index) => {
                         const star = c.querySelector('i');
                         if (index <= currentIndex) {
@@ -217,20 +217,20 @@ document.addEventListener('DOMContentLoaded', function(){
                         }
                     });
                     
-                    // إطلاق حدث التغيير للحفظ التلقائي
+                    // Launching the change event for automatic preservation
                     const changeEvent = new Event('change', { bubbles: true });
                     input.dispatchEvent(changeEvent);
                 }
             });
         });
 
-        // تهيئة أسئلة الترتيب (Ranking) - Drag and Drop
+        // Create arrangement questions (Ranking) - Drag and Drop
         document.querySelectorAll('[id^="ranking-container-"]').forEach(container => {
             initializeDragAndDrop(container);
         });
     }
 
-    // تهيئة السحب والإفلات للترتيب
+    // Create withdrawals and escape for arrangement
     function initializeDragAndDrop(container) {
         let draggedElement = null;
 
@@ -271,20 +271,20 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         });
 
-        // جعل العناصر قابلة للسحب
+        // Make items draggable
         container.querySelectorAll('.ranking-item').forEach(item => {
             item.draggable = true;
         });
     }
 
-    // تحديث أرقام الترتيب
+    // Update arrangement Counts
     function updateRankingNumbers(container) {
-        container.querySelectorAll('.ranking-number').forEach((number, index) => {
-            number.textContent = index + 1;
+        container.querySelectorAll('.ranking-Count').forEach((Count, index) => {
+            Count.textContent = index + 1;
         });
     }
 
-    // تحديث قيم الإدخال المخفية للترتيب
+    // Update the hidden entry values ​​for the arrangement
     function updateRankingInputs(container) {
         const items = container.querySelectorAll('.ranking-item');
         const hiddenInputs = container.querySelectorAll('input[type="hidden"]');
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     }
 
-    // تعبئة الإجابات المحفوظة
+    // Fill out the reserved answers
     Object.keys(saved).forEach(qid => {
         const container = document.querySelector(`[data-question-id="${qid}"]`);
         if (!container) return;
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 const input = container.querySelector(`input[value="${data.option_id}"]`);
                 if (input) {
                     input.checked = true;
-                    // تطبيق التأثيرات البصرية للتقييم
+                    // Apply visual effects for evaluation
                     if (questionType === 'rating') {
                         const event = new Event('change');
                         input.dispatchEvent(event);
@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     });
 
-    // حفظ فوري عند التغيير - محدث لدعم الأنواع الجديدة
+    // Immediate save when changing - updated to support new species
     document.querySelectorAll('[data-question-id]').forEach(container => {
         const qid = container.getAttribute('data-question-id');
         const questionType = container.getAttribute('data-type');
@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 if (t.checked) {
                     fd.append('option_id', String(t.value));
                     if (questionType === 'likert') {
-                        // أرسل أيضاً القيمة الرقمية لمقياس ليكرت
+                        // Also send the digital value of the Likert scale
                         fd.append('rating_value', String(t.dataset.rating || t.value));
                     } else if (questionType === 'rating') {
                         fd.append('rating_value', String(t.value));
@@ -354,11 +354,11 @@ document.addEventListener('DOMContentLoaded', function(){
             fetch(`<?= $basePath ?>/surveys/${surveyId}/save-progress`, { method: 'POST', body: fd }).catch(()=>{});
         });
 
-        // حفظ خاص للترتيب عند السحب والإفلات
+        // Special save for arrangement when withdrawing and escaping
         if (questionType === 'ranking') {
             const rankingContainer = container.querySelector('[id^="ranking-container-"]');
             if (rankingContainer) {
-                // مراقبة تغييرات الترتيب
+                // Monitor the arrangement changes
                 const observer = new MutationObserver(() => {
                     const fd = new FormData();
                     fd.append('survey_id', String(surveyId));
@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     });
 
-    // تنقل الأسئلة
+    // Transfer questions
     document.querySelectorAll('.next-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const cards = Array.from(document.querySelectorAll('[data-question-index]'));
@@ -422,12 +422,12 @@ document.addEventListener('DOMContentLoaded', function(){
                     document.getElementById('survey-intro')?.classList.add('hidden');
                     document.getElementById('survey-results')?.classList.remove('hidden');
                 } else {
-                    alert('فشل الإرسال: ' + (res.message || 'خطأ غير معروف'));
+                    alert('Transmission failure: ' + (res.message || 'An unknown mistake'));
                 }
             })
             .catch(err=>{
                 console.error('Survey submit error:', err);
-                alert('تعذر إرسال الاستبيان: ' + err.message);
+                alert('It is not possible to send a survey: ' + err.message);
             });
     }
 });

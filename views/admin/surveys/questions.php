@@ -8,10 +8,10 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
   <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
     <div class="flex items-center justify-between">
       <div>
-        <h2 class="text-xl md:text-2xl font-bold text-gray-900">أسئلة الاستبيان</h2>
-        <p class="text-sm text-gray-600 mt-1">الاستبيان: <span class="font-semibold text-gray-900"><?= htmlspecialchars($survey['title'] ?? '') ?></span></p>
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900">Question questions</h2>
+        <p class="text-sm text-gray-600 mt-1">Question: <span class="font-semibold text-gray-900"><?= htmlspecialchars($survey['title'] ?? '') ?></span></p>
       </div>
-      <a href="<?= $basePath ?>/admin/surveys" class="text-sm text-gray-600 hover:text-gray-900">عودة إلى قائمة الاستبيانات</a>
+      <a href="<?= $basePath ?>/admin/surveys" class="text-sm text-gray-600 hover:text-gray-900">Return to the list of surveys</a>
     </div>
   </div>
 
@@ -21,27 +21,27 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
     </div>
   <?php endif; ?>
 
-  <!-- واجهة بناء الأسئلة (نفس نمط صفحة الإنشاء) -->
+  <!-- Questions Building interface (the same style of construction page) - -->
   <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
     <div class="flex items-center justify-between mb-6">
       <div class="flex items-center">
         <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
           <i class="ri-question-line text-blue-600 text-xl"></i>
         </div>
-        <h2 class="text-lg font-medium text-gray-900">أسئلة الاستبيان</h2>
+        <h2 class="text-lg font-medium text-gray-900">Question questions</h2>
       </div>
       <div class="flex items-center gap-2">
         <button type="button" id="addQuestionBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors flex items-center">
-          <i class="ri-add-line text-lg ml-2"></i>
-          إضافة سؤال
+          <i class="ri-add-line text-lg mr-2"></i>
+          Add Question
         </button>
         <button type="button" id="addSectionBtn" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors flex items-center">
-          <i class="ri-layout-row-line text-lg ml-2"></i>
-          إضافة قسم
+          <i class="ri-layout-row-line text-lg mr-2"></i>
+          Add a section
         </button>
         <button type="button" id="saveAllBtn" class="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-700 transition-colors flex items-center">
-          <i class="ri-save-3-line text-lg ml-2"></i>
-          حفظ جميع الأسئلة
+          <i class="ri-save-3-line text-lg mr-2"></i>
+          Save all questions
         </button>
       </div>
     </div>
@@ -51,28 +51,28 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
       <div id="questionsContainer"></div>
       <div id="noQuestions" class="text-center py-12 text-gray-500">
         <i class="ri-question-mark text-4xl mb-4"></i>
-        <p>لم يتم إضافة أي أسئلة بعد</p>
-        <p class="text-sm">انقر على "إضافة سؤال" لبدء إنشاء الاستبيان</p>
+        <p>No questions have yet been added</p>
+        <p class="text-sm">Click "Add Question" to start creating the survey</p>
       </div>
     </div>
   </div>
 
-  <!-- قائمة الأسئلة المحفوظة بالفعل -->
+  <!-- List of questions already preserved -->
   <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-    <h3 class="text-lg font-semibold text-gray-900 mb-4">الأسئلة المحفوظة</h3>
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Reserved questions</h3>
     <div id="questionsContainerSaved">
       <?php if (!empty($questions)): ?>
         <?php
-          // تجميع الأسئلة حسب عنوان القسم
+          // Assembling questions according to the department address
           $grouped = [];
           foreach ($questions as $q) {
             $sec = trim((string)($q['section_title'] ?? ''));
             $grouped[$sec][] = $q;
           }
-          // ترتيب بحيث تظهر الأقسام المسماة ثم بدون قسم في النهاية
+          // Arrange so that the sections are called then without a section at the end
           uksort($grouped, function($a,$b){
             if ($a==='' && $b==='') return 0;
-            if ($a==='') return 1; // ضع "بدون قسم" في النهاية
+            if ($a==='') return 1; // Put "without division" at the end
             if ($b==='') return -1;
             return strnatcasecmp($a,$b);
           });
@@ -82,36 +82,36 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
           <div class="border border-gray-200 rounded-xl mb-6">
             <div class="px-5 py-3 border-b border-gray-200 bg-gray-50 rounded-t-xl flex items-center justify-between">
               <h4 class="text-base font-semibold text-gray-900">
-                <?= $sectionTitle !== '' ? htmlspecialchars($sectionTitle) : 'بدون قسم' ?>
+                <?= $sectionTitle !== '' ? htmlspecialchars($sectionTitle) : 'Without department' ?>
               </h4>
-              <span class="text-xs text-gray-500">عدد الأسئلة: <?= count($items) ?></span>
+              <span class="text-xs text-gray-500">Number of questions: <?= count($items) ?></span>
             </div>
 
             <div class="p-5">
               <?php foreach ($items as $index => $q): ?>
                 <div class="border border-gray-200 rounded-xl p-5 mb-4">
                   <div class="flex items-center justify-between mb-4">
-                    <h5 class="text-sm font-semibold text-gray-900">السؤال <?= $index+1 ?> • نوع: <span class="font-medium text-gray-800"><?= htmlspecialchars($q['type']) ?></span></h5>
-                    <form method="post" action="<?= $basePath ?>/admin/surveys/questions/delete" onsubmit="return confirm('حذف هذا السؤال؟');">
+                    <h5 class="text-sm font-semibold text-gray-900">Question <?= $index+1 ?> • Type: <span class="font-medium text-gray-800"><?= htmlspecialchars($q['type']) ?></span></h5>
+                    <form method="post" action="<?= $basePath ?>/admin/surveys/questions/delete" onsubmit="return confirm('Delete this question?');">
                       <input type="hidden" name="survey_id" value="<?= (int)($survey['id'] ?? 0) ?>">
                       <input type="hidden" name="question_id" value="<?= (int)$q['id'] ?>">
-                      <button class="text-red-600 hover:text-red-700" title="حذف"><i class="ri-delete-bin-line"></i></button>
+                      <button class="text-red-600 hover:text-red-700" title="Delete"><i class="ri-delete-bin-line"></i></button>
                     </form>
                   </div>
 
                   <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">نص السؤال</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Question text</label>
                     <form method="post" action="<?= $basePath ?>/admin/surveys/questions/update" class="flex items-center gap-3">
                       <input type="hidden" name="survey_id" value="<?= (int)($survey['id'] ?? 0) ?>">
                       <input type="hidden" name="question_id" value="<?= (int)$q['id'] ?>">
                       <textarea name="text" rows="3" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"><?= htmlspecialchars($q['text']) ?></textarea>
-                      <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">حفظ</button>
+                      <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Preservation</button>
                     </form>
                   </div>
 
                   <?php if ($q['type'] !== 'text'): ?>
                     <div>
-                      <label class="block text-sm font-medium text-gray-700 mb-2">الخيارات</label>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Choices</label>
                       <ul class="space-y-2">
                         <?php foreach (($optionsByQ[$q['id']] ?? []) as $op): ?>
                           <li class="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
@@ -119,12 +119,12 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
                               <input type="hidden" name="survey_id" value="<?= (int)($survey['id'] ?? 0) ?>">
                               <input type="hidden" name="option_id" value="<?= (int)$op['id'] ?>">
                               <input type="text" name="text" value="<?= htmlspecialchars($op['text']) ?>" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                              <button class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs">حفظ</button>
+                              <button class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs">Preservation</button>
                             </form>
-                            <form method="post" action="<?= $basePath ?>/admin/surveys/options/delete" onsubmit="return confirm('حذف هذا الخيار؟');">
+                            <form method="post" action="<?= $basePath ?>/admin/surveys/options/delete" onsubmit="return confirm('Delete this option?');">
                               <input type="hidden" name="survey_id" value="<?= (int)($survey['id'] ?? 0) ?>">
                               <input type="hidden" name="option_id" value="<?= (int)$op['id'] ?>">
-                              <button class="px-3 py-1.5 text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 rounded-lg text-xs">حذف</button>
+                              <button class="px-3 py-1.5 text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 rounded-lg text-xs">Remove</button>
                             </form>
                           </li>
                         <?php endforeach; ?>
@@ -134,14 +134,14 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
                         <input type="hidden" name="survey_id" value="<?= (int)($survey['id'] ?? 0) ?>">
                         <input type="hidden" name="question_id" value="<?= (int)$q['id'] ?>">
                         <div class="flex-1">
-                          <label class="block text-xs font-medium text-gray-700 mb-1">خيار جديد</label>
-                          <input type="text" name="option_text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="نص الخيار">
+                          <label class="block text-xs font-medium text-gray-700 mb-1">New option</label>
+                          <input type="text" name="option_text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="The text of the option ">
                         </div>
-                        <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">إضافة خيار</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Add an option</button>
                       </form>
                     </div>
                   <?php else: ?>
-                    <p class="text-xs text-gray-500">سؤال بإجابة نصية.</p>
+                    <p class="text-xs text-gray-500">Question with a text.</p>
                   <?php endif; ?>
                 </div>
               <?php endforeach; ?>
@@ -149,15 +149,15 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
           </div>
         <?php endforeach; ?>
       <?php else: ?>
-        <div class="text-sm text-gray-500">لا توجد أسئلة محفوظة بعد لهذا الاستبيان.</div>
+        <div class="text-sm text-gray-500">There are no questions reserved yet for this survey.</div>
       <?php endif; ?>
     </div>
   </div>
 </div>
 
 <script>
-  // واجهة بناء الأسئلة (من صفحة الإنشاء) + حفظ إلى قاعدة البيانات
-  let blockCount = 0; // الأقسام
+  // The interface to build questions (from the construction page) + Save the database
+  let blockCount = 0; // Sections
   let questionCount = 0;
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -179,23 +179,23 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
         <div class="survey-section border border-gray-200 rounded-xl p-4 mb-6 bg-gray-50" data-section="${blockCount}">
           <div class="flex items-center justify-between mb-4">
             <div class="flex items-center">
-              <i class="ri-layout-row-line text-gray-500 ml-2"></i>
-              <h3 class="text-md font-medium text-gray-900">قسم ${blockCount}</h3>
+              <i class="ri-layout-row-line text-gray-500 mr-2"></i>
+              <h3 class="text-md font-medium text-gray-900">Brand ${blockCount}</h3>
             </div>
             <div class="flex items-center gap-2">
-              <button type="button" class="text-gray-600 hover:text-gray-800 px-3 py-1 text-sm border rounded-lg" onclick="moveSection(${blockCount}, -1)">فوق</button>
-              <button type="button" class="text-gray-600 hover:text-gray-800 px-3 py-1 text-sm border rounded-lg" onclick="moveSection(${blockCount}, 1)">تحت</button>
+              <button type="button" class="text-gray-600 hover:text-gray-800 px-3 py-1 text-sm border rounded-lg" onclick="moveSection(${blockCount}, -1)">Move up</button>
+              <button type="button" class="text-gray-600 hover:text-gray-800 px-3 py-1 text-sm border rounded-lg" onclick="moveSection(${blockCount}, 1)">Move down</button>
               <button type="button" class="text-red-600 hover:text-red-700 p-1" onclick="removeSection(${blockCount})">
                 <i class="ri-delete-bin-line"></i>
               </button>
             </div>
           </div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">عنوان القسم (اختياري)</label>
-          <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mb-4 section-title" value="قسم ${blockCount}" placeholder="مثال: أسئلة عامة">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Section title (Choiceal)</label>
+          <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mb-4 section-title" value="Brand ${blockCount}" placeholder="Example: General Questions ">
           <div class="section-questions space-y-4"></div>
           <div class="mt-4">
             <button type="button" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors" onclick="addQuestion(${blockCount})">
-              إضافة سؤال داخل هذا القسم
+              Add Question within this section
             </button>
           </div>
         </div>`;
@@ -228,12 +228,12 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
         <div class="question-item border border-gray-200 rounded-lg p-4 mb-4 bg-white" data-question="${questionCount}">
           <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-2">
-              <span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded">س${questionCount}</span>
-              <h3 class="text-md font-medium text-gray-900">سؤال</h3>
+              <span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded">Q${questionCount}</span>
+              <h3 class="text-md font-medium text-gray-900">Question</h3>
             </div>
             <div class="flex items-center gap-2">
-              <button type="button" class="text-gray-600 hover:text-gray-800 px-3 py-1 text-sm border rounded-lg" onclick="moveQuestion(${questionCount}, -1)">فوق</button>
-              <button type="button" class="text-gray-600 hover:text-gray-800 px-3 py-1 text-sm border rounded-lg" onclick="moveQuestion(${questionCount}, 1)">تحت</button>
+              <button type="button" class="text-gray-600 hover:text-gray-800 px-3 py-1 text-sm border rounded-lg" onclick="moveQuestion(${questionCount}, -1)">Move up</button>
+              <button type="button" class="text-gray-600 hover:text-gray-800 px-3 py-1 text-sm border rounded-lg" onclick="moveQuestion(${questionCount}, 1)">Move down</button>
               <button type="button" class="text-red-600 hover:text-red-700 p-1" onclick="removeQuestion(${questionCount})">
                 <i class="ri-delete-bin-line"></i>
               </button>
@@ -241,27 +241,27 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">نص السؤال</label>
-              <textarea class="q-text w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="2" placeholder="اكتب السؤال هنا..."></textarea>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Question text</label>
+              <textarea class="q-text w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="2" placeholder="Write the question here ... "></textarea>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">نوع السؤال</label>
-              <select class="q-type w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" onchange="updateAnswerOptions(${questionCount})">
-                <option value="multiple">اختيار من متعدد</option>
-                <option value="likert">مقياس ليكرت (1-5)</option>
-                <option value="yesno">نعم / لا</option>
-                <option value="short">نص قصير</option>
-                <option value="long">نص طويل</option>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Question type</label>
+              <select class="q-type w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" onchange="updateAnswerChoices(${questionCount})">
+                <option value="multiple">Multiple choice</option>
+                <option value="likert">Likert scale (1-5)</option>
+                <option value="yesno">Yes / no</option>
+                <option value="short">Short answer</option>
+                <option value="long">Long answer</option>
               </select>
             </div>
           </div>
           <div class="mt-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">إجابات السؤال</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Answer options</label>
             <div class="answer-options" id="answers-${questionCount}">${multipleChoiceTemplate(questionCount)}</div>
             <div class="flex items-center gap-2 mt-3">
-              <button type="button" class="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded" onclick="addChoice(${questionCount})">إضافة خيار</button>
+              <button type="button" class="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded" onclick="addChoice(${questionCount})">Add an option</button>
               <label class="flex items-center text-sm text-gray-600">
-                <input type="checkbox" class="ml-2 q-required w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"> سؤال إلزامي
+                <input type="checkbox" class="mr-2 q-required w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"> A mandatory question
               </label>
             </div>
           </div>
@@ -290,7 +290,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
       }
     }
 
-    window.updateAnswerOptions = function(questionNum) {
+    window.updateAnswerChoices = function(questionNum) {
       const qType = document.querySelector(`[data-question="${questionNum}"] .q-type`).value;
       const answersContainer = document.getElementById(`answers-${questionNum}`);
       if (qType === 'multiple') {
@@ -314,76 +314,76 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
       choice.className = 'flex items-center gap-2';
       choice.innerHTML = `
         <input type="radio" name="correct-${questionNum}" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500">
-        <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="الخيار ${index}">
+        <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Choice ${index}">
         <button type="button" class="text-red-600 hover:text-red-700" onclick="this.parentElement.remove()"><i class="ri-close-line"></i></button>`;
       container.appendChild(choice);
     }
 
-    // قوالب الإجابات
+    // Answers molds
     function multipleChoiceTemplate(num){
       return `
         <div class="space-y-2 choices">
           <div class="flex items-center gap-2">
             <input type="radio" name="correct-${num}" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500">
-            <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="الخيار 1">
+            <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Choice 1 ">
           </div>
           <div class="flex items-center gap-2">
             <input type="radio" name="correct-${num}" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500">
-            <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="الخيار 2">
+            <input type="text" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Choice 2 ">
           </div>
         </div>
-        <p class="text-xs text-gray-500 mt-2">يمكنك تحديد الإجابة الصحيحة أو تركها فارغة إذا كان السؤال غير مُقيّم بالنقاط.</p>`;
+        <p class="text-xs text-gray-500 mt-2">You can determine the correct answer or leave it empty if the question is not valid by points.</p>`;
     }
 
     function likertTemplate(){
       return `
         <div class="grid grid-cols-5 gap-2 text-center">
-          <div class="p-2 bg-gray-50 border rounded">1<br><span class="text-xs text-gray-500">أعارض بشدة</span></div>
+          <div class="p-2 bg-gray-50 border rounded">1<br><span class="text-xs text-gray-500">I am very oppressive</span></div>
           <div class="p-2 bg-gray-50 border rounded">2</div>
-          <div class="p-2 bg-gray-50 border rounded">3<br><span class="text-xs text-gray-500">محايد</span></div>
+          <div class="p-2 bg-gray-50 border rounded">3<br><span class="text-xs text-gray-500">neutral</span></div>
           <div class="p-2 bg-gray-50 border rounded">4</div>
-          <div class="p-2 bg-gray-50 border rounded">5<br><span class="text-xs text-gray-500">أوافق بشدة</span></div>
+          <div class="p-2 bg-gray-50 border rounded">5<br><span class="text-xs text-gray-500">I am very agreed</span></div>
         </div>
-        <p class="text-xs text-gray-500 mt-2">سيختار المجيب قيمة من 1 إلى 5.</p>`;
+        <p class="text-xs text-gray-500 mt-2">The respondent will choose a value from 1 to 5.</p>`;
     }
 
     function yesNoTemplate(num){
       return `
         <div class="flex items-center gap-4">
-          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="yn-${num}"> نعم</label>
-          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="yn-${num}"> لا</label>
+          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="yn-${num}"> Yes</label>
+          <label class="flex items-center gap-2 text-sm text-gray-700"><input type="radio" name="yn-${num}"> no</label>
         </div>`;
     }
 
     function shortTextTemplate(){
-      return `<input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="إجابة قصيرة">`;
+      return `<input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Short answer answer ">`;
     }
 
     function longTextTemplate(){
-      return `<textarea rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="إجابة طويلة"></textarea>`;
+      return `<textarea rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Long answer "></textarea>`;
     }
 
-    // حفظ كل العناصر المنشأة إلى قاعدة البيانات
+    // Save all the elements established to the database
     async function saveAll(){
-      // ثلاث محاولات للحصول على survey_id
+      // Three attempts to get survey_id
       const fromDataAttr = parseInt(builder?.dataset.surveyId || '0');
       const fromHidden = parseInt(surveyIdHidden?.value || '0');
       const fromUrl = parseInt(new URLSearchParams(location.search).get('survey_id') || '0');
       const surveyId = fromDataAttr || fromHidden || fromUrl || 0;
 
       if (!surveyId) {
-        console.warn('لم يتمكن السكربت من تحديد survey_id', { fromDataAttr, fromHidden, fromUrl });
-        alert('survey_id غير صالح');
+        console.warn('The script was unable to determine survey_id', { fromDataAttr, fromHidden, fromUrl });
+        alert('survey_id Uncommon');
         return;
       }
 
-      // قائمة كل عمليات الحفظ (جذر + داخل الأقسام) مع الحفاظ على الترتيب
+      // List of all memorization operations (root + Inside the sections) while maintaining the arrangement
       const payloads = [];
 
-      // 1) جمع جميع الأسئلة مع ترتيبها الحالي في DOM
+      // 1) Collect all questions with their current ranking in DOM
       const allQuestions = [];
       
-      // أسئلة الجذر
+      // Root questions
       document.querySelectorAll('#questionsContainer > .question-item').forEach((item, idx) => {
         allQuestions.push({ 
           item, 
@@ -393,28 +393,28 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
         });
       });
 
-      // أسئلة داخل الأقسام
+      // Questions within the departments
       document.querySelectorAll('#questionsContainer > .survey-section').forEach((section, sectionIdx) => {
-        const title = (section.querySelector('.section-title')?.value || `قسم ${section.dataset.section || ''}`).trim();
+        const title = (section.querySelector('.section-title')?.value || `Brand ${section.dataset.section || ''}`).trim();
         section.querySelectorAll('.section-questions > .question-item').forEach((item, questionIdx) => {
           allQuestions.push({ 
             item, 
             sectionTitle: title, 
-            domOrder: sectionIdx * 1000 + questionIdx, // ضمان ترتيب الأقسام
+            domOrder: sectionIdx * 1000 + questionIdx, // Ensure the arrangement of sections
             isSection: true 
           });
         });
       });
 
-      // ترتيب حسب الظهور في DOM
+      // Arrange by appearance in DOM
       allQuestions.sort((a, b) => a.domOrder - b.domOrder);
 
       if (!allQuestions.length) { 
-        alert('لا توجد أسئلة للحفظ'); 
+        alert('There are no questions to save'); 
         return; 
       }
 
-      // البدء من عدد الأسئلة المحفوظة بالفعل لضمان ترتيب صحيح
+      // Begin the Count of questions already preserved to ensure a correct arrangement
       let orderIndex = <?= (int)count($questions ?? []) ?>;
       const failures = [];
 
@@ -423,8 +423,8 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
         let qType = item.querySelector('.q-type')?.value || 'multiple';
         if (!text) { continue; }
 
-        // تحويل الأنواع لتتوافق مع backend: mcq | checkbox | text
-        // multiple/yesno/likert -> mcq، short/long -> text
+        // Transfer species to comply with backend: mcq | checkbox | text
+        // multiple/yesno/likert -> mcq, short/long -> text
         let backendType = 'mcq';
         if (qType === 'short' || qType === 'long') backendType = 'text';
 
@@ -432,10 +432,10 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
         form.append('survey_id', String(surveyId));
         form.append('text', text);
         form.append('type', backendType);
-        form.append('order_index', String(orderIndex++)); // ترتيب متسلسل
+        form.append('order_index', String(orderIndex++)); // Serial arrangement
         form.append('section_title', sectionTitle);
 
-        // بناء الخيارات إن كانت مطلوبة
+        // Building options if required
         const options = [];
         if (qType === 'multiple') {
           item.querySelectorAll('.choices input[type="text"]').forEach(inp => { 
@@ -443,14 +443,14 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             if (v) options.push(v); 
           });
         } else if (qType === 'yesno') {
-          options.push('نعم'); 
-          options.push('لا');
+          options.push('Yes'); 
+          options.push('no');
         } else if (qType === 'likert') {
-          options.push('أعارض بشدة (1)');
+          options.push('I am very opposed (1)');
           options.push('2');
-          options.push('محايد (3)');
+          options.push('Neutral (3)');
           options.push('4');
-          options.push('أوافق بشدة (5)');
+          options.push('I am very agreed (5)');
         }
 
         if (backendType === 'mcq' && options.length){
@@ -463,7 +463,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             headers: { 'X-Requested-With': 'XMLHttpRequest' },
             body: form
           });
-          const data = await res.json().catch(()=>({ ok:false, error:'استجابة غير صالحة' }));
+          const data = await res.json().catch(()=>({ ok:false, error:'An invalid response' }));
           if (!res.ok || !data.ok) {
             failures.push({ text, error: data.error || ('HTTP '+res.status) });
           }
@@ -473,8 +473,8 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
       }
 
       if (failures.length){
-        console.error('أخطاء حفظ الأسئلة:', failures);
-        alert('تمت بعض المحاولات لكن فشل حفظ '+failures.length+' سؤال/أسئلة. راجع Console للتفاصيل.');
+        console.error('Questions errors:', failures);
+        alert('Some attempts were made, but the failure of preservation '+failures.length+' Question/Questions. Return Console For details.');
         return;
       }
 
