@@ -7,11 +7,11 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
     <div class="flex items-center">
       <div class="w-10 h-10 bg-[#1E3D59]/10 rounded-lg flex items-center justify-center mr-3"><i class="ri-file-add-line text-[#1E3D59] text-xl"></i></div>
       <div>
-        <h1 class="text-xl md:text-2xl font-bold text-gray-900">إنشاء محتوى</h1>
-        <p class="text-sm text-gray-600">أضف مواد التوعية بالمؤسسة</p>
+        <h1 class="text-xl md:text-2xl font-bold text-gray-900"><?= __('admin.content.create.title') ?></h1>
+        <p class="text-sm text-gray-600"><?= __('admin.content.create.subtitle') ?></p>
       </div>
     </div>
-    <a href="<?= $basePath ?>/admin/content" class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">عودة</a>
+    <a href="<?= $basePath ?>/admin/content" class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50"><?= __('common.actions.back') ?></a>
   </div>
 </div>
 
@@ -19,7 +19,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
   <script>
     (function(){
       try {
-        console.group('%cرمز الخطأ','color:#b91c1c;font-weight:bold;');
+        console.group('%c' + <?= json_encode(__('admin.content.create.console.error_code')) ?>,'color:#b91c1c;font-weight:bold;');
         console.error('<?= htmlspecialchars($_GET['error']) ?>');
         console.groupEnd();
       } catch(_){}
@@ -32,7 +32,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
     (function(){
       try {
         const errs = <?= json_encode($errors, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
-        console.group('%cأخطاء إنشاء المحتوى','color:#b91c1c;font-weight:bold;');
+        console.group('%c' + <?= json_encode(__('admin.content.create.console.creation_errors')) ?>,'color:#b91c1c;font-weight:bold;');
         errs.forEach(e=>console.error(e));
         console.groupEnd();
       } catch(_){}
@@ -45,12 +45,12 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
     (function(){
       try {
         const detail = <?= json_encode($devError, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
-        console.group('%cتفاصيل تقنية (للتشخيص المحلي فقط)','color:#334155;font-weight:bold;');
-        console.info('النوع:', detail.type || '');
-        console.info('الرسالة:', detail.message || '');
-        if (detail.sqlstate) console.info('SQLSTATE:', detail.sqlstate);
-        if (detail.driver) console.info('Driver:', detail.driver);
-        console.info('الوقت:', detail.time || '');
+        console.group('%c' + <?= json_encode(__('admin.content.create.console.dev_details_title')) ?>,'color:#334155;font-weight:bold;');
+        console.info(<?= json_encode(__('admin.content.create.console.type_label')) ?>, detail.type || '');
+        console.info(<?= json_encode(__('admin.content.create.console.message_label')) ?>, detail.message || '');
+        if (detail.sqlstate) console.info(<?= json_encode(__('admin.content.create.console.sqlstate_label')) ?>, detail.sqlstate);
+        if (detail.driver) console.info(<?= json_encode(__('admin.content.create.console.driver_label')) ?>, detail.driver);
+        console.info(<?= json_encode(__('admin.content.create.console.time_label')) ?>, detail.time || '');
         console.groupEnd();
       } catch(_){}
     })();
@@ -66,13 +66,13 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
   <!-- معلومات أساسية -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">عنوان المحتوى</label>
-      <input type="text" name="title" value="<?= htmlspecialchars($old['title'] ?? '') ?>" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]" placeholder="مثال: أهم ممارسات أمان كلمة المرور" required>
+      <label class="block text-sm font-medium text-gray-700 mb-2"><?= __('admin.content.create.form.title_label') ?></label>
+      <input type="text" name="title" value="<?= htmlspecialchars($old['title'] ?? '') ?>" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]" placeholder="<?= __('admin.content.create.form.title_placeholder') ?>" required>
     </div>
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">الفئة</label>
-      <select name="category_id" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]" aria-label="اختيار الفئة">
-        <option value="">اختر الفئة</option>
+      <label class="block text-sm font-medium text-gray-700 mb-2"><?= __('admin.content.create.form.category_label') ?></label>
+      <select name="category_id" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]" aria-label="<?= __('admin.content.create.form.category_aria') ?>">
+        <option value=""><?= __('admin.content.create.form.category_placeholder') ?></option>
         <?php if (!empty($categories ?? [])): ?>
           <?php foreach ($categories as $cat): ?>
             <option value="<?= (int)$cat['id'] ?>" <?= (isset($old['category_id']) && (int)$old['category_id']===(int)$cat['id'])?'selected':''; ?>>
@@ -80,12 +80,12 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
             </option>
           <?php endforeach; ?>
         <?php else: ?>
-          <option value="1">الحماية الأساسية</option>
-          <option value="2">أمان البريد الإلكتروني</option>
-          <option value="3">حماية الأجهزة المحمولة</option>
-          <option value="4">إدارة كلمات المرور</option>
-          <option value="5">أمان الشبكات</option>
-          <option value="6">التخزين السحابي</option>
+          <option value="1"><?= __('admin.content.create.form.default_categories.basic_security') ?></option>
+          <option value="2"><?= __('admin.content.create.form.default_categories.email_security') ?></option>
+          <option value="3"><?= __('admin.content.create.form.default_categories.mobile_security') ?></option>
+          <option value="4"><?= __('admin.content.create.form.default_categories.password_management') ?></option>
+          <option value="5"><?= __('admin.content.create.form.default_categories.network_security') ?></option>
+          <option value="6"><?= __('admin.content.create.form.default_categories.cloud_storage') ?></option>
         <?php endif; ?>
       </select>
     </div>
@@ -93,28 +93,28 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
 
   <!-- نوع المحتوى -->
   <div>
-    <label class="block text-sm font-medium text-gray-700 mb-2">نوع المحتوى</label>
-    <div class="flex flex-wrap gap-3 mb-2" role="tablist" aria-label="نوع المحتوى">
-      <button type="button" id="btnText" class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100" aria-selected="false">محتوى نصي</button>
-      <button type="button" id="btnVideo" class="px-4 py-2 text-sm rounded-lg text-white" style="background:#1E3D59;" aria-selected="true">محتوى فيديو</button>
+    <label class="block text-sm font-medium text-gray-700 mb-2"><?= __('admin.content.create.form.type_label') ?></label>
+    <div class="flex flex-wrap gap-3 mb-2" role="tablist" aria-label="<?= __('admin.content.create.form.type_aria') ?>">
+      <button type="button" id="btnText" class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100" aria-selected="false"><?= __('admin.content.create.form.type_options.article') ?></button>
+      <button type="button" id="btnVideo" class="px-4 py-2 text-sm rounded-lg text-white" style="background:#1E3D59;" aria-selected="true"><?= __('admin.content.create.form.type_options.video') ?></button>
       
     </div>
-    <p id="typeHelp" class="text-xs text-gray-500">اختر النوع المناسب ليتم عرض الحقول ذات الصلة فقط.</p>
+    <p id="typeHelp" class="text-xs text-gray-500"><?= __('admin.content.create.form.type_help') ?></p>
 
     <!-- القسم النصي -->
     <div id="textSection" class="hidden mt-4">
-      <label class="block text-sm font-medium text-gray-700 mb-2">المحتوى النصي</label>
-      <textarea id="textBody" rows="8" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]" placeholder="اكتب المحتوى هنا... (يدعم النصوص الطويلة)"></textarea>
-      <p class="text-xs text-gray-500 mt-1">سيتم الحفظ في الحقل `body` ضمن جدول المحتوى.</p>
+      <label class="block text-sm font-medium text-gray-700 mb-2"><?= __('admin.content.create.form.article_body_label') ?></label>
+      <textarea id="textBody" rows="8" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]" placeholder="<?= __('admin.content.create.form.article_body_placeholder') ?>"></textarea>
+      <p class="text-xs text-gray-500 mt-1"><?= __('admin.content.create.form.article_body_hint') ?></p>
     </div>
 
     <!-- القسم المرئي (فيديو/دليل/إنفوجرافيك) -->
     <div id="mediaSection" class="mt-4">
-      <label class="block text-sm font-medium text-gray-700 mb-2">رابط الوسائط (media_url)</label>
+      <label class="block text-sm font-medium text-gray-700 mb-2"><?= __('admin.content.create.form.media_url_label') ?></label>
       <div class="border border-gray-200 rounded-lg p-4">
         <div class="flex flex-col gap-3 max-w-xl">
-          <input type="url" id="videoUrl" placeholder="أدخل رابط الوسائط: YouTube, Vimeo, أو ملف خارجي" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]">
-          <div class="text-xs text-gray-500">مثال: https://www.youtube.com/watch?v=xxxx — سيتم الحفظ في `media_url`.</div>
+          <input type="url" id="videoUrl" placeholder="<?= __('admin.content.create.form.media_url_placeholder') ?>" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]">
+          <div class="text-xs text-gray-500"><?= __('admin.content.create.form.media_url_hint') ?></div>
         </div>
       </div>
     </div>
@@ -122,61 +122,61 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
 
   <!-- الوصف والإعدادات -->
   <div>
-    <label class="block text-sm font-medium text-gray-700 mb-2">وصف المحتوى</label>
-    <textarea id="descTextarea" name="description" rows="4" maxlength="500" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]" placeholder="اكتب وصفًا مختصرًا للمحتوى...">&ZeroWidthSpace;<?= htmlspecialchars($old['description'] ?? '') ?></textarea>
-    <div class="text-xs text-gray-500 mt-1"><span id="descCount">0</span>/500 حرف</div>
+    <label class="block text-sm font-medium text-gray-700 mb-2"><?= __('admin.content.create.form.description_label') ?></label>
+    <textarea id="descTextarea" name="description" rows="4" maxlength="500" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]" placeholder="<?= __('admin.content.create.form.description_placeholder') ?>">&ZeroWidthSpace;<?= htmlspecialchars($old['description'] ?? '') ?></textarea>
+    <div class="text-xs text-gray-500 mt-1"><span id="descCount">0</span>/500 <?= __('common.forms.characters') ?></div>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">مستوى الصعوبة</label>
+      <label class="block text-sm font-medium text-gray-700 mb-2"><?= __('admin.content.create.form.difficulty_label') ?></label>
       <?php $ps = $old['difficulty_level'] ?? ''; ?>
       <select name="difficulty_level" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]">
-        <option value="">اختر المستوى</option>
-        <option value="beginner" <?= $ps==='beginner'?'selected':''; ?>>مبتدئ</option>
-        <option value="intermediate" <?= $ps==='intermediate'?'selected':''; ?>>متوسط</option>
-        <option value="advanced" <?= $ps==='advanced'?'selected':''; ?>>متقدم</option>
+        <option value=""><?= __('admin.content.create.form.difficulty_placeholder') ?></option>
+        <option value="beginner" <?= $ps==='beginner'?'selected':''; ?>><?= __('admin.content.create.form.difficulty_options.beginner') ?></option>
+        <option value="intermediate" <?= $ps==='intermediate'?'selected':''; ?>><?= __('admin.content.create.form.difficulty_options.intermediate') ?></option>
+        <option value="advanced" <?= $ps==='advanced'?'selected':''; ?>><?= __('admin.content.create.form.difficulty_options.advanced') ?></option>
       </select>
     </div>
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">وقت القراءة/المشاهدة المتوقع (بالدقائق)</label>
-      <input type="number" name="est_duration" value="<?= htmlspecialchars((string)($old['est_duration'] ?? 0)) ?>" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]" min="0" placeholder="مثال: 5">
+      <label class="block text-sm font-medium text-gray-700 mb-2"><?= __('admin.content.create.form.duration_label') ?></label>
+      <input type="number" name="est_duration" value="<?= htmlspecialchars((string)($old['est_duration'] ?? 0)) ?>" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]" min="0" placeholder="<?= __('admin.content.create.form.duration_placeholder') ?>">
     </div>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">نقاط المكافأة</label>
+      <label class="block text-sm font-medium text-gray-700 mb-2"><?= __('admin.content.create.form.points_label') ?></label>
       <input type="number" name="reward_points" value="<?= htmlspecialchars((string)($old['reward_points'] ?? 0)) ?>" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]" min="0">
     </div>
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">حالة النشر</label>
+      <label class="block text-sm font-medium text-gray-700 mb-2"><?= __('admin.content.create.form.status_label') ?></label>
       <?php $ps = $old['publish_status'] ?? 'draft'; ?>
       <select name="publish_status" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]">
-        <option value="draft" <?= $ps==='draft'?'selected':''; ?>>مسودة</option>
-        <option value="published" <?= $ps==='published'?'selected':''; ?>>منشور</option>
-        <option value="archived" <?= $ps==='archived'?'selected':''; ?>>مؤرشف</option>
+        <option value="draft" <?= $ps==='draft'?'selected':''; ?>><?= __('admin.content.status.draft') ?></option>
+        <option value="published" <?= $ps==='published'?'selected':''; ?>><?= __('admin.content.status.published') ?></option>
+        <option value="archived" <?= $ps==='archived'?'selected':''; ?>><?= __('admin.content.status.archived') ?></option>
       </select>
     </div>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">رابط الصورة المصغرة (thumbnail_url)</label>
-      <input type="url" name="thumbnail_url" value="<?= htmlspecialchars($old['thumbnail_url'] ?? '') ?>" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]" placeholder="https://...">
+      <label class="block text-sm font-medium text-gray-700 mb-2"><?= __('admin.content.create.form.thumbnail_label') ?></label>
+      <input type="url" name="thumbnail_url" value="<?= htmlspecialchars($old['thumbnail_url'] ?? '') ?>" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1E3D59]/20 focus:border-[#1E3D59]" placeholder="<?= __('admin.content.create.form.thumbnail_placeholder') ?>">
     </div>
   </div>
 
   <div class="flex items-center gap-3">
     <label class="inline-flex items-center gap-2 text-sm text-gray-700">
       <input type="checkbox" name="is_featured" value="1" <?= !empty($old['is_featured']) ? 'checked' : '' ?> class="w-4 h-4">
-      محتوى مميز
+      <?= __('admin.content.create.form.featured_label') ?>
     </label>
   </div>
 
   <div class="flex items-center justify-end gap-3 mt-6">
-    <a href="<?= $basePath ?>/admin/content" class="bg-gray-200 text-gray-700 px-6 py-2 rounded hover:bg-gray-300">إلغاء</a>
-    <button type="submit" class="bg-[#1E3D59] text-white px-6 py-2 rounded hover:opacity-90">نشر المحتوى</button>
+    <a href="<?= $basePath ?>/admin/content" class="bg-gray-200 text-gray-700 px-6 py-2 rounded hover:bg-gray-300"><?= __('common.actions.cancel') ?></a>
+    <button type="submit" class="bg-[#1E3D59] text-white px-6 py-2 rounded hover:opacity-90"><?= __('admin.content.create.buttons.submit') ?></button>
   </div>
 </form>
 
@@ -248,7 +248,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
         mediaUrlHidden.value = '';
         bodyHidden.value = (textBody.value || '').trim();
         if (!bodyHidden.value){
-          alert('يرجى كتابة المحتوى النصي.');
+          alert(<?= json_encode(__('admin.content.create.alerts.body_required')) ?>);
           e.preventDefault();
           return;
         }
@@ -256,7 +256,7 @@ if ($basePath === '/' || $basePath === '\\') { $basePath = ''; }
         bodyHidden.value = '';
         mediaUrlHidden.value = (videoUrl.value || '').trim();
         if (!mediaUrlHidden.value){
-          alert('يرجى إدراج رابط الوسائط المناسب لهذا النوع.');
+          alert(<?= json_encode(__('admin.content.create.alerts.media_required')) ?>);
           e.preventDefault();
           return;
         }

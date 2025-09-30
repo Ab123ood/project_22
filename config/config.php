@@ -75,4 +75,7 @@ $config = [
 // Store configuration in global variable
 $GLOBALS['config'] = $config;
 
+// Load helper functions (including localization)
+require_once APP_PATH . '/core/helpers.php';
+
 return $config;
