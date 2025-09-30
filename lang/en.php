@@ -66,6 +66,11 @@ return [
         'email' => 'info@darae-platform.sa',
         'phone' => '+966 12 345 6789',
         'location' => 'Kingdom of Saudi Arabia',
+        'social' => [
+            'facebook' => 'Facebook',
+            'x' => 'X',
+            'linkedin' => 'LinkedIn',
+        ],
         'copyright' => '© 2024 Darae Platform. All rights reserved.',
     ],
     'home' => [
@@ -124,5 +129,90 @@ return [
             'learners' => 'Empowered learners',
             'satisfaction' => 'User satisfaction',
         ],
+    ],
+    'auth' => [
+        'meta' => [
+            'title' => 'Sign in or create an account – Darae Platform',
+            'description' => 'Access Darae to continue your cyber awareness journey or register a new account.',
+        ],
+        'hero' => [
+            'title' => 'Join the Darae cyber awareness community',
+            'subtitle' => 'Stay on top of organisational security campaigns, curated learning resources, and progress tracking tailored to every employee.',
+            'features' => [
+                'awareness' => 'Curated awareness content updated regularly',
+                'campaigns' => 'Ongoing security campaigns for your teams',
+                'progress' => 'Track learning progress and milestones',
+            ],
+        ],
+        'tabs' => [
+            'login' => 'Sign in',
+            'register' => 'Create account',
+        ],
+        'forms' => [
+            'login' => [
+                'email_label' => 'Email address',
+                'email_placeholder' => 'name@example.com',
+                'password_label' => 'Password',
+                'password_placeholder' => 'Enter your password',
+                'remember_me' => 'Remember me',
+                'forgot_password' => 'Forgot password?',
+                'submit' => 'Sign in',
+            ],
+            'register' => [
+                'full_name_label' => 'Full name',
+                'full_name_placeholder' => 'Enter your full name',
+                'email_label' => 'Email address',
+                'email_placeholder' => 'name@example.com',
+                'password_label' => 'Password',
+                'password_placeholder' => 'Create a strong password',
+                'password_hint' => 'Use at least 8 characters with letters, numbers, and symbols.',
+                'confirm_password_label' => 'Confirm password',
+                'confirm_password_placeholder' => 'Re-enter your password',
+                'terms_agreement' => 'I agree to the <a href="#" class="text-primary hover:underline">Terms of service</a> and <a href="#" class="text-primary hover:underline">Privacy policy</a>.',
+                'submit' => 'Create account',
+            ],
+        ],
+        'footer' => [
+            'tagline' => 'Secure your knowledge and safeguard your organisation.',
+            'terms' => 'Terms of service',
+            'privacy' => 'Privacy policy',
+            'contact' => 'Contact us',
+        ],
+        'flash' => [
+            'missing_credentials' => 'Please enter your email address and password.',
+            'invalid_email' => 'The email address format is invalid.',
+            'invalid_credentials' => 'The provided credentials do not match our records.',
+            'generic_error' => 'Something went wrong. Please try again.',
+            'missing_fields' => 'Please complete all required fields.',
+            'password_mismatch' => 'Passwords do not match.',
+            'password_length' => 'Password must contain at least :min characters.',
+            'email_exists' => 'This email address is already registered.',
+            'register_success' => 'Account created successfully. You can now sign in.',
+        ],
+    ],
+    'sidebar' => [
+        'aria' => [
+            'open_menu' => 'Open sidebar menu',
+            'close_menu' => 'Close sidebar menu',
+            'panel' => 'Sidebar navigation',
+        ],
+        'brand' => [
+            'title' => 'Darae',
+            'subtitle' => 'Cyber awareness platform',
+        ],
+        'menu' => [
+            'dashboard_admin' => 'Management dashboard',
+            'content' => 'Content management',
+            'exams' => 'Assessments',
+            'surveys' => 'Surveys',
+            'users' => 'User management',
+            'reports' => 'Reports & analytics',
+        ],
+        'user' => [
+            'default_name' => 'User',
+            'department' => 'Department #:department',
+            'role' => 'Role #:role',
+        ],
+        'logout' => 'Sign out',
     ],
 ];

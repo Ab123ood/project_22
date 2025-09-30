@@ -19,12 +19,24 @@ if ($userId > 0) {
   } catch (Throwable $e) { /* ignore */ }
 }
 
-$displayName = htmlspecialchars(trim((string)($user['user_name'] ?? '')) ?: 'مستخدم');
+$isRtlLayout = ($lang['dir'] ?? (($isRtl ?? false) ? 'rtl' : 'ltr')) === 'rtl';
+$iconMargin = $isRtlLayout ? 'ml-3' : 'mr-3';
+$iconMarginTight = $isRtlLayout ? 'ml-2' : 'mr-2';
+
+$displayNameRaw = trim((string)($user['user_name'] ?? ''));
+if ($displayNameRaw === '') {
+  $displayNameRaw = __('sidebar.user.default_name');
+}
+$displayName = htmlspecialchars($displayNameRaw);
 
 $subtitleParts = [];
-if (!empty($user['department_id'])) { $subtitleParts[] = 'القسم: #'.(int)$user['department_id']; }
-if (!empty($user['role_id'])) { $subtitleParts[] = 'الدور: #'.(int)$user['role_id']; }
-$displaySubtitle = htmlspecialchars(implode(' • ', $subtitleParts));
+if (!empty($user['department_id'])) {
+  $subtitleParts[] = __('sidebar.user.department', ['department' => (int)$user['department_id']]);
+}
+if (!empty($user['role_id'])) {
+  $subtitleParts[] = __('sidebar.user.role', ['role' => (int)$user['role_id']]);
+}
+$displaySubtitle = htmlspecialchars(implode(' • ', array_filter($subtitleParts)));
 ?>
 
 <style>
@@ -72,7 +84,7 @@ $displaySubtitle = htmlspecialchars(implode(' • ', $subtitleParts));
 </style>
 
 <!-- زر فتح الشريط الجانبي على الجوال -->
-<button id="openSidebarBtn" class="md:hidden fixed bottom-4 left-4 z-40 w-12 h-12 rounded-full shadow-lg bg-white border border-gray-200 text-gray-700 flex items-center justify-center hover:bg-gray-50" aria-controls="mobileSidebar" aria-expanded="false" aria-label="فتح القائمة">
+<button id="openSidebarBtn" class="md:hidden fixed bottom-4 left-4 z-40 w-12 h-12 rounded-full shadow-lg bg-white border border-gray-200 text-gray-700 flex items-center justify-center hover:bg-gray-50" aria-controls="mobileSidebar" aria-expanded="false" aria-label="<?= htmlspecialchars(__('sidebar.aria.open_menu')) ?>">
   <i class="ri-menu-3-line text-2xl" aria-hidden="true"></i>
 </button>
 
@@ -80,49 +92,49 @@ $displaySubtitle = htmlspecialchars(implode(' • ', $subtitleParts));
 <div id="sidebarOverlay" class="md:hidden fixed inset-0 bg-black/30 backdrop-blur-sm hidden z-40"></div>
 
 <!-- الشريط الجانبي للجوال (off-canvas) -->
-<aside id="mobileSidebar" class="md:hidden fixed inset-y-0 right-0 w-72 max-w-[85vw] bg-white border-l border-gray-200 shadow-xl transform translate-x-full transition-transform duration-300 z-50" role="dialog" aria-modal="true" aria-label="القائمة الجانبية">
+<aside id="mobileSidebar" class="md:hidden fixed inset-y-0 right-0 w-72 max-w-[85vw] bg-white border-l border-gray-200 shadow-xl transform translate-x-full transition-transform duration-300 z-50" role="dialog" aria-modal="true" aria-label="<?= htmlspecialchars(__('sidebar.aria.panel')) ?>">
   <div class="flex flex-col h-full">
     <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200">
-      <a href="<?= $basePath ?>/" class="flex items-center gap-3" aria-label="الصفحة الرئيسية">
+      <a href="<?= $basePath ?>/" class="flex items-center gap-3" aria-label="<?= htmlspecialchars(__('header.brand.home_aria')) ?>">
         <div class="w-10 h-10 bg-gradient-to-br from-[#1E3D59] to-[#17A2B8] rounded-lg flex items-center justify-center">
           <i class="ri-shield-check-line text-white text-xl"></i>
         </div>
         <div class="text-right">
-          <div class="sidebar-logo leading-none">درع</div>
-          <div class="sidebar-subtitle text-sm">منصة الوعي السيبراني</div>
+          <div class="sidebar-logo leading-none"><?= htmlspecialchars(__('sidebar.brand.title')) ?></div>
+          <div class="sidebar-subtitle text-sm"><?= htmlspecialchars(__('sidebar.brand.subtitle')) ?></div>
         </div>
       </a>
-      <button id="closeSidebarBtn" class="w-10 h-10 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50" aria-label="إغلاق القائمة">
+      <button id="closeSidebarBtn" class="w-10 h-10 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50" aria-label="<?= htmlspecialchars(__('sidebar.aria.close_menu')) ?>">
         <i class="ri-close-line text-xl" aria-hidden="true"></i>
       </button>
     </div>
     <nav class="flex-1 overflow-y-auto px-2 py-3 space-y-1">
       <?php if ($isManagerOrAdmin): ?>
       <a href="<?= $basePath ?>/dashboard" class="sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg<?= (strpos($current, $basePath.'/dashboard')===0 ? ' active text-primary' : ' text-gray-600') ?>">
-          <i class="ri-dashboard-line text-lg ml-3 text-primary"></i>
-          لوحة التحكم (إداري)
+          <i class="ri-dashboard-line text-lg <?= $iconMargin ?> text-primary"></i>
+          <?= htmlspecialchars(__('sidebar.menu.dashboard_admin')) ?>
       </a>
       <a href="<?= $basePath ?>/admin/content" class="sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg<?= (strpos($current, $basePath.'/admin/content')===0 ? ' active text-primary' : ' text-gray-600') ?>">
-          <i class="ri-movie-line text-lg ml-3"></i>
-          إدارة المحتوى
+          <i class="ri-movie-line text-lg <?= $iconMargin ?>"></i>
+          <?= htmlspecialchars(__('sidebar.menu.content')) ?>
       </a>
       <a href="<?= $basePath ?>/admin/exams" class="sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg<?= (strpos($current, $basePath.'/admin/exams')===0 ? ' active text-primary' : ' text-gray-600') ?>">
-          <i class="ri-file-list-3-line text-lg ml-3"></i>
-          الاختبارات
+          <i class="ri-file-list-3-line text-lg <?= $iconMargin ?>"></i>
+          <?= htmlspecialchars(__('sidebar.menu.exams')) ?>
       </a>
       <a href="<?= $basePath ?>/admin/surveys" class="sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg<?= (strpos($current, $basePath.'/admin/surveys')===0 ? ' active text-primary' : ' text-gray-600') ?>">
-          <i class="ri-feedback-line text-lg ml-3"></i>
-          الاستبيانات
+          <i class="ri-feedback-line text-lg <?= $iconMargin ?>"></i>
+          <?= htmlspecialchars(__('sidebar.menu.surveys')) ?>
       </a>
       <?php endif; ?>
       <?php if ($isAdmin): ?>
       <a href="<?= $basePath ?>/admin/users" class="sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg<?= (strpos($current, $basePath.'/admin/users')===0 ? ' active text-primary' : ' text-gray-600') ?>">
-          <i class="ri-user-line text-lg ml-3"></i>
-          إدارة المستخدمين
+          <i class="ri-user-line text-lg <?= $iconMargin ?>"></i>
+          <?= htmlspecialchars(__('sidebar.menu.users')) ?>
       </a>
       <a href="<?= $basePath ?>/admin/reports" class="sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg<?= (strpos($current, $basePath.'/admin/reports')===0 ? ' active text-primary' : ' text-gray-600') ?>">
-          <i class="ri-bar-chart-line text-lg ml-3"></i>
-          التقارير والإحصائيات
+          <i class="ri-bar-chart-line text-lg <?= $iconMargin ?>"></i>
+          <?= htmlspecialchars(__('sidebar.menu.reports')) ?>
       </a>
       <?php endif; ?>
     </nav>
@@ -139,8 +151,8 @@ $displaySubtitle = htmlspecialchars(implode(' • ', $subtitleParts));
         </div>
       </div>
       <a href="<?= $basePath ?>/logout" class="flex items-center justify-center w-full text-base text-gray-600 hover:text-white hover:bg-primary bg-gray-100 border border-gray-200 rounded-lg py-2 transition-colors">
-        <i class="ri-logout-box-r-line ml-2 text-lg"></i>
-        تسجيل الخروج
+        <i class="ri-logout-box-r-line <?= $iconMarginTight ?> text-lg"></i>
+        <?= htmlspecialchars(__('sidebar.logout')) ?>
       </a>
     </div>
   </div>
@@ -156,8 +168,8 @@ $displaySubtitle = htmlspecialchars(implode(' • ', $subtitleParts));
           <div class="w-16 h-16 bg-gradient-to-br from-[#1E3D59] to-[#17A2B8] rounded-xl flex items-center justify-center mb-3 shadow-md">
             <i class="ri-shield-check-line text-white text-2xl"></i>
           </div>
-          <div class="sidebar-logo">درع</div>
-          <div class="sidebar-subtitle">منصة الوعي السيبراني</div>
+          <div class="sidebar-logo"><?= htmlspecialchars(__('sidebar.brand.title')) ?></div>
+          <div class="sidebar-subtitle"><?= htmlspecialchars(__('sidebar.brand.subtitle')) ?></div>
         </a>
       </div>
 
@@ -165,31 +177,31 @@ $displaySubtitle = htmlspecialchars(implode(' • ', $subtitleParts));
       <nav class="flex-1 px-2 space-y-1">
         <?php if ($isManagerOrAdmin): ?>
         <a href="<?= $basePath ?>/dashboard" class="sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg<?= (strpos($current, $basePath.'/dashboard')===0 ? ' active text-primary' : ' text-gray-600') ?>">
-            <i class="ri-dashboard-line text-lg ml-3 text-primary"></i>
-            لوحة التحكم (إداري)
+            <i class="ri-dashboard-line text-lg <?= $iconMargin ?> text-primary"></i>
+            <?= htmlspecialchars(__('sidebar.menu.dashboard_admin')) ?>
         </a>
         <a href="<?= $basePath ?>/admin/content" class="sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg<?= (strpos($current, $basePath.'/admin/content')===0 ? ' active text-primary' : ' text-gray-600') ?>">
-            <i class="ri-movie-line text-lg ml-3"></i>
-            إدارة المحتوى
+            <i class="ri-movie-line text-lg <?= $iconMargin ?>"></i>
+            <?= htmlspecialchars(__('sidebar.menu.content')) ?>
         </a>
         <a href="<?= $basePath ?>/admin/exams" class="sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg<?= (strpos($current, $basePath.'/admin/exams')===0 ? ' active text-primary' : ' text-gray-600') ?>">
-            <i class="ri-file-list-3-line text-lg ml-3"></i>
-            الاختبارات
+            <i class="ri-file-list-3-line text-lg <?= $iconMargin ?>"></i>
+            <?= htmlspecialchars(__('sidebar.menu.exams')) ?>
         </a>
         <a href="<?= $basePath ?>/admin/surveys" class="sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg<?= (strpos($current, $basePath.'/admin/surveys')===0 ? ' active text-primary' : ' text-gray-600') ?>">
-            <i class="ri-feedback-line text-lg ml-3"></i>
-            الاستبيانات
+            <i class="ri-feedback-line text-lg <?= $iconMargin ?>"></i>
+            <?= htmlspecialchars(__('sidebar.menu.surveys')) ?>
         </a>
         <?php endif; ?>
 
         <?php if ($isAdmin): ?>
         <a href="<?= $basePath ?>/admin/users" class="sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg<?= (strpos($current, $basePath.'/admin/users')===0 ? ' active text-primary' : ' text-gray-600') ?>">
-            <i class="ri-user-line text-lg ml-3"></i>
-            إدارة المستخدمين
+            <i class="ri-user-line text-lg <?= $iconMargin ?>"></i>
+            <?= htmlspecialchars(__('sidebar.menu.users')) ?>
         </a>
         <a href="<?= $basePath ?>/admin/reports" class="sidebar-item group flex items-center px-4 py-3 text-sm font-medium rounded-lg<?= (strpos($current, $basePath.'/admin/reports')===0 ? ' active text-primary' : ' text-gray-600') ?>">
-            <i class="ri-bar-chart-line text-lg ml-3"></i>
-            التقارير والإحصائيات
+            <i class="ri-bar-chart-line text-lg <?= $iconMargin ?>"></i>
+            <?= htmlspecialchars(__('sidebar.menu.reports')) ?>
         </a>
         <?php endif; ?>
       </nav>
@@ -209,8 +221,8 @@ $displaySubtitle = htmlspecialchars(implode(' • ', $subtitleParts));
         </div>
         <div class="mt-3">
           <a href="<?= $basePath ?>/logout" class="flex items-center text-base text-gray-500 hover:text-primary transition-colors font-medium">
-              <i class="ri-logout-box-r-line ml-2 text-lg"></i>
-              تسجيل الخروج
+              <i class="ri-logout-box-r-line <?= $iconMarginTight ?> text-lg"></i>
+              <?= htmlspecialchars(__('sidebar.logout')) ?>
           </a>
         </div>
       </div>

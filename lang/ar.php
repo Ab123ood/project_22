@@ -66,6 +66,11 @@ return [
         'email' => 'info@darae-platform.sa',
         'phone' => '+966 12 345 6789',
         'location' => 'المملكة العربية السعودية',
+        'social' => [
+            'facebook' => 'فيسبوك',
+            'x' => 'إكس',
+            'linkedin' => 'لينكدإن',
+        ],
         'copyright' => '© 2024 منصة درع. جميع الحقوق محفوظة.',
     ],
     'home' => [
@@ -124,5 +129,90 @@ return [
             'learners' => 'متعلمين مستفيدين',
             'satisfaction' => 'نسبة الرضا',
         ],
+    ],
+    'auth' => [
+        'meta' => [
+            'title' => 'تسجيل الدخول أو إنشاء حساب – منصة درع',
+            'description' => 'ادخل إلى منصة درع لمتابعة رحلة الوعي السيبراني الخاصة بك أو أنشئ حساباً جديداً.',
+        ],
+        'hero' => [
+            'title' => 'انضم إلى مجتمع درع للوعي السيبراني',
+            'subtitle' => 'اطلع على الحملات الأمنية المنسقة، والمحتوى التعليمي، وتتبع التقدم المصمم لكل موظف.',
+            'features' => [
+                'awareness' => 'محتوى توعوي منسق يتم تحديثه باستمرار',
+                'campaigns' => 'حملات أمنية مستمرة لفِرقك',
+                'progress' => 'تتبع التقدم والإنجازات التعليمية',
+            ],
+        ],
+        'tabs' => [
+            'login' => 'تسجيل الدخول',
+            'register' => 'إنشاء حساب',
+        ],
+        'forms' => [
+            'login' => [
+                'email_label' => 'البريد الإلكتروني',
+                'email_placeholder' => 'name@example.com',
+                'password_label' => 'كلمة المرور',
+                'password_placeholder' => 'أدخل كلمة المرور',
+                'remember_me' => 'تذكرني',
+                'forgot_password' => 'نسيت كلمة المرور؟',
+                'submit' => 'تسجيل الدخول',
+            ],
+            'register' => [
+                'full_name_label' => 'الاسم الكامل',
+                'full_name_placeholder' => 'أدخل اسمك الكامل',
+                'email_label' => 'البريد الإلكتروني',
+                'email_placeholder' => 'name@example.com',
+                'password_label' => 'كلمة المرور',
+                'password_placeholder' => 'أنشئ كلمة مرور قوية',
+                'password_hint' => 'استخدم 8 أحرف على الأقل مع حروف وأرقام ورموز.',
+                'confirm_password_label' => 'تأكيد كلمة المرور',
+                'confirm_password_placeholder' => 'أعد إدخال كلمة المرور',
+                'terms_agreement' => 'أوافق على <a href="#" class="text-primary hover:underline">شروط الخدمة</a> و <a href="#" class="text-primary hover:underline">سياسة الخصوصية</a>.',
+                'submit' => 'إنشاء حساب',
+            ],
+        ],
+        'footer' => [
+            'tagline' => 'عزز معرفتك واحمِ منظمتك.',
+            'terms' => 'شروط الخدمة',
+            'privacy' => 'سياسة الخصوصية',
+            'contact' => 'تواصل معنا',
+        ],
+        'flash' => [
+            'missing_credentials' => 'يرجى إدخال البريد الإلكتروني وكلمة المرور.',
+            'invalid_email' => 'تنسيق البريد الإلكتروني غير صحيح.',
+            'invalid_credentials' => 'بيانات الدخول غير صحيحة.',
+            'generic_error' => 'حدث خطأ، يرجى المحاولة مرة أخرى.',
+            'missing_fields' => 'يرجى تعبئة جميع الحقول المطلوبة.',
+            'password_mismatch' => 'كلمتا المرور غير متطابقتين.',
+            'password_length' => 'يجب أن تحتوي كلمة المرور على :min أحرف على الأقل.',
+            'email_exists' => 'البريد الإلكتروني مسجل مسبقاً.',
+            'register_success' => 'تم إنشاء الحساب بنجاح. يمكنك تسجيل الدخول الآن.',
+        ],
+    ],
+    'sidebar' => [
+        'aria' => [
+            'open_menu' => 'فتح قائمة الشريط الجانبي',
+            'close_menu' => 'إغلاق قائمة الشريط الجانبي',
+            'panel' => 'تنقل الشريط الجانبي',
+        ],
+        'brand' => [
+            'title' => 'درع',
+            'subtitle' => 'منصة الوعي السيبراني',
+        ],
+        'menu' => [
+            'dashboard_admin' => 'لوحة التحكم (إداري)',
+            'content' => 'إدارة المحتوى',
+            'exams' => 'الاختبارات',
+            'surveys' => 'الاستبيانات',
+            'users' => 'إدارة المستخدمين',
+            'reports' => 'التقارير والإحصاءات',
+        ],
+        'user' => [
+            'default_name' => 'مستخدم',
+            'department' => 'القسم #:department',
+            'role' => 'الدور #:role',
+        ],
+        'logout' => 'تسجيل الخروج',
     ],
 ];
