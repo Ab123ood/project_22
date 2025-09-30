@@ -97,4 +97,7 @@ $router->add('POST', '/auth/login', [AuthController::class, 'login']);
 $router->add('POST', '/auth/register', [AuthController::class, 'register']);
 $router->add('GET', '/logout', [AuthController::class, 'logout']);
 
+// تبديل اللغة
+$router->add('GET', '/locale/switch', [LocaleController::class, 'switch']);
+
 

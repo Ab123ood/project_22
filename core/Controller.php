@@ -62,14 +62,45 @@ class Controller {
         if (!str_ends_with($viewFile, '.php')) {
             $viewFile .= '.php';
         }
-        
+
         if (!file_exists($viewFile)) {
             $this->errorResponse(500, 'View not found: ' . $view);
             return;
         }
 
+        $this->startSession();
+
+        $supportedLocales = Localization::getSupportedLocales();
+        $configuredLocale = $GLOBALS['config']['app']['locale'] ?? 'en';
+        $requestedLocale = $data['locale'] ?? ($_SESSION['locale'] ?? ($_COOKIE['locale'] ?? $configuredLocale));
+
+        if (!array_key_exists($requestedLocale, $supportedLocales)) {
+            $requestedLocale = $configuredLocale;
+        }
+
+        $localization = new Localization($requestedLocale);
+        Localization::setInstance($localization);
+
+        $_SESSION['locale'] = $localization->getLocale();
+
+        if (!headers_sent()) {
+            $cookiePath = $this->basePath() ?: '/';
+            setcookie('locale', $localization->getLocale(), time() + (60 * 60 * 24 * 30), $cookiePath, '', !IS_DEVELOPMENT, true);
+        }
+
+        $viewData = $data;
+        $viewData['localization'] = $localization;
+        $viewData['locale'] = $localization->getLocale();
+        $viewData['lang'] = [
+            'code' => $localization->getLocale(),
+            'dir' => $localization->getDirection(),
+            'name' => $localization->getLanguageName(),
+        ];
+        $viewData['isRtl'] = $localization->isRtl();
+        $viewData['availableLocales'] = Localization::getSupportedLocales();
+
         // Extract data for the view
-        extract($data, EXTR_SKIP);
+        extract($viewData, EXTR_SKIP);
         
         // Capture view content
         ob_start();
