@@ -11,24 +11,19 @@ class AuthController extends Controller {
      */
     public function show(): void {
         $this->startSession();
-        
+
         // Check if user is already logged in
         if (!empty($_SESSION['user_id'])) {
             $this->redirect($this->basePath() . '/');
             return;
         }
-        
-        $basePath = $this->basePath();
+
         $flash = $_SESSION['flash'] ?? [];
         unset($_SESSION['flash']);
-        
-        // Include auth view
-        $viewFile = VIEW_PATH . '/auth.php';
-        if (file_exists($viewFile)) {
-            require $viewFile;
-        } else {
-            $this->errorResponse(500, 'Authentication view not found');
-        }
+
+        $this->render('auth', [
+            'flash' => $flash,
+        ]);
     }
 
     /**
@@ -48,13 +43,13 @@ class AuthController extends Controller {
         
         // Validate input
         if (empty($email) || empty($password)) {
-            $_SESSION['flash'] = ['error' => 'يرجى إدخال البريد الإلكتروني وكلمة المرور'];
+            $_SESSION['flash'] = ['error' => ['key' => 'auth.flash.missing_credentials']];
             $this->redirect($this->basePath() . '/auth');
             return;
         }
-        
+
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['flash'] = ['error' => 'البريد الإلكتروني غير صحيح'];
+            $_SESSION['flash'] = ['error' => ['key' => 'auth.flash.invalid_email']];
             $this->redirect($this->basePath() . '/auth');
             return;
         }
@@ -67,14 +62,14 @@ class AuthController extends Controller {
             )->fetch();
             
             if (!$user) {
-                $_SESSION['flash'] = ['error' => 'بيانات الدخول غير صحيحة'];
+                $_SESSION['flash'] = ['error' => ['key' => 'auth.flash.invalid_credentials']];
                 $this->redirect($this->basePath() . '/auth');
                 return;
             }
-            
+
             // Verify password
             if (!isset($user['password_hash']) || !password_verify($password, $user['password_hash'])) {
-                $_SESSION['flash'] = ['error' => 'بيانات الدخول غير صحيحة'];
+                $_SESSION['flash'] = ['error' => ['key' => 'auth.flash.invalid_credentials']];
                 $this->redirect($this->basePath() . '/auth');
                 return;
             }
@@ -95,7 +90,7 @@ class AuthController extends Controller {
             
         } catch (Exception $e) {
             error_log('Login error: ' . $e->getMessage());
-            $_SESSION['flash'] = ['error' => 'حدث خطأ في تسجيل الدخول'];
+            $_SESSION['flash'] = ['error' => ['key' => 'auth.flash.generic_error']];
             $this->redirect($this->basePath() . '/auth');
         }
     }
@@ -119,26 +114,26 @@ class AuthController extends Controller {
         
         // Validate input
         if (empty($name) || empty($email) || empty($password) || empty($confirmPassword)) {
-            $_SESSION['flash'] = ['error' => 'يرجى ملء جميع الحقول'];
+            $_SESSION['flash'] = ['error' => ['key' => 'auth.flash.missing_fields']];
             $this->redirect($this->basePath() . '/auth');
             return;
         }
-        
+
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['flash'] = ['error' => 'البريد الإلكتروني غير صحيح'];
+            $_SESSION['flash'] = ['error' => ['key' => 'auth.flash.invalid_email']];
             $this->redirect($this->basePath() . '/auth');
             return;
         }
-        
+
         if ($password !== $confirmPassword) {
-            $_SESSION['flash'] = ['error' => 'كلمات المرور غير متطابقة'];
+            $_SESSION['flash'] = ['error' => ['key' => 'auth.flash.password_mismatch']];
             $this->redirect($this->basePath() . '/auth');
             return;
         }
-        
+
         $minPasswordLength = $GLOBALS['config']['security']['password_min_length'] ?? 8;
         if (strlen($password) < $minPasswordLength) {
-            $_SESSION['flash'] = ['error' => "كلمة المرور يجب أن تحتوي على {$minPasswordLength} أحرف على الأقل"];
+            $_SESSION['flash'] = ['error' => ['key' => 'auth.flash.password_length', 'replace' => ['min' => $minPasswordLength]]];
             $this->redirect($this->basePath() . '/auth');
             return;
         }
@@ -151,7 +146,7 @@ class AuthController extends Controller {
             )->fetch();
             
             if ($existingUser) {
-                $_SESSION['flash'] = ['error' => 'البريد الإلكتروني مستخدم بالفعل'];
+                $_SESSION['flash'] = ['error' => ['key' => 'auth.flash.email_exists']];
                 $this->redirect($this->basePath() . '/auth');
                 return;
             }
@@ -172,13 +167,13 @@ class AuthController extends Controller {
                 ]
             );
             
-            $_SESSION['flash'] = ['success' => 'تم إنشاء الحساب بنجاح. يمكنك تسجيل الدخول الآن.'];
-            
+            $_SESSION['flash'] = ['success' => ['key' => 'auth.flash.register_success']];
+
         } catch (Exception $e) {
             error_log('Registration error: ' . $e->getMessage());
-            $_SESSION['flash'] = ['error' => 'حدث خطأ في إنشاء الحساب'];
+            $_SESSION['flash'] = ['error' => ['key' => 'auth.flash.generic_error']];
         }
-        
+
         $this->redirect($this->basePath() . '/auth');
     }
 

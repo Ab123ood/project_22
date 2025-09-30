@@ -1,11 +1,18 @@
 <?php
 // app/views/layout/layout.php
+$langCode = $lang['code'] ?? ($locale ?? 'en');
+$dir = $lang['dir'] ?? ($isRtl ?? false ? 'rtl' : 'ltr');
+$isRtlLayout = ($dir === 'rtl');
+$pageTitle = $pageTitle ?? __('layout.default_title');
 ?><!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="<?= htmlspecialchars($langCode) ?>" dir="<?= htmlspecialchars($dir) ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Darae – Cyber Awareness Platform' ?></title>
+    <?php if (!empty($metaDescription ?? '')): ?>
+        <meta name="description" content="<?= htmlspecialchars($metaDescription) ?>">
+    <?php endif; ?>
+    <title><?= htmlspecialchars($pageTitle) ?></title>
     
        <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
@@ -36,7 +43,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <!-- Remix Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
@@ -97,10 +104,30 @@
 
         /* === Global typography === */
         body {
-            font-family: 'Inter', 'Roboto', sans-serif;
+            font-family: <?= $isRtlLayout ? "'Tajawal', 'Cairo', sans-serif" : "'Inter', 'Roboto', sans-serif" ?>;
             line-height: 1.6;
             color: var(--gray-700);
             background-color: var(--bg-primary);
+        }
+
+        body.rtl {
+            direction: rtl;
+        }
+
+        body.rtl .rtl\:space-x-reverse > * {
+            --tw-space-x-reverse: 1;
+        }
+
+        html[dir="rtl"] body {
+            text-align: right;
+        }
+
+        html[dir="rtl"] .text-left {
+            text-align: right;
+        }
+
+        html[dir="rtl"] .text-right {
+            text-align: left;
         }
 
             .logo-text {
@@ -632,7 +659,7 @@ $roleId = (int)($_SESSION['role_id'] ?? 0);
 $showSidebar = str_starts_with($currentPath, '/admin') || ($currentPath === '/dashboard' && in_array($roleId, [2,3], true));
 ?>
 <?php if ($showSidebar): ?>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-gray-50 min-h-screen<?= $isRtlLayout ? ' rtl' : '' ?>">
     <div class="flex h-screen overflow-hidden">
         <?php require __DIR__ . '/sidebar.php'; ?>
         <div class="flex flex-col flex-1 overflow-hidden">
@@ -644,7 +671,7 @@ $showSidebar = str_starts_with($currentPath, '/admin') || ($currentPath === '/da
     </div>
 </body>
 <?php else: ?>
-<body class="bg-gray-50">
+<body class="bg-gray-50<?= $isRtlLayout ? ' rtl' : '' ?>">
     <?php $headerContext = 'public'; require __DIR__ . '/header.php'; ?>
     <main>
         <?= $content ?>

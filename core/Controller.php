@@ -62,14 +62,27 @@ class Controller {
         if (!str_ends_with($viewFile, '.php')) {
             $viewFile .= '.php';
         }
-        
+
         if (!file_exists($viewFile)) {
             $this->errorResponse(500, 'View not found: ' . $view);
             return;
         }
 
+        $localization = $this->bootLocalization($data['locale'] ?? null);
+
+        $viewData = $data;
+        $viewData['localization'] = $localization;
+        $viewData['locale'] = $localization->getLocale();
+        $viewData['lang'] = [
+            'code' => $localization->getLocale(),
+            'dir' => $localization->getDirection(),
+            'name' => $localization->getLanguageName(),
+        ];
+        $viewData['isRtl'] = $localization->isRtl();
+        $viewData['availableLocales'] = Localization::getSupportedLocales();
+
         // Extract data for the view
-        extract($data, EXTR_SKIP);
+        extract($viewData, EXTR_SKIP);
         
         // Capture view content
         ob_start();
@@ -78,6 +91,60 @@ class Controller {
 
         // Render with layout
         require VIEW_PATH . '/layout/layout.php';
+    }
+
+    /**
+     * Determine the preferred locale for the current request
+     * @param string|null $preferred Preferred locale passed by the caller
+     * @return string
+     */
+    protected function determineLocale(?string $preferred = null): string {
+        $this->startSession();
+
+        $supportedLocales = Localization::getSupportedLocales();
+        $configuredLocale = $GLOBALS['config']['app']['locale'] ?? 'en';
+
+        $candidates = [
+            $preferred,
+            $_SESSION['locale'] ?? null,
+            $_COOKIE['locale'] ?? null,
+            $configuredLocale,
+        ];
+
+        foreach ($candidates as $candidate) {
+            if (!is_string($candidate) || $candidate === '') {
+                continue;
+            }
+
+            $normalized = strtolower(trim($candidate));
+            if (array_key_exists($normalized, $supportedLocales)) {
+                return $normalized;
+            }
+        }
+
+        return array_key_first($supportedLocales) ?? 'en';
+    }
+
+    /**
+     * Boot the localization service for the current request lifecycle
+     * @param string|null $preferred Preferred locale passed by the caller
+     * @return Localization
+     */
+    protected function bootLocalization(?string $preferred = null): Localization {
+        $this->startSession();
+
+        $locale = $this->determineLocale($preferred);
+        $localization = new Localization($locale);
+        Localization::setInstance($localization);
+
+        $_SESSION['locale'] = $localization->getLocale();
+
+        if (!headers_sent()) {
+            $cookiePath = $this->basePath() ?: '/';
+            setcookie('locale', $localization->getLocale(), time() + (60 * 60 * 24 * 30), $cookiePath, '', !IS_DEVELOPMENT, true);
+        }
+
+        return $localization;
     }
 
     /**
